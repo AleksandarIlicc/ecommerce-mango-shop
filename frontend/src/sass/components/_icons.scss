@@ -1,0 +1,57 @@
+.icon {
+  &__times {
+    font-size: 2rem;
+    color: $black-cl;
+    display: none;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    @media only screen and (max-width: 30em) {
+      display: block;
+    }
+  }
+  &__bars {
+    display: none;
+    font-size: 3rem;
+    margin-left: 2.5rem;
+    color: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    @media only screen and (max-width: 50em) {
+      display: block;
+    }
+  }
+  &__cart {
+    position: relative;
+    font-size: 2rem;
+    color: inherit;
+    cursor: pointer;
+  }
+  &__search {
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    color: inherit;
+    cursor: pointer;
+    z-index: 1;
+
+    @media only screen and (max-width: 30em) {
+      right: 0;
+    }
+
+    &--mobile {
+      position: static;
+      transform: translateY(0);
+      margin-left: 1rem;
+      color: $black-cl;
+    }
+  }
+}
