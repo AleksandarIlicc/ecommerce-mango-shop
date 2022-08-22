@@ -57,13 +57,7 @@ const Navbar = () => {
           <Link to="/signin">sign in</Link>
         </li>
       </ul>
-      <div
-        className={
-          stickyNav
-            ? "nav__icons-container nav__icons-container--sticky"
-            : "nav__icons-container"
-        }
-      >
+      <div className="nav__icons-container">
         <div className="search">
           <input type="text" placeholder="search" />
           <FiSearch

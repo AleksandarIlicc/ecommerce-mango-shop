@@ -1,0 +1,33 @@
+.form {
+  width: 80%;
+  height: 90%;
+  text-align: center;
+
+  &__input-box {
+    width: 70%;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+    text-align: left;
+
+    & label {
+      font-size: 1.4rem;
+      color: $dark-grey-cl;
+    }
+
+    & input {
+      font-size: 1.2rem;
+      width: 100%;
+      height: 4rem;
+      background: rgb(234, 234, 234);
+      color: $dark-grey-cl;
+      padding: 0 1rem;
+      border-radius: 0.4rem;
+      border: none;
+      outline: none;
+    }
+  }
+
+  p {
+    font-size: $small-fs;
+  }
+}
