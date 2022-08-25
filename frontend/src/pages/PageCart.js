@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SingleCartProduct from "../components/SingleCartProduct";
 
 const PageCart = () => {
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const { productCart } = cart;
 
@@ -23,6 +25,10 @@ const PageCart = () => {
     } else {
       return 0;
     }
+  };
+
+  const handleCheckout = () => {
+    navigate("/signin?redirect=/shipping");
   };
 
   return (
@@ -57,7 +63,11 @@ const PageCart = () => {
               ${(+totalPrice.toFixed(2) + +shippingPrice()).toFixed(2)}
             </span>
           </div>
-          <button type="button" className="btn btn__proceed mt-large">
+          <button
+            type="button"
+            className="btn btn__proceed mt-large"
+            onClick={handleCheckout}
+          >
             Proceed to Checkout
           </button>
         </div>

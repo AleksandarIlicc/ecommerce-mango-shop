@@ -188,7 +188,7 @@ body {
   color: rgb(255, 255, 255);
   text-transform: capitalize;
 }
-.btn__signin {
+.btn__form {
   font-weight: 600;
   width: 70%;
   margin-bottom: 1rem;
@@ -196,13 +196,72 @@ body {
   color: rgb(77, 77, 77);
   border-radius: 0.4rem;
 }
-.btn__signin:hover {
+.btn__form:hover {
   box-shadow: 0.1rem 0.1rem 0.6rem rgba(0, 0, 0, 0.3);
 }
 
 .filter-container {
   flex-basis: 25%;
   background-color: burlywood;
+}
+
+.form-section {
+  height: 88vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(90deg, rgb(201, 222, 232) 38%, rgb(255, 255, 255) 0%);
+}
+
+.form-box {
+  width: 80%;
+  height: 80%;
+  box-shadow: 0.5rem 0.5rem 1.2rem rgba(0, 0, 0, 0.5);
+  display: flex;
+  background: rgb(201, 222, 232);
+}
+.form-box__left {
+  flex-basis: 35%;
+  background: rgb(201, 222, 232);
+  display: grid;
+  place-items: center;
+}
+.form-box__right {
+  flex-basis: 65%;
+  background: rgb(255, 255, 255);
+  display: grid;
+  place-items: center;
+}
+.form-box__logo {
+  position: relative;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(201, 222, 232);
+  width: 27rem;
+  height: 12vh;
+  line-height: 12vh;
+  text-align: center;
+  z-index: 1;
+}
+.form-box__logo::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.5rem;
+  transform: translateY(-50%);
+  width: 7rem;
+  height: 7rem;
+  border: 0.7rem solid rgb(255, 255, 255);
+  z-index: -1;
+}
+.form-box__logo span {
+  font-weight: 900;
+  margin-right: 0.4rem;
+  background-color: rgb(201, 222, 232);
+  color: rgb(0, 0, 0);
+  -webkit-text-fill-color: rgb(79, 169, 198);
+  -webkit-text-stroke: 0.155rem rgb(255, 255, 255);
 }
 
 .form {
@@ -1179,63 +1238,4 @@ body {
 .total-price {
   color: rgb(118, 183, 208);
   font-weight: 600;
-}
-
-.signin {
-  height: 88vh;
-  width: 100%;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(90deg, rgb(201, 222, 232) 38%, rgb(255, 255, 255) 0%);
-}
-
-.signin-box {
-  width: 80%;
-  height: 80%;
-  box-shadow: 0.5rem 0.5rem 1.2rem rgba(0, 0, 0, 0.5);
-  display: flex;
-  background: rgb(201, 222, 232);
-}
-.signin-box__left {
-  flex-basis: 35%;
-  background: rgb(201, 222, 232);
-  display: grid;
-  place-items: center;
-}
-.signin-box__right {
-  flex-basis: 65%;
-  background: rgb(255, 255, 255);
-  display: grid;
-  place-items: center;
-}
-.signin-box__logo {
-  position: relative;
-  font-size: 3.5rem;
-  font-weight: 600;
-  color: rgb(255, 255, 255);
-  background-color: rgb(201, 222, 232);
-  width: 27rem;
-  height: 12vh;
-  line-height: 12vh;
-  text-align: center;
-  z-index: 1;
-}
-.signin-box__logo::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0.5rem;
-  transform: translateY(-50%);
-  width: 7rem;
-  height: 7rem;
-  border: 0.7rem solid rgb(255, 255, 255);
-  z-index: -1;
-}
-.signin-box__logo span {
-  font-weight: 900;
-  margin-right: 0.4rem;
-  background-color: rgb(201, 222, 232);
-  color: rgb(0, 0, 0);
-  -webkit-text-fill-color: rgb(79, 169, 198);
-  -webkit-text-stroke: 0.155rem rgb(255, 255, 255);
 }/*# sourceMappingURL=main.css.map */

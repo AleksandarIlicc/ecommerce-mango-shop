@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Signin from "./pages/Signin";
+import Register from "./pages/Register";
 import PageCart from "./pages/PageCart";
 import PageError404 from "./pages/PageError404";
 import Products from "./pages/Products";
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/about" element={<About />}></Route>
           <Route exact path="/signin" element={<Signin />}></Route>
+          <Route exact path="/register" element={<Register />}></Route>
           <Route exact path="/products" element={<Products />}></Route>
           <Route
             exact

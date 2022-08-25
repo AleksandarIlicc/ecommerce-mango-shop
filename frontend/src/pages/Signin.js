@@ -1,23 +1,47 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  userSigninRequest,
+  userSigninSuccess,
+  userSigninFail,
+} from "../features/user/userSlice";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch;
+
+  const signin = async () => {
+    dispatch(userSigninRequest({ email, password }));
+    try {
+      const { data } = axios.get("/api/users", { email, password });
+      dispatch(userSigninSuccess(data));
+    } catch (err) {
+      dispatch(
+        userSigninFail(
+          err.message && err.message ? err.response.data.message : err.message
+        )
+      );
+    }
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
+    signin();
   };
 
   return (
     <main>
-      <section className="signin">
-        <div className="signin-box">
-          <div className="signin-box__left">
-            <div className="signin-box__logo">
+      <section className="form-section">
+        <div className="form-box">
+          <div className="form-box__left">
+            <div className="form-box__logo">
               <span>Mango</span>Shop
             </div>
           </div>
-          <div className="signin-box__right">
+          <div className="form-box__right">
             <form className="form" onSubmit={submitHandler}>
               <div>
                 <h1
@@ -32,6 +56,7 @@ const Signin = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   placeHolder="Enter email"
                   required
                   onChange={(e) => setEmail(e.target.value)}
@@ -42,20 +67,21 @@ const Signin = () => {
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   placeHolder="Enter password"
                   required
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
-                <button className="btn btn__signin" type="submit">
+                <button className="btn btn__form" type="submit">
                   Sign In
                 </button>
               </div>
               <div>
                 <p className="paragraph">
                   New customer? {""}{" "}
-                  <Link to="/regisgter">Create your account</Link>
+                  <Link to="/register">Create your account</Link>
                 </p>
               </div>
             </form>
