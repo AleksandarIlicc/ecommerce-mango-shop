@@ -7,9 +7,11 @@ app.use(express.json({ extended: true }));
 
 const productRouter = require("./routes/productsRouter");
 const userRouter = require("./routes/userRouter");
+const authRouter = require("./routes/authRouter");
 
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 
 const port = process.env.PORT || 5000;
 
