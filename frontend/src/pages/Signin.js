@@ -1,35 +1,27 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  userSigninRequest,
-  userSigninSuccess,
-  userSigninFail,
-} from "../features/user/userSlice";
+// import { useDispatch } from "react-redux";
+// import axios from "axios";
+// import {
+//   userSigninRequest,
+//   userSigninSuccess,
+//   userSigninFail,
+// } from "../features/user/userSlice";
 
 const Signin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch;
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const signin = async () => {
-    dispatch(userSigninRequest({ email, password }));
-    try {
-      const { data } = axios.get("/api/users", { email, password });
-      dispatch(userSigninSuccess(data));
-    } catch (err) {
-      dispatch(
-        userSigninFail(
-          err.message && err.message ? err.response.data.message : err.message
-        )
-      );
-    }
-  };
+  const { email, password } = formData;
 
-  const submitHandler = (e) => {
+  const handleFormData = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    signin();
+    console.log("SUCCESS");
   };
 
   return (
@@ -42,7 +34,7 @@ const Signin = () => {
             </div>
           </div>
           <div className="form-box__right">
-            <form className="form" onSubmit={submitHandler}>
+            <form className="form" onSubmit={(e) => onSubmit(e)}>
               <div>
                 <h1
                   style={{ color: "black" }}
@@ -57,9 +49,9 @@ const Signin = () => {
                   type="email"
                   id="email"
                   name="email"
-                  placeHolder="Enter email"
+                  placeholder="Enter email"
                   required
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleFormData(e)}
                 />
               </div>
               <div className="form__input-box">
@@ -68,9 +60,9 @@ const Signin = () => {
                   type="password"
                   id="password"
                   name="password"
-                  placeHolder="Enter password"
+                  placeholder="Enter password"
                   required
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handleFormData(e)}
                 />
               </div>
               <div>

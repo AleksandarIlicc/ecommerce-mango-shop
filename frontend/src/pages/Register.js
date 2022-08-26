@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addAlert, removeAlert } from "../features/formAlert/formAlertSlice";
+import { v4 as uuidv4 } from "uuid";
+import FormAlert from "../components/FormAlert";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -8,20 +12,30 @@ const Register = () => {
     password: "",
     password2: "",
   });
+  const dispatch = useDispatch();
 
   const { name, email, password, password2 } = formData;
+
+  const setAlert = (message, alertType, timeout = 5000) => {
+    const id = uuidv4();
+    dispatch(addAlert({ message, alertType, id }));
+    setTimeout(() => {
+      dispatch(removeAlert(id));
+    }, timeout);
+  };
 
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwrod do not match");
+      setAlert("Password do not match", "danger");
     } else {
-      console.log(formData);
+      setAlert("Password is comfirm", "success");
     }
   };
+
   return (
     <main>
       <section className="form-section">
@@ -48,7 +62,7 @@ const Register = () => {
                   id="name"
                   name="name"
                   value={name}
-                  placeHolder="Enter name"
+                  placeholder="Enter name"
                   onChange={(e) => handleFormData(e)}
                   required
                 />
@@ -60,7 +74,7 @@ const Register = () => {
                   id="email"
                   name="email"
                   value={email}
-                  placeHolder="Enter email"
+                  placeholder="Enter email"
                   onChange={(e) => handleFormData(e)}
                   required
                 />
@@ -72,7 +86,7 @@ const Register = () => {
                   id="password"
                   name="password"
                   value={password}
-                  placeHolder="Enter password"
+                  placeholder="Enter password"
                   onChange={(e) => handleFormData(e)}
                   required
                 />
@@ -84,10 +98,11 @@ const Register = () => {
                   id="password2"
                   name="password2"
                   value={password2}
-                  placeHolder="Confirm password"
+                  placeholder="Confirm password"
                   onChange={(e) => handleFormData(e)}
                   required
                 />
+                <FormAlert />
               </div>
               <div>
                 <button className="btn btn__form" type="submit">

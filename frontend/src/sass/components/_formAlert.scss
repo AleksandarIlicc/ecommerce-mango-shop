@@ -1,0 +1,20 @@
+.password-alert {
+  font-size: $small-fs;
+  font-weight: 600;
+  margin-top: 0.7rem;
+  padding: 0.3rem;
+  text-align: center;
+  border-radius: 0.3;
+
+  &--danger {
+    background: rgb(255, 172, 172);
+    color: rgb(248, 39, 39);
+    border-left: 0.5rem solid rgb(248, 39, 39);
+  }
+
+  &--success {
+    background: rgb(177, 255, 170);
+    color: rgb(12, 148, 0);
+    border-left: 0.5rem solid rgb(12, 148, 0);
+  }
+}
