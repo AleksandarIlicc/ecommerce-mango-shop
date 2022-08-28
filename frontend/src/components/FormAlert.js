@@ -6,15 +6,20 @@ const FormAlert = () => {
 
   return (
     alerts !== null &&
-    alerts.length > 0 &&
-    alerts.map((alert) => (
-      <div
-        key={alert.id}
-        className={`password-alert password-alert--${alert.alertType}`}
-      >
-        {alert.message}
+    alerts.length > 0 && (
+      <div className="from-alert-container">
+        {alerts.map((alert) => {
+          return (
+            <div
+              key={alert.id}
+              className={`form-alert form-alert--${alert.alertType}`}
+            >
+              {alert.message}
+            </div>
+          );
+        })}
       </div>
-    ))
+    )
   );
 };
 

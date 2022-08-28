@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const formAlertSlice = createSlice({
-  name: "user",
+  name: "formAlert",
   initialState: [],
   reducers: {
     addAlert: (state, action) => {

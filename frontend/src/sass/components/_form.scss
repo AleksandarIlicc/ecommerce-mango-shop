@@ -1,6 +1,7 @@
 .form-section {
-  height: calc(100vh - $nav-height);
+  min-height: calc(100vh - $nav-height);
   width: 100%;
+  padding: 2rem;
   display: grid;
   place-items: center;
   background: linear-gradient(90deg, $light-blue-cl--2 39.4%, $white-cl 0%);
@@ -8,8 +9,6 @@
 
 .form-box {
   width: 80%;
-  height: 70rem;
-  max-height: 90%;
   box-shadow: $box-shadow--large;
   display: flex;
 
@@ -27,6 +26,7 @@
   &__right {
     flex-basis: 65%;
     background: $white-cl;
+    padding: 2rem;
 
     display: grid;
     place-items: center;
@@ -69,7 +69,6 @@
 
 .form {
   width: 80%;
-  height: 90%;
   text-align: center;
 
   &__input-box {
@@ -77,6 +76,10 @@
     margin-inline: auto;
     margin-bottom: 2rem;
     text-align: left;
+
+    @media only screen and (max-width: 56.25em) {
+      width: 100%;
+    }
 
     & label {
       font-size: 1.4rem;

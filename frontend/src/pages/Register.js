@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { useDispatch } from "react-redux";
+import {
+  userRegisterRequest,
+  userRegisterSuccess,
+} from "../features/user/userRegisterSlice";
 import { addAlert, removeAlert } from "../features/formAlert/formAlertSlice";
 import { v4 as uuidv4 } from "uuid";
 import FormAlert from "../components/FormAlert";
@@ -19,20 +24,42 @@ const Register = () => {
   const setAlert = (message, alertType, timeout = 5000) => {
     const id = uuidv4();
     dispatch(addAlert({ message, alertType, id }));
-    setTimeout(() => {
-      dispatch(removeAlert(id));
-    }, timeout);
+    // setTimeout(() => {
+    //   dispatch(removeAlert(id));
+    // }, timeout);
   };
 
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const register = async (name, email, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ name, email, password });
+
+    try {
+      dispatch(userRegisterRequest({ loading: true }));
+      const { data } = await axios.post("/api/users", body, config);
+      dispatch(userRegisterSuccess(data));
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => setAlert(error.msg, "danger"));
+      }
+    }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
       setAlert("Password do not match", "danger");
     } else {
-      setAlert("Password is comfirm", "success");
+      register(name, email, password);
     }
   };
 
@@ -55,6 +82,7 @@ const Register = () => {
                   Sign Up
                 </h1>
               </div>
+              <FormAlert />
               <div className="form__input-box">
                 <label htmlFor="name">Name:</label>
                 <input
@@ -64,7 +92,6 @@ const Register = () => {
                   value={name}
                   placeholder="Enter name"
                   onChange={(e) => handleFormData(e)}
-                  required
                 />
               </div>
               <div className="form__input-box">
@@ -76,7 +103,6 @@ const Register = () => {
                   value={email}
                   placeholder="Enter email"
                   onChange={(e) => handleFormData(e)}
-                  required
                 />
               </div>
               <div className="form__input-box">
@@ -88,7 +114,6 @@ const Register = () => {
                   value={password}
                   placeholder="Enter password"
                   onChange={(e) => handleFormData(e)}
-                  required
                 />
               </div>
               <div className="form__input-box">
@@ -100,9 +125,7 @@ const Register = () => {
                   value={password2}
                   placeholder="Confirm password"
                   onChange={(e) => handleFormData(e)}
-                  required
                 />
-                <FormAlert />
               </div>
               <div>
                 <button className="btn btn__form" type="submit">

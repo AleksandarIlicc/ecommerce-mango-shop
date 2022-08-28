@@ -206,8 +206,9 @@ body {
 }
 
 .form-section {
-  height: 88vh;
+  min-height: 88vh;
   width: 100%;
+  padding: 2rem;
   display: grid;
   place-items: center;
   background: linear-gradient(90deg, rgb(201, 222, 232) 39.4%, rgb(255, 255, 255) 0%);
@@ -215,8 +216,6 @@ body {
 
 .form-box {
   width: 80%;
-  height: 70rem;
-  max-height: 90%;
   box-shadow: 0.5rem 0.5rem 1.2rem rgba(0, 0, 0, 0.5);
   display: flex;
   background: rgb(201, 222, 232);
@@ -231,6 +230,7 @@ body {
 .form-box__right {
   flex-basis: 65%;
   background: rgb(255, 255, 255);
+  padding: 2rem;
   display: grid;
   place-items: center;
 }
@@ -268,7 +268,6 @@ body {
 
 .form {
   width: 80%;
-  height: 90%;
   text-align: center;
 }
 .form__input-box {
@@ -276,6 +275,11 @@ body {
   margin-inline: auto;
   margin-bottom: 2rem;
   text-align: left;
+}
+@media only screen and (max-width: 56.25em) {
+  .form__input-box {
+    width: 100%;
+  }
 }
 .form__input-box label {
   font-size: 1.4rem;
@@ -296,7 +300,12 @@ body {
   font-size: 1.3rem;
 }
 
-.password-alert {
+.from-alert-container {
+  width: 70%;
+  margin: 1rem auto;
+}
+
+.form-alert {
   font-size: 1.3rem;
   font-weight: 600;
   margin-top: 0.7rem;
@@ -304,12 +313,12 @@ body {
   text-align: center;
   border-radius: 0.3;
 }
-.password-alert--danger {
+.form-alert--danger {
   background: rgb(255, 172, 172);
   color: rgb(248, 39, 39);
   border-left: 0.5rem solid rgb(248, 39, 39);
 }
-.password-alert--success {
+.form-alert--success {
   background: rgb(177, 255, 170);
   color: rgb(12, 148, 0);
   border-left: 0.5rem solid rgb(12, 148, 0);
