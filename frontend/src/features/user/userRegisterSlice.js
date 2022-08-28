@@ -9,8 +9,13 @@ const userRegisterSlice = createSlice({
     user: null,
   },
   reducers: {
-    userRegisterRequest: (state, action) => {
-      return { loading: true };
+    userLoaded: (state, action) => {
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload,
+      };
     },
     userRegisterSuccess: (state, action) => {
       localStorage.setItem("token");
@@ -31,9 +36,18 @@ const userRegisterSlice = createSlice({
         loading: false,
       };
     },
+    userError: (state, aciton) => {
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+      };
+    },
   },
 });
 
-export const { userRegisterRequest, userRegisterSuccess, userRegisterFail } =
+export const { userLoaded, userRegisterSuccess, userRegisterFail, userError } =
   userRegisterSlice.actions;
 export default userRegisterSlice.reducer;

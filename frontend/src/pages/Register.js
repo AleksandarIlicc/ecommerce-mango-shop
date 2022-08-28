@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import {
-  userRegisterRequest,
-  userRegisterSuccess,
-} from "../features/user/userRegisterSlice";
-import { addAlert, removeAlert } from "../features/formAlert/formAlertSlice";
-import { v4 as uuidv4 } from "uuid";
+import { setAlert } from "../actions/setAlert";
 import FormAlert from "../components/FormAlert";
+import { register } from "../actions/auth";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -17,42 +11,11 @@ const Register = () => {
     password: "",
     password2: "",
   });
-  const dispatch = useDispatch();
 
   const { name, email, password, password2 } = formData;
 
-  const setAlert = (message, alertType, timeout = 5000) => {
-    const id = uuidv4();
-    dispatch(addAlert({ message, alertType, id }));
-    // setTimeout(() => {
-    //   dispatch(removeAlert(id));
-    // }, timeout);
-  };
-
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const register = async (name, email, password) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const body = JSON.stringify({ name, email, password });
-
-    try {
-      dispatch(userRegisterRequest({ loading: true }));
-      const { data } = await axios.post("/api/users", body, config);
-      dispatch(userRegisterSuccess(data));
-    } catch (err) {
-      const errors = err.response.data.errors;
-
-      if (errors) {
-        errors.forEach((error) => setAlert(error.msg, "danger"));
-      }
-    }
-  };
 
   const onSubmit = async (e) => {
     e.preventDefault();

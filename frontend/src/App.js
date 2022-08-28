@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./sass/main.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -10,8 +10,18 @@ import PageCart from "./pages/PageCart";
 import PageError404 from "./pages/PageError404";
 import Products from "./pages/Products";
 import PageSingleProduct from "./pages/PageSingleProduct";
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <div className="App">
       <Router>
