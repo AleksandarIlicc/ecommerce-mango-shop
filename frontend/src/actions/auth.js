@@ -1,8 +1,9 @@
 import axios from "axios";
 import {
-  userError,
   userLoaded,
   userRegisterSuccess,
+  userRegisterFail,
+  userError,
 } from "../features/user/userRegisterSlice";
 import { store } from "../store";
 import setAuthToken from "../utils/setAuthToken";
@@ -15,8 +16,7 @@ export const loadUser = async () => {
 
   try {
     const res = await axios.get("/api/auth");
-    console.log(res);
-    // store.dispatch(userLoaded(data));
+    store.dispatch(userLoaded(res.data));
   } catch (err) {
     store.dispatch(userError());
   }
@@ -39,8 +39,8 @@ export const register = async (name, email, password) => {
 
     if (errors) {
       errors.forEach((error) => setAlert(error.msg, "danger"));
-    } else {
-      return;
     }
+
+    store.dispatch(userRegisterFail());
   }
 };

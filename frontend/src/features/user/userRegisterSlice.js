@@ -18,13 +18,12 @@ const userRegisterSlice = createSlice({
       };
     },
     userRegisterSuccess: (state, action) => {
-      localStorage.setItem("token");
+      localStorage.setItem("token", action.payload);
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
         loading: false,
-        userInfo: action.payload,
       };
     },
     userRegisterFail: (state, action) => {
