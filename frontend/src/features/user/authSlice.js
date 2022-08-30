@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userRegisterSlice = createSlice({
+const authSlice = createSlice({
   name: "user",
   initialState: {
     token: localStorage.getItem("token"),
@@ -14,14 +14,23 @@ const userRegisterSlice = createSlice({
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: action.payload,
+        userInfo: action.payload,
       };
     },
     userRegisterSuccess: (state, action) => {
       localStorage.setItem("token", action.payload);
       return {
         ...state,
-        ...action.payload,
+        token: action.payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+    },
+    userLoginSuccess: (state, action) => {
+      localStorage.setItem("token", action.payload);
+      return {
+        ...state,
+        token: action.payload,
         isAuthenticated: true,
         loading: false,
       };
@@ -35,7 +44,16 @@ const userRegisterSlice = createSlice({
         loading: false,
       };
     },
-    userError: (state, aciton) => {
+    userLoginFail: (state, action) => {
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+      };
+    },
+    authError: (state, aciton) => {
       localStorage.removeItem("token");
       return {
         ...state,
@@ -47,6 +65,12 @@ const userRegisterSlice = createSlice({
   },
 });
 
-export const { userLoaded, userRegisterSuccess, userRegisterFail, userError } =
-  userRegisterSlice.actions;
-export default userRegisterSlice.reducer;
+export const {
+  userLoaded,
+  userRegisterSuccess,
+  userLoginSuccess,
+  userRegisterFail,
+  userLoginFail,
+  authError,
+} = authSlice.actions;
+export default authSlice.reducer;

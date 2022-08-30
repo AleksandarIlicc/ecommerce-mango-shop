@@ -1,8 +1,8 @@
 import React from "react";
 import ProductContainer from "../components/ProductContainer";
 
-const Products = () => {
+const ProductsPage = () => {
   return <ProductContainer />;
 };
 
-export default Products;
+export default ProductsPage;

@@ -1,10 +1,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { setAlert } from "../actions/setAlert";
+import { setAlert } from "../components/setAlert";
 import FormAlert from "../components/FormAlert";
-import { register } from "../actions/auth";
+import {
+  userLoaded,
+  userRegisterSuccess,
+  userRegisterFail,
+  authError,
+} from "../features/user/authSlice";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import setAuthToken from "../utils/setAuthToken";
+import { store } from "../store";
 
-const Register = () => {
+export const loadUser = async () => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const { data } = await axios.get("/api/auth");
+    store.dispatch(userLoaded(data));
+  } catch (err) {
+    store.dispatch(authError());
+  }
+};
+
+const RegisterPage = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,6 +39,30 @@ const Register = () => {
 
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const register = async (name, email, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ name, email, password });
+
+    try {
+      const { data } = await axios.post("/api/users", body, config);
+      dispatch(userRegisterSuccess(data));
+      loadUser();
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => setAlert(error.msg, "danger"));
+      }
+
+      dispatch(userRegisterFail());
+    }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -109,4 +156,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;

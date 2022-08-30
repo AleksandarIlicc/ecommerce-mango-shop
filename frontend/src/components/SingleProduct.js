@@ -19,6 +19,7 @@ const SingleProduct = ({ product }) => {
           quantity,
         })
       );
+      localStorage.setItem("cartItems", JSON.stringify(data));
     } catch (err) {
       console.log(err);
     }

@@ -3,7 +3,7 @@ import productReducer from "./features/products/productsSlice";
 import singleProductReducer from "./features/products/singleProductSlice";
 import cartReducer from "./features/cart/cartSlice";
 import counterReducer from "./features/counter/counterSlice";
-import userRegisterReducer from "./features/user/userRegisterSlice";
+import authReducer from "./features/user/authSlice";
 import formAlertReducer from "./features/formAlert/formAlertSlice";
 
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
     product: singleProductReducer,
     cart: cartReducer,
     counter: counterReducer,
-    user: userRegisterReducer,
+    user: authReducer,
     formAlert: formAlertReducer,
   },
 });

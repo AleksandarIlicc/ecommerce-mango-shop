@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import ProductContainer from "../components/ProductContainer";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

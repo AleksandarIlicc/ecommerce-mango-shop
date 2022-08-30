@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SingleCartProduct from "../components/SingleCartProduct";
 
-const PageCart = () => {
+const CartPage = () => {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const { productCart } = cart;
@@ -76,4 +76,4 @@ const PageCart = () => {
   );
 };
 
-export default PageCart;
+export default CartPage;

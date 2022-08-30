@@ -1,21 +1,66 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { setAlert } from "../components/setAlert";
+import { loadUser } from "./RegisterPage";
+import { userLoginFail, userLoginSuccess } from "../features/user/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const Signin = () => {
+const SigninPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get("redirect");
+  const redirect = redirectInUrl ? redirectInUrl : "/";
+
+  const userSignin = useSelector((state) => state.user);
+  const { userInfo, loading, error } = userSignin;
+  console.log(userSignin);
+
   const { email, password } = formData;
+
+  const login = async (email, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ email, password });
+
+    try {
+      const { data } = await axios.post("/api/auth", body, config);
+      dispatch(userLoginSuccess(data));
+      loadUser();
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => setAlert(error.msg, "danger"));
+      }
+
+      dispatch(userLoginFail());
+    }
+  };
 
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("SUCCESS");
+    login(email, password);
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
 
   return (
     <main>
@@ -66,7 +111,9 @@ const Signin = () => {
               <div>
                 <p className="paragraph">
                   New customer? {""}{" "}
-                  <Link to="/register">Create your account</Link>
+                  <Link to={`/register?redirect=${redirect}`}>
+                    Create your account
+                  </Link>
                 </p>
               </div>
             </form>
@@ -77,4 +124,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SigninPage;

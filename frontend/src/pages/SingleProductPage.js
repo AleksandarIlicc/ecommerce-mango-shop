@@ -11,7 +11,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-const PageSingleProduct = () => {
+const SingleProductPage = () => {
   const productId = useParams().id;
   const dispatch = useDispatch();
   const singleProduct = useSelector((state) => state.product);
@@ -49,4 +49,4 @@ const PageSingleProduct = () => {
   );
 };
 
-export default PageSingleProduct;
+export default SingleProductPage;
