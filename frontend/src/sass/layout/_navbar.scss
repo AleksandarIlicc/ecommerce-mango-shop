@@ -113,22 +113,19 @@
     }
 
     & li {
+      color: inherit;
       list-style-type: none;
       text-transform: capitalize;
-
+  
       @media only screen and (max-width: 50em) {
         font-size: 2rem;
         padding-bottom: 0.5rem;
         border-bottom: 0.1rem solid $light-blue-cl--1;
       }
-
-      & a {
-        color: inherit;
-      }
     }
   }
 
-  &__icons-container {
+  &__icons-box {
     display: flex;
     align-items: center;
 

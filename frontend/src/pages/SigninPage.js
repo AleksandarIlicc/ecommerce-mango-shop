@@ -20,7 +20,6 @@ const SigninPage = () => {
 
   const userSignin = useSelector((state) => state.user);
   const { userInfo, loading, error } = userSignin;
-  console.log(userSignin);
 
   const { email, password } = formData;
 
