@@ -1,4 +1,5 @@
 .products {
+  position: relative;
   flex-basis: 75%;
   padding: 3rem;
   overflow: auto;
@@ -9,25 +10,26 @@
     text-transform: capitalize;
     margin-bottom: 3rem;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexContainer(center, space-between);
 
     @media only screen and (max-width: 30em) {
       align-items: flex-start;
     }
 
+    &--left {
+      @include flexProductsHeader;
+
+      @media only screen and (max-width: 30em) {
+        flex-direction: column;
+      }
+    }
+
+    &--right {
+      @include flexProductsHeader;
+    }
+
     & select {
       margin-left: 1rem;
-    }
-  }
-
-  &__sort-container {
-    display: flex;
-    gap: 2rem;
-
-    @media only screen and (max-width: 30em) {
-      flex-direction: column;
     }
   }
 

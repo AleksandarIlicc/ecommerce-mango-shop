@@ -10,6 +10,8 @@ import {
   productsErrorRequest,
 } from "../features/products/productsSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { FiSearch } from "react-icons/fi";
+import { FaTimes } from "react-icons/fa";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const Products = () => {
   const [activeDispalyButton, setActiveDisplayButton] = useState(true);
   const [endpointOfProductArr, setEndpointOfProductArr] = useState(6);
   const [productsLength, setProductsLength] = useState(0);
+  const [showSearch, setShowSearch] = useState(false);
 
   const styleLoadMoreBtnContainer = {
     display: "grid",
@@ -65,7 +68,7 @@ const Products = () => {
   return (
     <div className="products">
       <div className="products__header">
-        <div className="products__sort-container">
+        <div className="products__header--left">
           <div>
             <label htmlFor="sort">sort by</label>
             <select name="sort" id="sort" className="select-container">
@@ -101,7 +104,14 @@ const Products = () => {
             </button>
           </div>
         </div>
-        <div>
+        <div className="products__header--right">
+          <div className="search">
+            <input type="text" placeholder="search" />
+            <FiSearch
+              className="icon__search"
+              onClick={() => setShowSearch(true)}
+            />
+          </div>
           <span className="view-all" onClick={() => getAllProducts()}>
             view all
           </span>
@@ -146,6 +156,25 @@ const Products = () => {
           </div>
         </>
       )}
+      <form
+        className={
+          showSearch
+            ? "search-container search-container--active"
+            : "search-container"
+        }
+      >
+        <input type="text" placeholder="search" />
+        <FaTimes className="icon__times" onClick={() => setShowSearch(false)} />
+        <div className="search-container__box mt-small">
+          <h2>Popular Search Terms</h2>
+          <ul>
+            <li>Shoes</li>
+            <li>T-shirt</li>
+            <li>Nike Cap</li>
+            <li>Adidas Jacket</li>
+          </ul>
+        </div>
+      </form>
     </div>
   );
 };

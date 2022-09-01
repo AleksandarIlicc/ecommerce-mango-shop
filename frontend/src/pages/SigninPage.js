@@ -5,6 +5,7 @@ import { setAlert } from "../components/setAlert";
 import { loadUser } from "./RegisterPage";
 import { userLoginFail, userLoginSuccess } from "../features/user/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import FormAlert from "../components/FormAlert";
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ const SigninPage = () => {
                   Sign In
                 </h1>
               </div>
+              <FormAlert />
               <div className="form__input-box">
                 <label htmlFor="email">Email address</label>
                 <input
@@ -87,7 +89,6 @@ const SigninPage = () => {
                   id="email"
                   name="email"
                   placeholder="Enter email"
-                  required
                   onChange={(e) => handleFormData(e)}
                 />
               </div>
@@ -98,7 +99,6 @@ const SigninPage = () => {
                   id="password"
                   name="password"
                   placeholder="Enter password"
-                  required
                   onChange={(e) => handleFormData(e)}
                 />
               </div>

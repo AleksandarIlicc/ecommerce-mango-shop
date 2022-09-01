@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaOpencart, FaBars, FaTimes } from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
+import { FaOpencart, FaBars } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
   const [stickyNav, setStickyNav] = useState(false);
   const nav = useRef();
   const cart = useSelector((state) => state.cart);
@@ -62,36 +60,6 @@ const Navbar = () => {
           stickyNav ? "nav__icons-box nav__icons-box--sticky" : "nav__icons-box"
         }
       >
-        <div className="search">
-          <input type="text" placeholder="search" />
-          <FiSearch
-            className="icon__search"
-            onClick={() => setShowSearch(true)}
-          />
-        </div>
-        <div
-          className={
-            showSearch
-              ? "search-container search-container--active"
-              : "search-container"
-          }
-        >
-          <input type="text" placeholder="search" />
-          <FiSearch className="icon__search icon__search--mobile" />
-          <FaTimes
-            className="icon__times"
-            onClick={() => setShowSearch(false)}
-          />
-          <div className="search-container__box mt-small">
-            <h2>Popular Search Terms</h2>
-            <ul>
-              <li>Shoes</li>
-              <li>T-shirt</li>
-              <li>Nike Cap</li>
-              <li>Adidas Jacket</li>
-            </ul>
-          </div>
-        </div>
         <Link to="/cart" className="icon__cart">
           <FaOpencart />
           {productInCart.length > 0 && (
