@@ -15,12 +15,14 @@ const SigninPage = () => {
     password: "",
   });
 
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
+
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
-  const userSignin = useSelector((state) => state.user);
-  const { userInfo, loading, error } = userSignin;
+  console.log(useLocation());
 
   const { email, password } = formData;
 

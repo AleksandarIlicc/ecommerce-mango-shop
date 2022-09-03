@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "user",
   initialState: {
-    token: localStorage.getItem("token"),
+    token: localStorage.getItem("token")
+      ? JSON.parse(localStorage.getItem("token"))
+      : [],
     isAuthenticated: null,
     loading: true,
-    user: null,
+    userInfo: null,
   },
   reducers: {
     userLoaded: (state, action) => {
@@ -42,6 +44,7 @@ const authSlice = createSlice({
         token: null,
         isAuthenticated: false,
         loading: false,
+        userInfo: null,
       };
     },
     userLoginFail: (state, action) => {
@@ -51,6 +54,7 @@ const authSlice = createSlice({
         token: null,
         isAuthenticated: false,
         loading: false,
+        userInfo: null,
       };
     },
     authError: (state, aciton) => {
@@ -60,6 +64,17 @@ const authSlice = createSlice({
         token: null,
         isAuthenticated: false,
         loading: false,
+        userInfo: null,
+      };
+    },
+    logout: (state, aciton) => {
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        userInfo: null,
       };
     },
   },
@@ -72,5 +87,6 @@ export const {
   userRegisterFail,
   userLoginFail,
   authError,
+  logout,
 } = authSlice.actions;
 export default authSlice.reducer;

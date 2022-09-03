@@ -8,6 +8,9 @@ const CartPage = () => {
   const cart = useSelector((state) => state.cart);
   const { productCart } = cart;
 
+  const userSignin = useSelector((state) => state.user);
+  const { userInfo } = userSignin;
+
   const totalPrice = productCart.reduce((acc, product) => {
     return acc + product.quantity * product.price;
   }, 0);
@@ -28,7 +31,11 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    navigate("/signin?redirect=/shipping");
+    if (userInfo) {
+      navigate("/shipping");
+    } else {
+      navigate("/signin?redirect=/shipping");
+    }
   };
 
   return (
@@ -67,6 +74,7 @@ const CartPage = () => {
             type="button"
             className="btn btn__proceed mt-large"
             onClick={handleCheckout}
+            disabled={productCart.length === 0}
           >
             Proceed to Checkout
           </button>

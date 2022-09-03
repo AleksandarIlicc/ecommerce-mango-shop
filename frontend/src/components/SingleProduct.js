@@ -1,35 +1,29 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Rating from "./Rating";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProductToCart } from "../features/cart/cartSlice";
+import { store } from "../store";
 
 const SingleProduct = ({ product }) => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
 
-  const { productCart: cartItems } = cart;
-
   const addToCart = async (productId) => {
-    try {
-      const { data } = await axios.get(`/api/products/${productId}`);
-      dispatch(
-        addProductToCart({
-          ...data,
-          size: selectedSize,
-          quantity,
-        })
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    const { data } = await axios.get(`/api/products/${productId}`);
+    dispatch(
+      addProductToCart({
+        ...data,
+        size: selectedSize,
+        quantity,
+      })
+    );
+    localStorage.setItem(
+      "productCart",
+      JSON.stringify(store.getState().cart.productCart)
+    );
   };
-
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
 
   return (
     <article className="single-product" key={product.id}>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { setAlert } from "../components/setAlert";
 import FormAlert from "../components/FormAlert";
 import {
@@ -9,7 +9,7 @@ import {
   authError,
 } from "../features/user/authSlice";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import setAuthToken from "../utils/setAuthToken";
 import { store } from "../store";
 
@@ -27,6 +27,7 @@ export const loadUser = async () => {
 };
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
@@ -39,6 +40,13 @@ const RegisterPage = () => {
 
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
+
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get("redirect");
+  const redirect = redirectInUrl ? redirectInUrl : "/";
 
   const register = async (name, email, password) => {
     const config = {
@@ -72,6 +80,12 @@ const RegisterPage = () => {
       register(name, email, password);
     }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
 
   return (
     <main>
@@ -144,8 +158,10 @@ const RegisterPage = () => {
               </div>
               <div>
                 <p className="paragraph">
-                  New customer? {""}{" "}
-                  <Link to="/signin">Already have an account?</Link>
+                  New customer? {""}
+                  <Link to={`/signin?redirect=${redirect}`}>
+                    Already have an account?
+                  </Link>
                 </p>
               </div>
             </form>

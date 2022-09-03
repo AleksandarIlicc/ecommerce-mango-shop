@@ -1,14 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaOpencart, FaBars } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import {
+  FaOpencart,
+  FaBars,
+  FaSignOutAlt,
+  FaChevronDown,
+} from "react-icons/fa";
+import { logout } from "../features/user/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
   const [stickyNav, setStickyNav] = useState(false);
   const nav = useRef();
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
   const { productCart: productInCart } = cart;
+  const { name: userName } = user.userInfo || "";
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -22,6 +31,10 @@ const Navbar = () => {
       }
     });
   });
+
+  const handlerLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <nav className={stickyNav ? "nav nav--sticky" : "nav"} ref={nav}>
@@ -51,9 +64,6 @@ const Navbar = () => {
         <li>
           <Link to="/about">about us</Link>
         </li>
-        <li>
-          <Link to="/signin">sign in</Link>
-        </li>
       </ul>
       <div
         className={
@@ -66,6 +76,20 @@ const Navbar = () => {
             <span className="product-badge">{productInCart.length}</span>
           )}
         </Link>
+        {!user.isAuthenticated ? (
+          <Link to="/signin" className="signin-link">
+            sign in
+          </Link>
+        ) : (
+          <div className="nav__user-name">
+            <span>{userName}</span>
+            <FaChevronDown />
+            <div className="dropdown" onClick={() => handlerLogout()}>
+              <span>logout</span>
+              <FaSignOutAlt />
+            </div>
+          </div>
+        )}
         <button className="icon__bars" onClick={() => setShowNav(!showNav)}>
           <FaBars />
         </button>
