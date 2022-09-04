@@ -6,6 +6,7 @@ import { loadUser } from "./RegisterPage";
 import { userLoginFail, userLoginSuccess } from "../features/user/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import FormAlert from "../components/FormAlert";
+import CheckoutSteps from "../components/CheckoutSteps";
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -21,8 +22,6 @@ const SigninPage = () => {
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
-
-  console.log(useLocation());
 
   const { email, password } = formData;
 
@@ -67,6 +66,7 @@ const SigninPage = () => {
   return (
     <main>
       <section className="form-section">
+        {userInfo && <CheckoutSteps step1={true} />}
         <div className="form-box">
           <div className="form-box__left">
             <div className="form-box__logo">

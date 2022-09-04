@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { logout } from "../features/user/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { saveShippingAddress } from "../features/cart/cartSlice";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
@@ -34,6 +35,7 @@ const Navbar = () => {
 
   const handlerLogout = () => {
     dispatch(logout());
+    dispatch(saveShippingAddress({}));
   };
 
   return (

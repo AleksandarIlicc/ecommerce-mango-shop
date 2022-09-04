@@ -13,9 +13,10 @@ import Error404Page from "./pages/Error404Page";
 import SingleProductPage from "./pages/SingleProductPage";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./pages/RegisterPage";
+import PaymentPage from "./pages/PaymentPage";
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
+if (localStorage.getItem("token")) {
+  setAuthToken(localStorage.getItem("token"));
 }
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/signin" element={<SigninPage />}></Route>
           <Route exact path="/register" element={<RegisterPage />}></Route>
           <Route exact path="/shipping" element={<ShippingPage />}></Route>
+          <Route exact path="/payment" element={<PaymentPage />}></Route>
           <Route
             exact
             path="/api/products/:id"

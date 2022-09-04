@@ -25,7 +25,7 @@ const Products = () => {
 
   const styleLoadMoreBtnContainer = {
     display: "grid",
-    "place-items": "center",
+    placeItems: "center",
   };
 
   const getMoreProducts = () => {

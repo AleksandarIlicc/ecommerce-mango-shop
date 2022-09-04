@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
-const SingleProduct = ({ item, productContainerLayout }) => {
+const Product = ({ item, productContainerLayout }) => {
   return (
     <article
       className={
@@ -35,4 +35,4 @@ const SingleProduct = ({ item, productContainerLayout }) => {
   );
 };
 
-export default SingleProduct;
+export default Product;
