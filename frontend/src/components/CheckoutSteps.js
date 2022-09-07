@@ -2,7 +2,7 @@ import React from "react";
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (
-    <div className="checkout-steps">
+    <div className="checkout-steps mb-large">
       <div className={step1 ? "active" : ""}>Sign In</div>
       <div className={step2 ? "active" : ""}>Shipping</div>
       <div className={step3 ? "active" : ""}>Payment</div>

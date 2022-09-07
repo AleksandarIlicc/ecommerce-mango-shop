@@ -224,8 +224,10 @@ body {
   min-height: 88vh;
   width: 100%;
   padding: 2rem;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .form-box {
@@ -284,6 +286,9 @@ body {
   width: 80%;
   text-align: center;
 }
+.form h1 {
+  margin: 3rem 0 5rem 0;
+}
 .form__input-box {
   width: 70%;
   margin-inline: auto;
@@ -309,6 +314,19 @@ body {
   border-radius: 0.4rem;
   border: none;
   outline: none;
+}
+.form__radio-input {
+  width: 70%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.form__radio-input > * > input {
+  margin-left: 1rem;
+}
+.form__radio-input > * > img {
+  width: 5rem;
 }
 .form p {
   font-size: 1.3rem;

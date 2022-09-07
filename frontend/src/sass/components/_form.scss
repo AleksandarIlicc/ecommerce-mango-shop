@@ -2,8 +2,9 @@
   min-height: calc(100vh - $nav-height);
   width: 100%;
   padding: 2rem;
-  display: grid;
-  place-items: center;
+
+  @include flexContainer(center, center);
+  flex-direction: column;
 }
 
 .form-box {
@@ -70,6 +71,10 @@
   width: 80%;
   text-align: center;
 
+  & h1 {
+    margin: 3rem 0 5rem 0;
+  }
+
   &__input-box {
     width: 70%;
     margin-inline: auto;
@@ -95,6 +100,21 @@
       border-radius: 0.4rem;
       border: none;
       outline: none;
+    }
+  }
+
+  &__radio-input {
+    width: 70%;
+    margin-inline: auto;
+
+    @include flexContainer(center, space-between);
+
+    & > * > input {
+      margin-left: 1rem;
+    }
+
+    & > * > img {
+      width: 5rem;
     }
   }
 
