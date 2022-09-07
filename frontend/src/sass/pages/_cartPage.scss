@@ -10,14 +10,14 @@
     gap: 2rem;
   }
 
-  &__left {
+  &__list {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     flex-basis: 70%;
   }
 
-  &__right {
+  &__order-summary {
     flex-basis: 30%;
     position: sticky;
     top: calc($nav-height + 2rem);

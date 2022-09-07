@@ -36,7 +36,7 @@ const cartSlice = createSlice({
         (product) => product._id !== action.payload
       );
       localStorage.setItem("productCart", JSON.stringify(newCart));
-      return { productCart: [...newCart] };
+      return { ...state, productCart: [...newCart] };
     },
     saveShippingAddress: (state, action) => {
       localStorage.setItem("shippingAddress", JSON.stringify(action.payload));

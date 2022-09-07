@@ -1041,13 +1041,13 @@ body {
   display: flex;
   gap: 2rem;
 }
-.cart__left {
+.cart__list {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   flex-basis: 70%;
 }
-.cart__right {
+.cart__order-summary {
   flex-basis: 30%;
   position: -webkit-sticky;
   position: sticky;
@@ -1057,11 +1057,11 @@ body {
   box-shadow: -0.2rem -0.2rem 0.5rem rgba(50, 50, 50, 0.3), 0.2rem 0.2rem 0.5rem rgba(50, 50, 50, 0.3);
   border-radius: 0.5rem;
 }
-.cart__right span {
+.cart__order-summary span {
   font-size: 1.8rem;
   font-weight: 500;
 }
-.cart__right > div {
+.cart__order-summary > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
