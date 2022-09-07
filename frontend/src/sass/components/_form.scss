@@ -2,14 +2,12 @@
   min-height: calc(100vh - $nav-height);
   width: 100%;
   padding: 2rem;
-
-  @include flexContainer(center, center);
-  flex-direction: column;
 }
 
 .form-box {
   width: 80%;
   box-shadow: $box-shadow--large;
+  margin-inline: auto;
   display: flex;
 
   background: $light-blue-cl--2;

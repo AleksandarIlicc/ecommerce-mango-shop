@@ -1,14 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import ButtonPlaceOrder from "./Buttons/ButtonPlaceOrder";
+import ButtonProceedToCheckout from "./Buttons/ButtonProceedToCheckout";
 
 const OrderSummary = () => {
-  const navigate = useNavigate();
+  const pathName = useLocation().pathname;
   const cart = useSelector((state) => state.cart);
   const { productCart } = cart;
-
-  const userSignin = useSelector((state) => state.user);
-  const { userInfo } = userSignin;
 
   const totalPrice = productCart.reduce((acc, product) => {
     return acc + product.quantity * product.price;
@@ -29,23 +28,15 @@ const OrderSummary = () => {
     }
   };
 
-  const handleCheckout = () => {
-    if (userInfo) {
-      navigate("/shipping");
-    } else {
-      navigate("/signin?redirect=/shipping");
-    }
-  };
-
   return (
-    <div className="cart__order-summary">
+    <div className="order-summary">
       <div>
         <p>Number of products:</p>
         <span>{numOfProducts}</span>
       </div>
       <div>
         <p>Shipping:</p>
-        <span className="cart__shipping">${shippingPrice().toFixed(2)}</span>
+        <span className="shipping">${shippingPrice().toFixed(2)}</span>
       </div>
       <div>
         <p>Total:</p>
@@ -55,14 +46,8 @@ const OrderSummary = () => {
         <p className="total-price">Total Price:</p>
         <span>${(+totalPrice.toFixed(2) + +shippingPrice()).toFixed(2)}</span>
       </div>
-      <button
-        type="button"
-        className="btn btn__proceed mt-large"
-        onClick={handleCheckout}
-        disabled={productCart.length === 0}
-      >
-        Proceed to Checkout
-      </button>
+      {(pathName === "/cart" && <ButtonProceedToCheckout />) ||
+        (pathName === "/placeorder" && <ButtonPlaceOrder />)}
     </div>
   );
 };

@@ -1,5 +1,4 @@
 .cart-section {
-  width: 100%;
   min-height: calc(100vh - $nav-height);
   padding: 3rem 2rem;
 }
@@ -15,32 +14,6 @@
     flex-direction: column;
     gap: 2rem;
     flex-basis: 70%;
-  }
-
-  &__order-summary {
-    flex-basis: 30%;
-    position: sticky;
-    top: calc($nav-height + 2rem);
-    margin: 0 0 auto 0;
-    padding: 2rem 3rem;
-    box-shadow: -0.2rem -0.2rem 0.5rem rgba(50, 50, 50, 0.3),
-      0.2rem 0.2rem 0.5rem rgba(50, 50, 50, 0.3);
-    border-radius: 0.5rem;
-
-    & span {
-      font-size: 1.8rem;
-      font-weight: 500;
-    }
-
-    & > div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  &__shipping {
-    color: rgb(230, 59, 59);
   }
 
   &__product {

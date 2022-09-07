@@ -8,19 +8,21 @@ const CartPage = () => {
   const { productCart } = cart;
 
   return (
-    <section className="cart-section">
-      <h2 className="heading__secondary mb-medium">shopping cart</h2>
-      <div className="cart__container">
-        <div className="cart__list">
-          {productCart.length > 0 &&
-            productCart.map((product) => {
-              return <SingleCartProduct product={product} />;
-            })}
-          {!productCart.length && <div>There are no items in your bag.</div>}
+    <main>
+      <section className="cart-section section">
+        <h2 className="heading__secondary mb-medium">shopping cart</h2>
+        <div className="cart__container">
+          <div className="cart__list">
+            {productCart.length > 0 &&
+              productCart.map((product) => {
+                return <SingleCartProduct product={product} />;
+              })}
+            {!productCart.length && <div>There are no items in your bag.</div>}
+          </div>
+          <OrderSummary />
         </div>
-        <OrderSummary />
-      </div>
-    </section>
+      </section>
+    </main>
   );
 };
 
