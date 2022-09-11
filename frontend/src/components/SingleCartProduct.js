@@ -3,11 +3,11 @@ import { removeProductFromCart } from "../features/cart/cartSlice";
 import { addProductToCart } from "../features/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
-const SingleCartProduct = ({ product }) => {
+const SingleCartProduct = ({ product, productsPrice }) => {
   const dispatch = useDispatch();
   const productPrice = product.price.toFixed(2);
   const productQuantity = product.quantity;
-  const totalPrice = productPrice * productQuantity;
+  const totalPrice = productPrice * productQuantity || productsPrice;
 
   return (
     <div className="cart__product">

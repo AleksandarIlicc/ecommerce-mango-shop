@@ -3,6 +3,7 @@ const Products = require("../models/productsModel");
 const data = require("../data/products.json");
 
 const getAllProducts = asyncWrapper(async (req, res) => {
+  await Products.deleteMany({});
   const products = await Products.insertMany(data);
   res.send(products);
 });

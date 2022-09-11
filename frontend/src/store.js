@@ -5,6 +5,8 @@ import cartReducer from "./features/cart/cartSlice";
 import counterReducer from "./features/counter/counterSlice";
 import authReducer from "./features/user/authSlice";
 import formAlertReducer from "./features/formAlert/formAlertSlice";
+import orderReducer from "./features/order/orderSlice";
+import orderDetailsReducer from "./features/order/orderDetailsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
     counter: counterReducer,
     user: authReducer,
     formAlert: formAlertReducer,
+    order: orderReducer,
+    orderDetails: orderDetailsReducer,
   },
 });

@@ -15,6 +15,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./pages/RegisterPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
+import OrderPage from "./pages/OrderPage";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
@@ -38,6 +39,7 @@ function App() {
           <Route exact path="/shipping" element={<ShippingPage />}></Route>
           <Route exact path="/payment" element={<PaymentPage />}></Route>
           <Route exact path="/placeorder" element={<PlaceOrderPage />}></Route>
+          <Route path="/order/:id" element={<OrderPage />}></Route>
           <Route
             exact
             path="/api/products/:id"
