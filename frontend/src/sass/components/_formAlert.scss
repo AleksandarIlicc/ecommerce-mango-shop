@@ -3,12 +3,11 @@
   margin: 1rem auto;
 }
 
-.form-alert {
+.alert {
   font-size: $small-fs;
   font-weight: 600;
   margin-top: 0.7rem;
-  padding: 0.3rem;
-  text-align: center;
+  padding: 1rem;
   border-radius: 0.3;
 
   &--danger {

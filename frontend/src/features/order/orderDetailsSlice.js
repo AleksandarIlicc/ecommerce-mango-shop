@@ -4,7 +4,7 @@ const orderDetailsSlice = createSlice({
   name: "order",
   initialState: {
     loading: true,
-    order: {}
+    order: {},
   },
   reducers: {
     orderDetailsRequest: (state, action) => {

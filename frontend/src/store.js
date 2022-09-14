@@ -7,6 +7,7 @@ import authReducer from "./features/user/authSlice";
 import formAlertReducer from "./features/formAlert/formAlertSlice";
 import orderReducer from "./features/order/orderSlice";
 import orderDetailsReducer from "./features/order/orderDetailsSlice";
+import payOrderReducer from "./features/order/payOrderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     formAlert: formAlertReducer,
     order: orderReducer,
     orderDetails: orderDetailsReducer,
+    payOrder: payOrderReducer,
   },
 });

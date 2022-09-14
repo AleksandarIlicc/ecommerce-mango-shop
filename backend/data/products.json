@@ -252,14 +252,14 @@
     "gender": "male"
   },
   {
-    "name": "Nike Orange Cap",
+    "name": "Nike Blue Jacket",
     "image": "/images/nike-jacket-1.png",
     "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend.",
     "rating": 5,
     "price": 120,
     "countInStock": 14,
     "size": ["S", "M", "L", "XL", "XXL"],
-    "color": "orange",
+    "color": "blue",
     "brand": "nike",
     "gender": "male"
   }

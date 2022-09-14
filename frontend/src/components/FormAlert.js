@@ -10,10 +10,7 @@ const FormAlert = () => {
       <div className="from-alert-container">
         {alerts.map((alert) => {
           return (
-            <div
-              key={alert.id}
-              className={`form-alert form-alert--${alert.alertType}`}
-            >
+            <div key={alert.id} className={`alert alert--${alert.alertType}`}>
               {alert.message}
             </div>
           );

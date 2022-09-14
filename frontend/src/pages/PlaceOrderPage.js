@@ -11,7 +11,7 @@ import {
   orderSuccess,
   orderFail,
 } from "../features/order/orderSlice";
-// import { orderReset } from "../features/order/orderSlice";
+import { orderReset } from "../features/order/orderSlice";
 import axios from "axios";
 
 const PlaceOrderPage = () => {
@@ -105,7 +105,7 @@ const PlaceOrderPage = () => {
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
-      // dispatch(orderReset());
+      dispatch(orderReset());
     }
   }, [success, order, navigate, dispatch]);
 

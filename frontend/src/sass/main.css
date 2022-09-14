@@ -339,20 +339,19 @@ body {
   margin: 1rem auto;
 }
 
-.form-alert {
+.alert {
   font-size: 1.3rem;
   font-weight: 600;
   margin-top: 0.7rem;
-  padding: 0.3rem;
-  text-align: center;
+  padding: 1rem;
   border-radius: 0.3;
 }
-.form-alert--danger {
+.alert--danger {
   background: rgb(255, 172, 172);
   color: rgb(248, 39, 39);
   border-left: 0.5rem solid rgb(248, 39, 39);
 }
-.form-alert--success {
+.alert--success {
   background: rgb(177, 255, 170);
   color: rgb(12, 148, 0);
   border-left: 0.5rem solid rgb(12, 148, 0);
