@@ -14,25 +14,14 @@
       display: block;
     }
   }
-  &__bars {
-    display: none;
-    font-size: 3rem;
-    margin-left: 2.5rem;
-    color: inherit;
-    background: transparent;
-    border: none;
-    cursor: pointer;
 
-    @media only screen and (max-width: 50em) {
-      display: block;
-    }
-  }
   &__cart {
     position: relative;
     font-size: 2rem;
     color: inherit;
     cursor: pointer;
   }
+
   &__search {
     font-size: 2rem;
     position: absolute;

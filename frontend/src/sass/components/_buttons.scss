@@ -22,6 +22,26 @@
     }
   }
 
+  &__bars {
+    display: none;
+    position: absolute;
+    top: calc($nav-height / 3);
+    right: 2.5rem;
+    font-size: 3rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    @media only screen and (max-width: 50em) {
+      display: block;
+      color: $white-cl;
+
+      &--sticky {
+        color: $light-blue-cl--1;
+      }
+    }
+  }
+
   &__display {
     font-size: 2.3rem;
     padding: 0.2rem;

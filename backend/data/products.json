@@ -8,6 +8,7 @@
     "countInStock": 3,
     "size": [],
     "color": "black",
+    "category": "bag",
     "brand": "adidas",
     "gender": "male"
   },
@@ -20,6 +21,7 @@
     "countInStock": 15,
     "size": [],
     "color": "green",
+    "category": "bag",
     "brand": "adidas",
     "gender": "male"
   },
@@ -32,6 +34,7 @@
     "countInStock": 8,
     "size": [],
     "color": "blue",
+    "category": "bag",
     "brand": "adidas",
     "gender": "male"
   },
@@ -44,6 +47,7 @@
     "countInStock": 5,
     "size": ["S", "M", "L", "XL"],
     "color": "blue",
+    "category": "cap",
     "brand": "adidas",
     "gender": "male"
   },
@@ -56,6 +60,7 @@
     "countInStock": 17,
     "size": ["S", "M", "L", "XL"],
     "color": "black",
+    "category": "cap",
     "brand": "adidas",
     "gender": "male"
   },
@@ -68,6 +73,7 @@
     "countInStock": 10,
     "size": ["S", "M", "L"],
     "color": "white",
+    "category": "cap",
     "brand": "adidas",
     "gender": "male"
   },
@@ -80,6 +86,7 @@
     "countInStock": 25,
     "size": ["S", "M", "L"],
     "color": "white",
+    "category": "cap",
     "brand": "adidas",
     "gender": "male"
   },
@@ -92,6 +99,7 @@
     "countInStock": 6,
     "size": ["S", "M", "L", "XL"],
     "color": "black",
+    "category": "jacket",
     "brand": "adidas",
     "gender": "male"
   },
@@ -104,6 +112,7 @@
     "countInStock": 12,
     "size": ["S", "M", "L", "XL", "XXL"],
     "color": "white",
+    "category": "jacket",
     "brand": "adidas",
     "gender": "male"
   },
@@ -116,6 +125,7 @@
     "countInStock": 8,
     "size": ["S", "M", "L", "XL", "XXL", "XXXL"],
     "color": "grey",
+    "category": "sweatshirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -128,6 +138,7 @@
     "countInStock": 19,
     "size": ["M", "L", "XL", "XXL"],
     "color": "black",
+    "category": "sweatshirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -140,6 +151,7 @@
     "countInStock": 2,
     "size": ["M", "L", "XL", "XXL"],
     "color": "blue",
+    "category": "sweatshirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -152,6 +164,7 @@
     "countInStock": 11,
     "size": ["S", "M", "L", "XL", "XXL", "XXXL"],
     "color": "black",
+    "category": "t-shirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -164,6 +177,7 @@
     "countInStock": 16,
     "size": ["S", "M", "L", "XL", "XXL"],
     "color": "black",
+    "category": "t-shirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -176,6 +190,7 @@
     "countInStock": 21,
     "size": ["L", "XL", "XXL", "XXXL"],
     "color": "white",
+    "category": "t-shirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -188,6 +203,7 @@
     "countInStock": 20,
     "size": ["M", "L", "XL", "XXL"],
     "color": "blue",
+    "category": "t-shirt",
     "brand": "adidas",
     "gender": "male"
   },
@@ -200,6 +216,7 @@
     "countInStock": 9,
     "size": [],
     "color": "black",
+    "category": "bag",
     "brand": "nike",
     "gender": "male"
   },
@@ -212,6 +229,7 @@
     "countInStock": 15,
     "size": [],
     "color": "pink",
+    "category": "bag",
     "brand": "nike",
     "gender": "female"
   },
@@ -224,6 +242,7 @@
     "countInStock": 12,
     "size": [],
     "color": "blue",
+    "category": "cap",
     "brand": "nike",
     "gender": "male"
   },
@@ -236,6 +255,7 @@
     "countInStock": 7,
     "size": [],
     "color": "green",
+    "category": "cap",
     "brand": "nike",
     "gender": "male"
   },
@@ -248,6 +268,7 @@
     "countInStock": 14,
     "size": [],
     "color": "black",
+    "category": "cap",
     "brand": "nike",
     "gender": "male"
   },
@@ -260,6 +281,7 @@
     "countInStock": 14,
     "size": ["S", "M", "L", "XL", "XXL"],
     "color": "blue",
+    "category": "jacket",
     "brand": "nike",
     "gender": "male"
   }

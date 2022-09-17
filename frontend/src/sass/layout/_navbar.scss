@@ -3,10 +3,11 @@
   height: $nav-height;
   background-color: $light-blue-cl--1;
   color: $white-cl;
-  padding: 3rem;
+  padding: 0 3rem;
   transition: all 0.3s ease;
 
-  @include flexContainer(center, space-between);
+  display: flex;
+  align-items: center;
 
   &--sticky {
     position: sticky;
@@ -73,6 +74,8 @@
 
   &__list {
     display: flex;
+    flex: 1;
+    height: 100%;
 
     @media only screen and (max-width: 50em) {
       display: block;
@@ -101,7 +104,7 @@
       width: 80vw;
     }
 
-    & * + * {
+    & > * + * {
       margin-left: 4.5rem;
 
       @media only screen and (max-width: 50em) {
@@ -110,10 +113,21 @@
       }
     }
 
+    & li:nth-child(1) {
+      margin-left: auto;
+    }
+
+    & li:nth-child(3) {
+      margin-right: auto;
+    }
+
     & li {
       color: inherit;
       list-style-type: none;
       text-transform: capitalize;
+
+      display: flex;
+      align-items: center;
 
       @media only screen and (max-width: 50em) {
         font-size: 2rem;
@@ -123,52 +137,50 @@
     }
   }
 
-  &__icons-box {
-    display: flex;
-    align-items: center;
-
-    &--sticky {
-      color: $black-cl;
-    }
-  }
-
   &__user-name {
     position: relative;
     display: flex;
     align-items: center;
-    margin-left: 2rem;
     padding: 0.3rem 0;
     cursor: pointer;
 
     & svg {
-      margin-left: 0.5rem;
-    }
-
-    &:hover .dropdown {
-      display: block;
+      margin-left: 0.7rem;
     }
   }
 }
 
-.signin-link {
-  display: block;
-  margin-left: 1rem;
-  padding: 0.5rem 1.3rem;
-  text-transform: capitalize;
-  border-radius: 0.5rem;
+.signin {
+  margin-left: 1.5rem;
+
+  @media only screen and (max-width: 50em) {
+    margin-left: 0;
+  }
+
+  &:hover .dropdown {
+    display: block;
+  }
+
+  &__link {
+    display: block;
+    margin-left: 1rem;
+    padding: 0.5rem 1.3rem;
+    text-transform: capitalize;
+    border-radius: 0.5rem;
+  }
 }
 
 .dropdown {
   display: none;
   position: absolute;
-  top: 3.5rem;
+  top: 4rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 10rem;
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 3rem 0.7rem 1rem;
   background: $white-cl;
   color: $light-blue-cl--1;
   border-radius: 0.3rem;
+  z-index: 100;
 
   &::before {
     content: "";
@@ -179,10 +191,6 @@
     width: 1rem;
     height: 1rem;
     background: $white-cl;
-  }
-
-  & svg {
-    margin-left: 1rem;
   }
 }
 

@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaOpencart,
-  FaBars,
-  FaSignOutAlt,
-  FaChevronDown,
-} from "react-icons/fa";
+import { FaOpencart, FaBars, FaChevronDown } from "react-icons/fa";
 import { logout } from "../features/user/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -66,36 +61,39 @@ const Navbar = () => {
         <li>
           <Link to="/about">about us</Link>
         </li>
-      </ul>
-      <div
-        className={
-          stickyNav ? "nav__icons-box nav__icons-box--sticky" : "nav__icons-box"
-        }
-      >
-        <Link to="/cart" className="icon__cart">
-          <FaOpencart />
-          {productInCart.length > 0 && (
-            <span className="product-badge">{productInCart.length}</span>
-          )}
-        </Link>
-        {!user.isAuthenticated ? (
-          <Link to="/signin" className="signin-link">
-            sign in
+        <li>
+          <Link to="/cart" className="icon__cart">
+            <FaOpencart />
+            {productInCart.length > 0 && (
+              <span className="product-badge">{productInCart.length}</span>
+            )}
           </Link>
-        ) : (
-          <div className="nav__user-name">
-            <span>{userName}</span>
-            <FaChevronDown />
-            <div className="dropdown" onClick={() => handlerLogout()}>
-              <span>logout</span>
-              <FaSignOutAlt />
+        </li>
+        <li className="signin">
+          {!user.isAuthenticated ? (
+            <Link to="/signin" className="signin__link">
+              sign in
+            </Link>
+          ) : (
+            <div className="nav__user-name">
+              <span>{userName}</span>
+              <FaChevronDown />
+              <ul className="dropdown" onClick={() => handlerLogout()}>
+                <li>logout</li>
+                <Link to="/orderhistory">
+                  <li>history</li>
+                </Link>
+              </ul>
             </div>
-          </div>
-        )}
-        <button className="icon__bars" onClick={() => setShowNav(!showNav)}>
-          <FaBars />
-        </button>
-      </div>
+          )}
+        </li>
+      </ul>
+      <button
+        className={stickyNav ? "btn__bars btn__bars--sticky" : "btn__bars"}
+        onClick={() => setShowNav(!showNav)}
+      >
+        <FaBars />
+      </button>
     </nav>
   );
 };

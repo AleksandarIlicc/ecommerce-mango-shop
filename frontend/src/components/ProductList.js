@@ -12,6 +12,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { FiSearch } from "react-icons/fi";
 import { FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,13 @@ const Products = () => {
   const [endpointOfProductArr, setEndpointOfProductArr] = useState(6);
   const [productsLength, setProductsLength] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    navigate(query ? `/search?query=${query}` : "/search");
+  };
 
   const styleLoadMoreBtnContainer = {
     display: "grid",
@@ -105,13 +113,18 @@ const Products = () => {
           </div>
         </div>
         <div className="products__header--right">
-          <div className="search">
-            <input type="text" placeholder="search" />
+          <form className="search" onSubmit={searchHandler}>
+            <input
+              type="text"
+              placeholder="Search products"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
             <FiSearch
               className="icon__search"
               onClick={() => setShowSearch(true)}
             />
-          </div>
+          </form>
           <span className="view-all" onClick={() => getAllProducts()}>
             view all
           </span>
