@@ -15,10 +15,10 @@ const Navbar = () => {
   const { name: userName } = user.userInfo || "";
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      const navEl = nav.current;
-      const navHeight = navEl.getBoundingClientRect().height;
+    const navEl = nav.current;
+    const navHeight = navEl.getBoundingClientRect().height;
 
+    window.addEventListener("scroll", () => {
       if (window.scrollY > navHeight) {
         setStickyNav(true);
       } else {
@@ -51,6 +51,7 @@ const Navbar = () => {
             ? "nav__list nav__list--sticky"
             : "nav__list"
         }
+        onClick={() => setShowNav(false)}
       >
         <li>
           <Link to="/">home</Link>
@@ -60,14 +61,6 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/about">about us</Link>
-        </li>
-        <li>
-          <Link to="/cart" className="icon__cart">
-            <FaOpencart />
-            {productInCart.length > 0 && (
-              <span className="product-badge">{productInCart.length}</span>
-            )}
-          </Link>
         </li>
         <li className="signin">
           {!user.isAuthenticated ? (
@@ -88,6 +81,14 @@ const Navbar = () => {
           )}
         </li>
       </ul>
+      <div className="cart-box">
+        <Link to="/cart" className="icon__cart">
+          <FaOpencart />
+          {productInCart.length > 0 && (
+            <span className="product-badge">{productInCart.length}</span>
+          )}
+        </Link>
+      </div>
       <button
         className={stickyNav ? "btn__bars btn__bars--sticky" : "btn__bars"}
         onClick={() => setShowNav(!showNav)}

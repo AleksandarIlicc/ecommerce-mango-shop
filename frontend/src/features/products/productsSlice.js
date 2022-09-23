@@ -12,12 +12,19 @@ const productsSlice = createSlice({
     fetchProducts: (state, action) => {
       return { loading: false, products: action.payload };
     },
+    fetchAllProducts: (state, action) => {
+      return { loading: false, products: action.payload };
+    },
     productsErrorRequest: (state, action) => {
       return { loading: false, error: action.payload };
     },
   },
 });
 
-export const { productsSuccessRequest, fetchProducts, productsErrorRequest } =
-  productsSlice.actions;
+export const {
+  productsSuccessRequest,
+  fetchProducts,
+  fetchAllProducts,
+  productsErrorRequest,
+} = productsSlice.actions;
 export default productsSlice.reducer;

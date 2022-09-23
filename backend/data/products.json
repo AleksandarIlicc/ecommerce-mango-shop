@@ -26,14 +26,14 @@
     "gender": "male"
   },
   {
-    "name": "Adidas Blue Bag",
+    "name": "Adidas Grey Bag",
     "image": "/images/adidas-bag-3.jpg",
     "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend.",
     "rating": 4,
     "price": 60,
     "countInStock": 8,
     "size": [],
-    "color": "blue",
+    "color": "grey",
     "category": "bag",
     "brand": "adidas",
     "gender": "male"

@@ -79,29 +79,25 @@
 
     @media only screen and (max-width: 50em) {
       display: block;
-      width: 50vw;
-      height: calc(100vh - $nav-height);
+      width: 100vw;
+      height: 65vh;
       position: fixed;
       top: 0;
-      right: 0;
+      left: 0;
       margin-top: $nav-height;
       padding: 2rem;
-      background: linear-gradient(180deg, $dark-blue-cl, $light-blue-cl--1);
-      transform: translateX(100%);
+      background: rgba($black-cl, 0.6);
+      transform: translateY(-150%);
       transition: transform 0.3s ease;
       z-index: 100;
 
       &--active {
-        transform: translateX(0);
+        transform: translateY(0);
       }
     }
 
     &--sticky {
       color: $black-cl;
-    }
-
-    @media only screen and (max-width: 30em) {
-      width: 80vw;
     }
 
     & > * + * {
@@ -122,6 +118,8 @@
     }
 
     & li {
+      font-weight: 600;
+      letter-spacing: 0.1rem;
       color: inherit;
       list-style-type: none;
       text-transform: capitalize;
@@ -151,10 +149,10 @@
 }
 
 .signin {
-  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 
   @media only screen and (max-width: 50em) {
-    margin-left: 0;
+    margin-right: 0;
   }
 
   &:hover .dropdown {
@@ -163,10 +161,15 @@
 
   &__link {
     display: block;
-    margin-left: 1rem;
-    padding: 0.5rem 1.3rem;
     text-transform: capitalize;
     border-radius: 0.5rem;
+  }
+}
+
+.cart-box {
+  @media only screen and (max-width: 50em) {
+    margin-left: auto;
+    margin-right: 5.5rem;
   }
 }
 

@@ -127,4 +127,22 @@
       box-shadow: 0.1rem 0.1rem 0.6rem rgba(0, 0, 0, 0.3);
     }
   }
+
+  &__category {
+    display: block;
+    font-size: 1.8rem;
+    background: transparent;
+    color: $light-grey-cl--1;
+    margin: 0.25rem 0;
+    padding: 0.25rem 0;
+    text-transform: capitalize;
+    letter-spacing: 0.075rem;
+    border: none;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateX(0.5rem);
+    }
+  }
 }

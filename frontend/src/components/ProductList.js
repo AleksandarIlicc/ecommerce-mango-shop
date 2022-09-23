@@ -1,40 +1,36 @@
-import React, { useEffect, useState } from "react";
-import Product from "./Product";
-import Loader from "./Loader";
-import ErrorMessage from "./ErrorMessage";
-import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
-import axios from "axios";
-import {
-  productsSuccessRequest,
-  fetchProducts,
-  productsErrorRequest,
-} from "../features/products/productsSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { FiSearch } from "react-icons/fi";
+import React, { useState } from "react";
+import Product from "../components/Product";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 import { FaTimes } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
+import { useLocation, useNavigate } from "react-router-dom";
+import SearchBox from "./SearchBox";
 
-const Products = () => {
-  const dispatch = useDispatch();
-  const productList = useSelector((state) => state.products);
-  const { products, loading, error } = productList;
+const styleLoadMoreBtnContainer = {
+  display: "grid",
+  placeItems: "center",
+};
+
+const Products = ({
+  getFilterUrl,
+  products,
+  loading,
+  error,
+  productsLength,
+  endpointOfProductArr,
+  setEndpointOfProductArr,
+}) => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const { pathname } = useLocation();
+
   const [productContainerLayout, setProductContainerLayout] = useState(true);
   const [activeDispalyButton, setActiveDisplayButton] = useState(true);
-  const [endpointOfProductArr, setEndpointOfProductArr] = useState(6);
-  const [productsLength, setProductsLength] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
-  const [query, setQuery] = useState("");
-  const navigate = useNavigate();
 
-  const searchHandler = (e) => {
-    e.preventDefault();
-    navigate(query ? `/search?query=${query}` : "/search");
-  };
-
-  const styleLoadMoreBtnContainer = {
-    display: "grid",
-    placeItems: "center",
-  };
+  const searchParams = new URLSearchParams(search);
+  const order = searchParams.get("order") || "newest";
 
   const getMoreProducts = () => {
     if (productsLength > products.length) {
@@ -47,20 +43,6 @@ const Products = () => {
   const getAllProducts = () => {
     setEndpointOfProductArr(productsLength);
   };
-
-  useEffect(() => {
-    dispatch(productsSuccessRequest());
-    const getProducts = async () => {
-      try {
-        const { data } = await axios.get("/api/products");
-        setProductsLength(data.length);
-        dispatch(fetchProducts(data.slice(0, endpointOfProductArr)));
-      } catch (err) {
-        dispatch(productsErrorRequest(err.message));
-      }
-    };
-    getProducts();
-  }, [dispatch, endpointOfProductArr]);
 
   const activeContainerButton = (e) => {
     const button = e.target.closest("button");
@@ -79,9 +61,17 @@ const Products = () => {
         <div className="products__header--left">
           <div>
             <label htmlFor="sort">sort by</label>
-            <select name="sort" id="sort" className="select-container">
-              <option value="price-lowest">lowest price</option>
-              <option value="price-highest">highest price</option>
+            <select
+              name="sort"
+              id="sort"
+              className="select-container"
+              value={order}
+              onChange={(e) => {
+                navigate(getFilterUrl({ order: e.target.value }));
+              }}
+            >
+              <option value="lowest">Price: Low to High</option>
+              <option value="highest">Price: High to Low</option>
               <option value="name-a">a - z</option>
               <option value="name-z">z - a</option>
             </select>
@@ -113,18 +103,7 @@ const Products = () => {
           </div>
         </div>
         <div className="products__header--right">
-          <form className="search" onSubmit={searchHandler}>
-            <input
-              type="text"
-              placeholder="Search products"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <FiSearch
-              className="icon__search"
-              onClick={() => setShowSearch(true)}
-            />
-          </form>
+          <SearchBox setShowSearch={setShowSearch} />
           <span className="view-all" onClick={() => getAllProducts()}>
             view all
           </span>
@@ -151,22 +130,27 @@ const Products = () => {
                 />
               );
             })}
+            {products.length === 0 && <p>No Results</p>}
           </div>
-          <div style={styleLoadMoreBtnContainer}>
-            <button
-              className="btn btn__load-more mt-small"
-              style={
-                productsLength === products.length
-                  ? { backgroundColor: "rgb(201, 222, 232)" }
-                  : { backgroundColor: "rgb(118, 183, 208)" }
-              }
-              onClick={() => getMoreProducts()}
-            >
-              {productsLength === products.length
-                ? "all products"
-                : "load more"}
-            </button>
-          </div>
+          {pathname === "/products" ? (
+            <div style={styleLoadMoreBtnContainer}>
+              <button
+                className="btn btn__load-more mt-small"
+                style={
+                  productsLength === products.length
+                    ? { backgroundColor: "rgb(201, 222, 232)" }
+                    : { backgroundColor: "rgb(118, 183, 208)" }
+                }
+                onClick={() => getMoreProducts()}
+              >
+                {productsLength === products.length
+                  ? "all products"
+                  : "load more"}
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
         </>
       )}
       <form

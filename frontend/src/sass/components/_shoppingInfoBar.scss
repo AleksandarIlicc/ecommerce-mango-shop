@@ -1,0 +1,32 @@
+.shopping-info-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+  gap: 1.8rem;
+  padding: 2rem;
+  background-color: rgb(253, 141, 75);
+
+  &__box {
+    display: flex;
+    align-items: center;
+
+    & > * p {
+      font-size: $small-fs;
+      font-weight: 600;
+      color: $dark-grey-cl;
+    }
+  }
+
+  &__icon {
+    margin-right: 1.2rem;
+    padding: 1rem;
+    border: 0.3rem solid $white-cl;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    & svg {
+      font-size: 2rem;
+      color: $dark-blue-cl;
+    }
+  }
+}

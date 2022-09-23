@@ -8,6 +8,7 @@ import formAlertReducer from "./features/formAlert/formAlertSlice";
 import orderReducer from "./features/order/orderSlice";
 import orderDetailsReducer from "./features/order/orderDetailsSlice";
 import payOrderReducer from "./features/order/payOrderSlice";
+import searchReducer from "./features/searchResult/searchSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     order: orderReducer,
     orderDetails: orderDetailsReducer,
     payOrder: payOrderReducer,
+    searchResult: searchReducer,
   },
 });

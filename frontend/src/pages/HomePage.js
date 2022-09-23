@@ -1,14 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
-import ProductContainer from "../components/ProductContainer";
+import ShoppingInfoBar from "../components/ShoppingInfoBar";
+import ImageGallery from "../components/ImageGallery";
 
 const HomePage = () => {
   return (
     <>
       <Header />
-      <main>
-        <ProductContainer />
-      </main>
+      <ShoppingInfoBar />
+      <ImageGallery />
     </>
   );
 };
