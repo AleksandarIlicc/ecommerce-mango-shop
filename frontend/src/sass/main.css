@@ -189,6 +189,25 @@ body {
   outline: none;
   cursor: pointer;
 }
+.btn__back-arrow {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  padding: 1rem 2rem;
+  background: rgb(118, 183, 208);
+  border: none;
+  border-radius: 0.5rem;
+}
+@media only screen and (max-width: 48em) {
+  .btn__back-arrow {
+    top: 1.5rem;
+    padding: 0.7rem 1.5rem;
+  }
+}
+.btn__back-arrow svg {
+  font-size: 3rem;
+  color: rgb(255, 255, 255);
+}
 .btn__back-to-shopping {
   width: 5rem;
   height: 5rem;
@@ -267,6 +286,11 @@ body {
   top: 12vh;
   left: 0;
   padding: 3rem;
+}
+@media only screen and (max-width: 48em) {
+  .filter-container {
+    position: static;
+  }
 }
 .filter-container div {
   margin-bottom: 2rem;
@@ -678,6 +702,7 @@ body {
 .loader {
   width: 100%;
   text-align: center;
+  align-self: flex-start;
 }
 .loader svg {
   font-size: 3.5rem;
@@ -840,7 +865,7 @@ body {
   position: relative;
   width: 100%;
   min-height: 88vh;
-  padding: 2rem;
+  padding: 8rem 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import SingleProduct from "../components/SingleProduct";
+import { TbArrowBack } from "react-icons/tb";
 import axios from "axios";
 import {
   singleProductSuccessRequest,
@@ -9,7 +10,7 @@ import {
   singleProductErrorRequest,
 } from "../features/products/singleProductSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const SingleProductPage = () => {
   const productId = useParams().id;
@@ -37,6 +38,11 @@ const SingleProductPage = () => {
   return (
     <main>
       <section className="single-product-container">
+        <button className="btn__back-arrow">
+          <Link to="/products">
+            <TbArrowBack />
+          </Link>
+        </button>
         {loading ? (
           <Loader />
         ) : error ? (

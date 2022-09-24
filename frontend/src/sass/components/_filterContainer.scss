@@ -6,6 +6,10 @@
   left: 0;
   padding: 3rem;
 
+  @media only screen and (max-width: 48em) {
+    position: static;
+  }
+
   & div {
     margin-bottom: 2rem;
   }

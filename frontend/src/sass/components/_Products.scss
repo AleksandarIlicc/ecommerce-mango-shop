@@ -61,6 +61,7 @@
 .loader {
   width: 100%;
   text-align: center;
+  align-self: flex-start;
 
   & svg {
     font-size: 3.5rem;
