@@ -507,6 +507,7 @@ body {
   }
 }
 .panels .panel {
+  position: relative;
   margin: 1rem;
   border-radius: 3rem;
   flex: 1;
@@ -519,6 +520,18 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+.panels .panel .shadow {
+  position: absolute;
+  left: 0;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(238, 238, 238, 0.1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+.panels .panel .shadow--active {
+  bottom: 0;
 }
 .panels .panel--active {
   flex: 5;

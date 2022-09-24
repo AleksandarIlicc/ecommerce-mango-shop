@@ -27,7 +27,11 @@ const ImageGallery = () => {
               data-index={i}
             >
               <img src={img} alt="" />
-              <div className="shadow"></div>
+              <div
+                className={
+                  indexPanel === i ? "shadow" : "shadow shadow--active"
+                }
+              ></div>
             </div>
           );
         })}
