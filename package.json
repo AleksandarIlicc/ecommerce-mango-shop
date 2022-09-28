@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/AleksandarIlicc/ecommerce-mango-shop/issues"
   },
-  "homepage": "https://github.com/AleksandarIlicc/ecommerce-mango-shop#readme"
+  "homepage": "https://github.com/AleksandarIlicc/ecommerce-mango-shop#readme",
+  "engines": {
+    "node": "16.15.0",
+    "npm": "8.5.5"
+  }
 }
