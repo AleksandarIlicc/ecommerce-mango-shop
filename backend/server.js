@@ -1,10 +1,10 @@
 const express = require("express");
-const path = require("path");
 const connectDB = require("./db/connect.js");
 require("dotenv").config();
 
 const app = express();
-app.use(express.json({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const productRouter = require("./routes/productsRouter");
 const userRouter = require("./routes/userRouter");
@@ -15,11 +15,6 @@ app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/orders", orderRouter);
-
-app.use(express.static(path.join(__dirname, "/frontend/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(`${__dirname}/frontend/build/index.html`));
-});
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
@@ -32,7 +27,7 @@ const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URL_LOCAL);
+    await connectDB(process.env.MONGO_URL);
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
