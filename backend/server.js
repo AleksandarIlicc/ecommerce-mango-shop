@@ -3,8 +3,7 @@ const connectDB = require("./db/connect.js");
 require("dotenv").config();
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ extended: true }));
 
 const productRouter = require("./routes/productsRouter");
 const userRouter = require("./routes/userRouter");

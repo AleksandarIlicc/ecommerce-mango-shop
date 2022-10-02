@@ -5,7 +5,7 @@ const data = require("../data/products.json");
 const getAllProducts = asyncWrapper(async (req, res) => {
   const products = await Products.find();
   res.send(products);
-});
+})
 
 const getSingleProduct = asyncWrapper(async (req, res) => {
   const id = req.params.id;
@@ -16,9 +16,9 @@ const getSingleProduct = asyncWrapper(async (req, res) => {
   } else {
     res.status(404).send({ message: "Product Not Found" });
   }
-});
+})
 
-const getSearchResult = async (req, res) => {
+const getSearchResult = asyncWrapper(async (req, res) => {
   const { query } = req;
   const searchQuery = query.query || "";
   const category = query.category || "";
@@ -71,7 +71,7 @@ const getSearchResult = async (req, res) => {
   }).sort(sortOrder);
 
   res.send(products);
-};
+})
 
 module.exports = {
   getAllProducts,

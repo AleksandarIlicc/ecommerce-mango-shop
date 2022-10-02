@@ -78,7 +78,7 @@
     "gender": "male"
   },
   {
-    "name": "Adidas White Cap",
+    "name": "Adidas White Bucket Hat",
     "image": "/images/adidas-cap-4.jpg",
     "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend.",
     "rating": 4,
@@ -156,7 +156,7 @@
     "gender": "male"
   },
   {
-    "name": "Adidas Black T-shirt",
+    "name": "Adidas Black T-shirt (Kick Boxing)",
     "image": "/images/adidas-tshirt-1.jpg",
     "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend.",
     "rating": 4.6,

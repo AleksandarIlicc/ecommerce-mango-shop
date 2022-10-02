@@ -42,6 +42,7 @@ const Products = ({
 
   const getAllProducts = () => {
     setEndpointOfProductArr(productsLength);
+    console.log("Get all products");
   };
 
   const activeContainerButton = (e) => {
