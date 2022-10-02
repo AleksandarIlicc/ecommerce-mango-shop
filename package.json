@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "ecommerce-mango-shop",
   "version": "1.0.0",
   "engines": {
     "node": "16.15.0"
@@ -7,9 +7,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleksandarIlicc/ecommerce-mango-shop.git"
   },
   "author": "Aleksandar Ilic",
   "license": "ISC",
@@ -18,11 +22,15 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.5.2",
+    "mongoose": "^6.6.3",
     "request": "^2.88.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/AleksandarIlicc/ecommerce-mango-shop/issues"
+  },
+  "homepage": "https://github.com/AleksandarIlicc/ecommerce-mango-shop#readme"
 }

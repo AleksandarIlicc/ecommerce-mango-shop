@@ -1,7 +1,8 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const path = require("path");
 const connectDB = require("./db/connect.js");
-require("dotenv").config();
+dotenv.config({ path: "config.env" });
 
 const app = express();
 app.use(express.json({ extended: true }));
