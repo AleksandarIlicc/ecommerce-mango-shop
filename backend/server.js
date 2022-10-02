@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const connectDB = require("./db/connect.js");
 require("dotenv").config();
 
@@ -23,6 +24,19 @@ app.get("/api/config/paypal", (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
+
+const reqPath = path.join(__dirname, "../");
+
+app.get("/", (req, res) => {
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(reqPath, "frontend", "build")));
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve(reqPath, "frontend", "build", "index.html"));
+    });
+  } else {
+    res.send("API is running");
+  }
+});
 
 const start = async () => {
   try {
