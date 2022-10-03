@@ -33,4 +33,8 @@ body {
 .section {
   width: 100%;
   padding: 3rem 2rem;
+
+  @media only screen and (max-width: 30em) {
+    padding: 1rem;
+  }
 }

@@ -5,6 +5,13 @@
   padding: 2rem;
   background-color: rgb(253, 141, 75);
 
+  @media only screen and (max-width: 30em) {
+    & > div:not(:last-child) {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid $dark-grey-cl;
+    }
+  }
+
   &__box {
     display: flex;
     align-items: center;
