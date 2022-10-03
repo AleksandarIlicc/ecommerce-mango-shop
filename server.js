@@ -6,6 +6,7 @@ dotenv.config({ path: "config.env" });
 
 const app = express();
 app.use(express.json({ extended: true }));
+const port = process.env.PORT || 5000;
 
 const productRouter = require("./routes/productsRouter");
 const userRouter = require("./routes/userRouter");
@@ -24,17 +25,9 @@ app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
 
-const port = process.env.PORT || 5000;
-
-app.get("/", (req, res) => {
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "frontend", "build")));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
-    });
-  } else {
-    res.send("API is running");
-  }
+app.use(express.static(path.join(__dirname, "frontend", "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
 });
 
 const start = async () => {
