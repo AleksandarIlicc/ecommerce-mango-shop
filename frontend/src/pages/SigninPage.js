@@ -65,7 +65,7 @@ const SigninPage = () => {
 
   return (
     <main>
-      <section className="form-section">
+      <section className="form-section form-section--signin">
         {userInfo && <CheckoutSteps step1={true} />}
         <div className="form-box">
           <div className="form-box__left">

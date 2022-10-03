@@ -341,10 +341,14 @@ body {
 }
 
 .form-section {
-  display: flex;
   min-height: 88vh;
   width: 100%;
-  padding: 2rem;
+  padding: 4rem;
+}
+.form-section--signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-box {
@@ -551,7 +555,7 @@ body {
   bottom: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(238, 238, 238, 0.1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background: linear-gradient(0deg, rgba(238, 238, 238, 0.1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
   transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
 }
 .panels .panel .shadow--active {
