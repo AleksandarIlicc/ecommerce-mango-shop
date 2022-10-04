@@ -81,7 +81,7 @@ const Navbar = () => {
           )}
         </li>
       </ul>
-      <div className="cart-box">
+      <div className={stickyNav ? "cart-box cart-box--sticky" : "cart-box"}>
         <Link to="/cart" className="icon__cart">
           <FaOpencart />
           {productInCart.length > 0 && (

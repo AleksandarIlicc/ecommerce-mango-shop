@@ -20,6 +20,10 @@
   font-size: 2.3rem;
   color: $dark-grey-cl;
   text-transform: capitalize;
+
+  @media only screen and (max-width: 30em) {
+    font-size: 1.8rem;
+  }
 }
 
 .paragraph {

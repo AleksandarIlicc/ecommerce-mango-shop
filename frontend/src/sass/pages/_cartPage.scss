@@ -1,12 +1,21 @@
 .cart-section {
   min-height: calc(100vh - $nav-height);
   padding: 3rem 2rem;
+
+  @media only screen and (max-width: 30em) {
+    padding: 3rem 1rem;
+  }
 }
 
 .cart {
   &__container {
+    min-height: 70vh;
     display: flex;
-    gap: 2rem;
+    gap: 4rem;
+
+    @media only screen and (max-width: 48em) {
+      flex-direction: column;
+    }
   }
 
   &__list {
@@ -17,16 +26,28 @@
   }
 
   &__product {
+    position: relative;
     display: flex;
     gap: 2.5rem;
+    background: $light-blue-cl--2;
     padding: 2rem 0.7rem;
-    border-radius: 0.5rem;
+    border-radius: 2rem;
     box-shadow: $box-shadow;
+
+    & > * + * {
+      flex-basis: 100%;
+    }
+
+    @media only screen and (max-width: 30em) {
+      padding: 0.7rem;
+    }
   }
 
   &__img {
-    width: 15rem;
-    height: 15rem;
+    width: 14rem;
+    height: 14rem;
+    border-radius: 2rem;
+    overflow: hidden;
 
     & img {
       width: 100%;
@@ -36,17 +57,16 @@
   }
 
   &__price {
-    padding: 0 1.7rem;
-
     &--single {
-      color: $light-grey-cl--1;
+      color: $white-cl;
       font-size: $small-fs;
     }
 
     & h3 {
       font-size: 1.2rem;
       text-transform: uppercase;
-      color: $light-grey-cl--1;
+      color: $white-cl;
+      margin-bottom: 2rem;
     }
 
     & span {
@@ -61,8 +81,17 @@
     justify-content: center;
   }
 
-  &__flex {
-    flex: 1;
+  &__product-num {
+    display: block;
+
+    @media only screen and (max-width: 30em) {
+      display: none;
+    }
+
+    & select {
+      background: $white-cl;
+      border-radius: 0.5rem;
+    }
   }
 }
 
@@ -75,7 +104,7 @@
 
   & p {
     font-size: $small-fs;
-    color: $light-grey-cl--1;
+    color: $white-cl;
     text-transform: capitalize;
   }
 }

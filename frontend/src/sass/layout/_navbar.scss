@@ -167,6 +167,10 @@
 }
 
 .cart-box {
+  &--sticky {
+    color: $light-blue-cl--1;
+  }
+
   @media only screen and (max-width: 50em) {
     margin-left: auto;
     margin-right: 5.5rem;

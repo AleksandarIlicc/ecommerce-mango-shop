@@ -2,6 +2,7 @@ import React from "react";
 import { removeProductFromCart } from "../features/cart/cartSlice";
 import { addProductToCart } from "../features/cart/cartSlice";
 import { useDispatch } from "react-redux";
+import { FaTimes } from "react-icons/fa";
 
 const SingleCartProduct = ({ product, productsPrice }) => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const SingleCartProduct = ({ product, productsPrice }) => {
           </p>
         </div>
       </div>
-      <div className="cart__flex">
+      <div className="cart__product-num">
         <select
           value={product.quantity}
           onChange={(e) =>
@@ -53,7 +54,7 @@ const SingleCartProduct = ({ product, productsPrice }) => {
           })}
         </select>
       </div>
-      <div className="cart__price cart__flex">
+      <div className="cart__price">
         <h3>total price</h3>
         <p>${totalPrice.toFixed(2)}</p>
         <p className="cart__price--single">${product.price.toFixed(2)} each</p>
@@ -63,7 +64,8 @@ const SingleCartProduct = ({ product, productsPrice }) => {
           className="btn__remove"
           onClick={() => dispatch(removeProductFromCart(product._id))}
         >
-          remove
+          <span>remove</span>
+          <FaTimes />
         </button>
       </div>
     </div>

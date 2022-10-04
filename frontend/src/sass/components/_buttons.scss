@@ -77,13 +77,37 @@
     background: $light-blue-cl--1;
     color: $white-cl;
     letter-spacing: 0.075rem;
-    box-shadow: $box-shadow;
     padding: 0.7rem 1.7rem;
+    box-shadow: $box-shadow;
     text-transform: uppercase;
     border-radius: 0.5rem;
     border: none;
     outline: none;
     cursor: pointer;
+
+    @media only screen and (max-width: 30em) {
+      position: absolute;
+      top: -1rem;
+      right: 0;
+      padding: 0.7rem;
+      border-radius: 50%;
+    }
+
+    & span {
+      display: block;
+
+      @media only screen and (max-width: 30em) {
+        display: none;
+      }
+    }
+
+    & svg {
+      display: none;
+
+      @media only screen and (max-width: 30em) {
+        display: block;
+      }
+    }
   }
 
   &__back-arrow {
@@ -126,7 +150,7 @@
     font-size: 1.8rem;
     font-weight: 600;
     width: 100%;
-    background: $light-blue-cl--1;
+    background: rgb(230, 59, 59);
     color: $white-cl;
   }
 
