@@ -146,12 +146,12 @@ const OrderPage = () => {
                 <p>
                   <span>Method:</span> {order.paymentMethod}
                 </p>
-                {order.isPaid ? (
-                  <p className="alert alert--success">Paid at {order.paidAt}</p>
-                ) : (
-                  <p className="alert alert--danger">Not paid</p>
-                )}
               </div>
+              {order.isPaid ? (
+                <p className="alert alert--success">Paid at {order.paidAt}</p>
+              ) : (
+                <p className="alert alert--danger">Not paid</p>
+              )}
             </div>
             <div className="order__box">
               <h3 className="heading__tertiary mb-medium">Order Items</h3>
