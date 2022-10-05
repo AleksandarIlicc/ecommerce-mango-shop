@@ -116,7 +116,7 @@ const OrderPage = () => {
     <ErrorMessage error={error} />
   ) : (
     <main>
-      <section className="form-section section">
+      <section className="form-section form-section--order section">
         <div className="order__container">
           <div className="order__list">
             <div className="order__box">

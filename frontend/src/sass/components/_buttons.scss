@@ -163,9 +163,14 @@
     font-weight: 600;
     width: 70%;
     margin-bottom: 1rem;
+    padding: 1.5rem 3rem;
     background: $light-blue-cl--2;
     color: $dark-grey-cl;
     border-radius: 0.4rem;
+
+    @media only screen and (max-width: 43.75em) {
+      width: 100%;
+    }
 
     &:hover {
       box-shadow: 0.1rem 0.1rem 0.6rem rgba(0, 0, 0, 0.3);

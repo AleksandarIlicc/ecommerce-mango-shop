@@ -2,6 +2,10 @@
   &__container {
     display: flex;
     gap: 2rem;
+
+    @media only screen and (max-width: 48em) {
+      flex-direction: column;
+    }
   }
 
   &__list {
@@ -9,20 +13,29 @@
     flex-direction: column;
     gap: 2rem;
     flex-basis: 70%;
-  }
+    padding: 0 1rem;
 
-  &__box {
-    padding: 1rem;
-    border: 0.1rem solid $light-grey-cl--2;
-    border-radius: 1rem;
-    box-shadow: $box-shadow;
-
-    & > div * + * {
-      margin-top: 1rem;
+    & div:last-child > div > * + * {
+      margin-top: 1.5rem;
     }
 
-    & > * > * > span {
-      font-weight: 600;
+    & > div:not(:last-child) > div {
+      background: $light-blue-cl--2;
+      color: $white-cl;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+
+      & > div * + * {
+        margin-top: 1rem;
+
+        @media only screen and (max-width: 30em) {
+          margin-top: 0;
+        }
+      }
+
+      & > * > * > span {
+        font-weight: 600;
+      }
     }
   }
 }

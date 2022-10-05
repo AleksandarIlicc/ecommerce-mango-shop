@@ -111,7 +111,7 @@ const PlaceOrderPage = () => {
 
   return (
     <main>
-      <section className="form-section section">
+      <section className="form-section form-section--order section">
         {userInfo && (
           <CheckoutSteps step1={true} step2={true} step3={true} step4={true} />
         )}
@@ -137,7 +137,7 @@ const PlaceOrderPage = () => {
                 </p>
               </div>
             </div>
-            <div className="order__box">
+            <div>
               <h3 className="heading__tertiary mb-medium">Order Items</h3>
               <div>
                 {productCart.length > 0 &&

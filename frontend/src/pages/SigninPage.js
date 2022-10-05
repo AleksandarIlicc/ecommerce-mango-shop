@@ -65,8 +65,8 @@ const SigninPage = () => {
 
   return (
     <main>
-      <section className="form-section form-section--signin">
-        {userInfo && <CheckoutSteps step1={true} />}
+      <section className="form-section">
+        <CheckoutSteps step1={true} />
         <div className="form-box">
           <div className="form-box__left">
             <div className="form-box__logo">
@@ -82,6 +82,7 @@ const SigninPage = () => {
                 >
                   Sign In
                 </h1>
+                <p>Welcome back you've been missed!</p>
               </div>
               <FormAlert />
               <div className="form__input-box">
