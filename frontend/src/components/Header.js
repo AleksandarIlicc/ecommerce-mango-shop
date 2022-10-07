@@ -45,14 +45,14 @@ const Header = () => {
       <div className="header__flex-container">
         <div className="header__left">
           <h1 className="heading__primary centar-text">
-            Modern decor for your home.
+            COMFORT THAT KEEPS UP
           </h1>
           <p className="paragraph--header">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
             pellentesque arcu quis justo blandit.
           </p>
           <button type="button" className="btn btn__get-in-touch">
-            <Link to="/contact">Get in touch</Link>
+            <Link to="/signin">Get in touch</Link>
           </button>
         </div>
         <div className="header__right">

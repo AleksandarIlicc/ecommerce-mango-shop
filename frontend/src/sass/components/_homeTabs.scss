@@ -1,0 +1,31 @@
+.operations {
+  width: 85%;
+  margin-inline: auto;
+  background-color: rgb(244, 244, 244);
+  border: 0.1rem solid $light-grey-cl--2;
+  border-top: none;
+
+  &__tab-header {
+    display: flex;
+    background-color: $white-cl;
+  }
+
+  &__tab {
+    flex: 1;
+    font-size: $default-fs;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: center;
+    border: 0.1rem solid $light-grey-cl--2;
+
+    &--active {
+      color: $light-blue-cl--1;
+      background: rgb(244, 244, 244);
+      border: 0.1rem solid $light-grey-cl--2;
+      border-top: 0.5rem solid $light-blue-cl--1;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+}

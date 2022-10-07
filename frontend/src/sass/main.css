@@ -591,6 +591,35 @@ body {
   border-left: 0.5rem solid rgb(12, 148, 0);
 }
 
+.operations {
+  width: 85%;
+  margin-inline: auto;
+  background-color: rgb(244, 244, 244);
+  border: 0.1rem solid rgb(210, 210, 210);
+  border-top: none;
+}
+.operations__tab-header {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+}
+.operations__tab {
+  flex: 1;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: center;
+  border: 0.1rem solid rgb(210, 210, 210);
+}
+.operations__tab--active {
+  color: rgb(118, 183, 208);
+  background: rgb(244, 244, 244);
+  border: 0.1rem solid rgb(210, 210, 210);
+  border-top: 0.5rem solid rgb(118, 183, 208);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
 .icon__times {
   font-size: 2rem;
   color: rgb(0, 0, 0);
@@ -644,6 +673,7 @@ body {
 }
 @media only screen and (max-width: 48rem) {
   .panels {
+    width: 100%;
     height: 70rem;
     flex-direction: column;
   }
@@ -965,17 +995,20 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
   gap: 1.8rem;
   padding: 2rem;
-  background-color: rgb(253, 141, 75);
+  background-color: rgb(11, 25, 70);
 }
 @media only screen and (max-width: 30em) {
   .shopping-info-bar > div:not(:last-child) {
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgb(77, 77, 77);
+    border-bottom: 1px solid rgb(210, 210, 210);
   }
 }
 .shopping-info-bar__box {
   display: flex;
   align-items: center;
+}
+.shopping-info-bar__box h4 {
+  color: rgb(255, 255, 255);
 }
 .shopping-info-bar__box > * p {
   font-size: 1.3rem;
@@ -985,14 +1018,14 @@ body {
 .shopping-info-bar__icon {
   margin-right: 1.2rem;
   padding: 1rem;
-  border: 0.3rem solid rgb(255, 255, 255);
+  border: 0.3rem solid rgb(0, 0, 0);
   border-radius: 50%;
   display: grid;
   place-items: center;
 }
 .shopping-info-bar__icon svg {
   font-size: 2rem;
-  color: rgb(49, 105, 131);
+  color: rgb(253, 141, 75);
 }
 
 .single-product-container {
@@ -1058,9 +1091,17 @@ body {
   background: rgb(49, 105, 131);
   color: rgb(255, 255, 255);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 2rem;
   padding: 4rem;
+}
+.footer > div {
+  justify-self: center;
+}
+@media only screen and (max-width: 30rem) {
+  .footer > div {
+    justify-self: flex-start;
+  }
 }
 .footer > div > h3 {
   text-transform: uppercase;

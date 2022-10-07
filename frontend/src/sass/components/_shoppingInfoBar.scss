@@ -3,18 +3,22 @@
   grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
   gap: 1.8rem;
   padding: 2rem;
-  background-color: rgb(253, 141, 75);
+  background-color: rgb(11, 25, 70);
 
   @media only screen and (max-width: 30em) {
     & > div:not(:last-child) {
       padding-bottom: 1rem;
-      border-bottom: 1px solid $dark-grey-cl;
+      border-bottom: 1px solid $light-grey-cl--2;
     }
   }
 
   &__box {
     display: flex;
     align-items: center;
+
+    & h4 {
+      color: $white-cl;
+    }
 
     & > * p {
       font-size: $small-fs;
@@ -26,14 +30,14 @@
   &__icon {
     margin-right: 1.2rem;
     padding: 1rem;
-    border: 0.3rem solid $white-cl;
+    border: 0.3rem solid $black-cl;
     border-radius: 50%;
     display: grid;
     place-items: center;
 
     & svg {
       font-size: 2rem;
-      color: $dark-blue-cl;
+      color: rgb(253, 141, 75);
     }
   }
 }
