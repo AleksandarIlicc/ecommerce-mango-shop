@@ -48,8 +48,7 @@ const Header = () => {
             COMFORT THAT KEEPS UP
           </h1>
           <p className="paragraph--header">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            pellentesque arcu quis justo blandit.
+            Heritage styles reinvented for now. A whole new take on adicolor.
           </p>
           <button type="button" className="btn btn__get-in-touch">
             <Link to="/signin">Get in touch</Link>
