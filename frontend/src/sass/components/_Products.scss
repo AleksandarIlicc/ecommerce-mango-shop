@@ -19,8 +19,18 @@
     &--left {
       @include flexProductsHeader;
 
-      @media only screen and (max-width: 30em) {
-        flex-direction: column;
+      & div:last-child button {
+        display: none;
+
+        @media only screen and (max-width: 48em) {
+          @include flexContainer(center, center);
+          display: block;
+          width: 5rem;
+          height: 3.5rem;
+          border: none;
+          outline: none;
+          cursor: pointer;
+        }
       }
     }
 

@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaFilter } from "react-icons/fa";
 import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
+import { showFilters } from "../features/buttons/filterButton";
 
 const styleLoadMoreBtnContainer = {
   display: "grid",
   placeItems: "center",
 };
 
-const Products = ({
+const ProductsList = ({
   getFilterUrl,
   products,
   loading,
@@ -21,16 +23,12 @@ const Products = ({
   endpointOfProductArr,
   setEndpointOfProductArr,
 }) => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const [productContainerLayout, setProductContainerLayout] = useState(true);
   const [activeDispalyButton, setActiveDisplayButton] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
-
-  const searchParams = new URLSearchParams(search);
-  const order = searchParams.get("order") || "newest";
 
   const getMoreProducts = () => {
     if (productsLength > products.length) {
@@ -60,7 +58,7 @@ const Products = ({
     <div className="products">
       <div className="products__header">
         <div className="products__header--left">
-          <div>
+          {/* <div>
             <label htmlFor="sort">sort by</label>
             <select
               name="sort"
@@ -74,9 +72,9 @@ const Products = ({
               <option value="lowest">Price: Low to High</option>
               <option value="highest">Price: High to Low</option>
               <option value="name-a">a - z</option>
-              <option value="name-z">z - a</option>
+              <option value="name-z">z - a</option>s
             </select>
-          </div>
+          </div> */}
           <div
             className="btn-container"
             onClick={(e) => activeContainerButton(e)}
@@ -100,6 +98,11 @@ const Products = ({
               onClick={() => setActiveDisplayButton(false)}
             >
               <AiOutlineBars />
+            </button>
+          </div>
+          <div>
+            <button onClick={() => dispatch(showFilters())}>
+              <FaFilter />
             </button>
           </div>
         </div>
@@ -177,4 +180,4 @@ const Products = ({
   );
 };
 
-export default Products;
+export default ProductsList;

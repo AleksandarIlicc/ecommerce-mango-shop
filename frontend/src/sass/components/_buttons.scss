@@ -194,4 +194,12 @@
       transform: translateX(0.5rem);
     }
   }
+
+  &__apply-filters {
+    font-weight: 600;
+    color: $white-cl;
+    background: $light-blue-cl--1;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
 }

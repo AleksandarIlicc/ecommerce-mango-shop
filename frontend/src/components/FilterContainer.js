@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { FaTimes } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
   searchRequest,
   searchSuccess,
   searchFail,
 } from "../features/searchResult/searchSlice";
+import { hideFilters } from "../features/buttons/filterButton";
 
 const prices = [
   {
@@ -25,6 +27,8 @@ const prices = [
 
 const FilterContainer = () => {
   const dispatch = useDispatch();
+  const filterButton = useSelector((state) => state.filterButton);
+  const { toggleFilters } = filterButton;
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
@@ -87,7 +91,13 @@ const FilterContainer = () => {
   };
 
   return (
-    <div className="filter-container">
+    <div
+      className={
+        toggleFilters
+          ? "filter-container filter-container--show"
+          : "filter-container"
+      }
+    >
       <div>
         <h3>category</h3>
         <ul>
@@ -165,6 +175,15 @@ const FilterContainer = () => {
           ))}
         </ul>
       </div>
+      <button onClick={() => dispatch(hideFilters())}>
+        <FaTimes className="icon__times icon__times--filters" />
+      </button>
+      <button
+        onClick={() => dispatch(hideFilters())}
+        className="btn btn__apply-filters"
+      >
+        Apply Filters
+      </button>
     </div>
   );
 };

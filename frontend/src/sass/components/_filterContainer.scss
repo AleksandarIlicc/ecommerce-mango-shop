@@ -7,7 +7,21 @@
   padding: 3rem;
 
   @media only screen and (max-width: 48em) {
-    position: static;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: $white-cl;
+    overflow: auto;
+    transform: translateX(-100%);
+    z-index: 1000;
+
+    &--show {
+      display: block;
+      transform: translateX(0);
+    }
   }
 
   & div {
