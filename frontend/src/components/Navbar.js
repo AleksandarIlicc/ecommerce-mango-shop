@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
   const [stickyNav, setStickyNav] = useState(false);
+  const [showSigninDropMenu, setShowSigninDropMenu] = useState(false);
   const nav = useRef();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -51,7 +52,15 @@ const Navbar = () => {
             ? "nav__list nav__list--sticky"
             : "nav__list"
         }
-        onClick={() => setShowNav(false)}
+        onClick={(e) =>
+          setShowNav(() => {
+            if (e.target.tagName === "A") {
+              return false;
+            } else {
+              return true;
+            }
+          })
+        }
       >
         <li>
           <Link to="/">home</Link>
@@ -70,9 +79,22 @@ const Navbar = () => {
           ) : (
             <div className="nav__user-name">
               <span>{userName}</span>
-              <FaChevronDown />
-              <ul className="dropdown" onClick={() => handlerLogout()}>
-                <li>logout</li>
+              <FaChevronDown
+                onClick={() => setShowSigninDropMenu(!showSigninDropMenu)}
+              />
+              <ul
+                className={
+                  showSigninDropMenu ? "dropdown dropdown--show" : "dropdown"
+                }
+              >
+                <li
+                  onClick={() => {
+                    handlerLogout();
+                    setShowSigninDropMenu(false);
+                  }}
+                >
+                  logout
+                </li>
                 <Link to="/orderhistory">
                   <li>history</li>
                 </Link>
