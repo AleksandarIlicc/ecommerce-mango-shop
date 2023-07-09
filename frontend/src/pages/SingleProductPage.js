@@ -1,16 +1,17 @@
 import React, {useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, Link } from "react-router-dom";
+import { TbArrowBack } from "react-icons/tb";
+import { FaThumbsUp, FaRegThumbsUp, FaThumbsDown, FaRegThumbsDown } from "react-icons/fa";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import SingleProduct from "../components/SingleProduct";
-import { TbArrowBack } from "react-icons/tb";
-import axios from "axios";
 import {
   singleProductSuccessRequest,
   fetchSingleProduct,
   singleProductErrorRequest,
 } from "../features/products/singleProductSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 
 const SingleProductPage = () => {
   const [comment, setComment] = useState("");
@@ -75,6 +76,24 @@ const SingleProductPage = () => {
     }
   };
 
+  const handleLike = async (comment) => {
+    const newLike = {
+      userId: userInfo._id,
+      isLiked: true
+    }
+    console.log(userInfo._id)
+
+    const existingLike = comment.like.find(comm => comm.userId === userInfo._id);
+    console.log(existingLike)
+
+    if(existingLike) {
+      existingLike.isLiked = !existingLike.isLiked;
+      await axios.put(`/api/products/${productId}/comments/${comment._id}`, { existingLike });
+    } else {
+      await axios.put(`/api/products/${productId}/comments/${comment._id}`, { newLike });
+    }
+  }
+
   return (
     <main>
       <section className="single-product-container">
@@ -94,20 +113,40 @@ const SingleProductPage = () => {
 
         {userInfo && 
           <>
-            <div>
+            <div className="add-comment-form">
               <form onSubmit={handleSubmit}>
                 <textarea rows={20} cols={40} value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-                <button type="submit">Add comment</button>
+                <button type="submit" style={{ cursor: "pointer" }}>Add comment</button>
               </form>
             </div>
+
             <div className="comments-section">
-              <h2>Comments</h2>
+              <h2 className="mb-medium">Comments</h2>
 
               {comments.map((comment) => (
                 <div key={comment._id} className="comment">
-                  <p>{comment.comment}</p>
-                  <p>Posted by: {comment.userId}</p>
-                  <p>Posted at: {comment.createdAt}</p>
+                  <div>
+                    <p className="mb-small">
+                      <strong>{comment.comment}</strong>
+                    </p>
+                    <p>Posted by: <strong>{comment.userName}</strong></p>
+                    <p>Posted at: <strong>{comment.createdAt}</strong></p>
+                  </div>
+                  <div style={{ marginTop: "1rem" }}>
+                    <button className="btn-like-dislike" onClick={() => handleLike(comment)}>
+                      {
+                        comment.like && comment.like.some(comm => comm.isLiked && comm.userId === userInfo.id) ? (
+                          <FaThumbsUp />
+                          ) : (
+                          <FaRegThumbsUp />
+                        )
+                      }
+                      <span>{comment.like.filter(comm => comm.isLiked).length}</span>
+                    </button>
+                    <button className="btn-like-dislike">
+                      <FaRegThumbsDown />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

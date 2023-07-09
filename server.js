@@ -45,6 +45,23 @@ app.get("/api/products/:productId/comments", async (req, res, next) => {
   }
 });
 
+app.put("/api/products/:productId/comments/:commentId", async (req, res, next) => {
+  try {
+    const { commentId } = req.params;
+    const { userId, isLiked } = req.body;
+
+    const comment = await Comments.findOneAndUpdate(
+      { _id: commentId },
+      { $push: { like: { userId, isLiked } } },
+      { new: true }
+    );
+
+    res.json(comment);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
