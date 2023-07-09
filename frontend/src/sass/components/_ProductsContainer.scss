@@ -1,0 +1,8 @@
+.products-container {
+  width: 100%;
+  display: flex;
+
+  @media only screen and (max-width: 48em) {
+    flex-direction: column;
+  }
+}

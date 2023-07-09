@@ -1,0 +1,36 @@
+.heading__primary {
+  font-size: 3.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: $white-cl;
+
+  &--black {
+    color: $black-cl;
+  }
+}
+
+.heading__secondary {
+  font-size: 2.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: $dark-grey-cl;
+}
+
+.heading__tertiary {
+  font-size: 2.3rem;
+  color: $dark-grey-cl;
+  text-transform: capitalize;
+
+  @media only screen and (max-width: 30em) {
+    font-size: 1.8rem;
+  }
+}
+
+.paragraph {
+  font-size: $default-fs;
+  color: $dark-grey-cl;
+
+  &--header {
+    color: $white-cl;
+  }
+}

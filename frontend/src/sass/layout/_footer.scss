@@ -1,0 +1,44 @@
+.footer {
+  font-size: 1.3rem;
+  background: $dark-blue-cl;
+  color: $white-cl;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+  padding: 4rem;
+
+  & > div {
+    justify-self: center;
+
+    @media only screen and (max-width: 30rem) {
+      justify-self: flex-start;
+    }
+  }
+
+  & > div > h3 {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  & svg {
+    font-size: 2rem;
+  }
+
+  &__icons {
+    & > div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    & svg {
+      margin-right: 0.9rem;
+    }
+  }
+
+  &__opening-time {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 1rem;
+  }
+}

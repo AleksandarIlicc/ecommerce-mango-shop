@@ -1,0 +1,100 @@
+.products {
+  position: relative;
+  flex-basis: 75%;
+  padding: 3rem;
+  overflow: auto;
+
+  &__header {
+    width: 100%;
+    font-size: $small-fs;
+    text-transform: capitalize;
+    margin-bottom: 3rem;
+
+    @include flexContainer(center, space-between);
+
+    @media only screen and (max-width: 30em) {
+      align-items: flex-start;
+    }
+
+    &--left {
+      @include flexProductsHeader;
+
+      & div:last-child button {
+        display: none;
+
+        @media only screen and (max-width: 48em) {
+          @include flexContainer(center, center);
+          display: block;
+          width: 5rem;
+          height: 3.5rem;
+          border: none;
+          outline: none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &--right {
+      @include flexProductsHeader;
+    }
+
+    & select {
+      margin-left: 1rem;
+    }
+  }
+
+  &__container {
+    display: grid;
+    gap: 2rem;
+
+    @media only screen and (max-width: 30em) {
+      flex-direction: column;
+    }
+
+    &--cols {
+      grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    }
+
+    &--rows {
+      grid-template-columns: 1fr;
+      width: 65rem;
+      max-width: 100%;
+    }
+  }
+}
+
+.view-all {
+  border-bottom: 0.3rem solid $dark-blue-cl;
+  cursor: pointer;
+}
+
+.loader {
+  width: 100%;
+  text-align: center;
+  align-self: flex-start;
+
+  & svg {
+    font-size: 3.5rem;
+    margin-top: 2rem;
+    animation: loader 2s infinite linear;
+  }
+}
+
+.error-message {
+  width: 100%;
+  text-align: center;
+  color: rgb(235, 42, 42);
+}
+
+.select-container {
+  background: $light-blue-cl--2;
+  text-transform: capitalize;
+  padding: 1rem;
+  border: none;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+}
+
+.btn-container {
+  display: inline-block;
+}

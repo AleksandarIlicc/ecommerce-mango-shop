@@ -1,0 +1,205 @@
+.btn {
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &__get-in-touch {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    background: $white-cl;
+
+    & a {
+      text-decoration: none;
+      color: $dark-blue-cl;
+    }
+
+    &:hover {
+      box-shadow: 0.3rem 0.5rem 0.7rem rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__bars {
+    display: none;
+    position: absolute;
+    top: calc($nav-height / 3);
+    right: 2.5rem;
+    font-size: 3rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    @media only screen and (max-width: 50em) {
+      display: block;
+      color: $white-cl;
+
+      &--sticky {
+        color: $light-blue-cl--1;
+      }
+    }
+  }
+
+  &__display {
+    font-size: 2.3rem;
+    padding: 0.2rem;
+    margin-right: 0.8rem;
+    border: none;
+    border-radius: 0.3rem;
+    color: $black-cl;
+    cursor: pointer;
+    width: 3.5rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+
+    &--active {
+      color: $white-cl;
+      background-color: $black-cl;
+    }
+  }
+
+  &__cart {
+    font-weight: 600;
+    letter-spacing: 0.075rem;
+    color: $white-cl;
+    background: $light-blue-cl--1;
+    text-transform: uppercase;
+    align-self: flex-start;
+
+    &:hover {
+      box-shadow: $box-shadow--large;
+    }
+  }
+
+  &__remove {
+    background: $light-blue-cl--1;
+    color: $white-cl;
+    letter-spacing: 0.075rem;
+    padding: 0.7rem 1.7rem;
+    box-shadow: $box-shadow;
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    @media only screen and (max-width: 30em) {
+      position: absolute;
+      top: -1rem;
+      right: 0;
+      padding: 0.7rem;
+      border-radius: 50%;
+    }
+
+    & span {
+      display: block;
+
+      @media only screen and (max-width: 30em) {
+        display: none;
+      }
+    }
+
+    & svg {
+      display: none;
+
+      @media only screen and (max-width: 30em) {
+        display: block;
+      }
+    }
+  }
+
+  &__back-arrow {
+    position: absolute;
+    top: 3rem;
+    left: 3rem;
+    padding: 1rem 2rem;
+    background: $light-blue-cl--1;
+    border: none;
+    border-radius: 0.5rem;
+
+    @media only screen and (max-width: 48em) {
+      top: 1.5rem;
+      padding: 0.7rem 1.5rem;
+    }
+
+    & svg {
+      font-size: 3rem;
+      color: $white-cl;
+    }
+  }
+
+  &__back-to-shopping {
+    width: 5rem;
+    height: 5rem;
+    padding: 0;
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    border-radius: 50%;
+
+    & svg {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $light-blue-cl--1;
+    }
+  }
+
+  &__proceed {
+    font-size: 1.8rem;
+    font-weight: 600;
+    width: 100%;
+    background: rgb(230, 59, 59);
+    color: $white-cl;
+  }
+
+  &__load-more {
+    color: $white-cl;
+    text-transform: capitalize;
+  }
+
+  &__form {
+    font-weight: 600;
+    width: 70%;
+    margin-bottom: 1rem;
+    padding: 1.5rem 3rem;
+    background: $light-blue-cl--2;
+    color: $dark-grey-cl;
+    border-radius: 0.4rem;
+
+    @media only screen and (max-width: 43.75em) {
+      width: 100%;
+    }
+
+    &:hover {
+      box-shadow: 0.1rem 0.1rem 0.6rem rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &__category {
+    display: block;
+    font-size: 1.8rem;
+    background: transparent;
+    color: $light-grey-cl--1;
+    margin: 0.25rem 0;
+    padding: 0.25rem 0;
+    text-transform: capitalize;
+    letter-spacing: 0.075rem;
+    border: none;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateX(0.5rem);
+    }
+  }
+
+  &__apply-filters {
+    font-weight: 600;
+    color: $white-cl;
+    background: $light-blue-cl--1;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
+}

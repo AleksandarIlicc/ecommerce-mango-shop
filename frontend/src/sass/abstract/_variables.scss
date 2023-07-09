@@ -1,0 +1,26 @@
+// FONTS SIZE
+$default-fs: 1.6rem;
+$small-fs: 1.3rem;
+
+// COLORS
+$white-cl: rgb(255, 255, 255);
+$black-cl: rgb(0, 0, 0);
+$dark-grey-cl: rgb(77, 77, 77);
+$light-grey-cl--1: rgb(170, 170, 170);
+$light-grey-cl--2: rgb(210, 210, 210);
+$dark-blue-cl: rgb(49, 105, 131);
+$light-blue-cl--1: rgb(118, 183, 208);
+$light-blue-cl--2: rgb(201, 222, 232);
+$golden-yellow-cl: rgb(253, 210, 79);
+$blue-cl: rgb(68, 68, 253);
+$green-cl: rgb(100, 165, 75);
+$pink-cl: rgb(248, 116, 182);
+
+// NAV HEIGHT
+$nav-height: 12vh;
+
+// BOX SHADOW
+$box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
+$box-shadow--large: 0.5rem 0.5rem 1.2rem rgba(0, 0, 0, 0.5);
+$box-shadow--inset: inset 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.3),
+  inset -0.1rem -0.1rem 0.3rem rgba(0, 0, 0, 0.3);
