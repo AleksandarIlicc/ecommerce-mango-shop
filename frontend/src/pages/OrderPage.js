@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import SingleCartProduct from "../components/SingleCartProduct";
@@ -54,30 +54,30 @@ const OrderPage = () => {
       }
     };
 
-    const addPayPalScript = async () => {
-      const { data } = await axios.get("/api/config/paypal");
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
+    // const addPayPalScript = async () => {
+    //   const { data } = await axios.get("/api/config/paypal");
+    //   const script = document.createElement("script");
+    //   script.type = "text/javascript";
+    //   script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+    //   script.async = true;
+    //   script.onload = () => {
+    //     setSdkReady(true);
+    //   };
+    //   document.body.appendChild(script);
+    // };
 
-    if (!order || successPay || (order && order._id !== orderID)) {
-      dispatch(payOrderReset());
-      detailsOrder(orderID);
-    } else {
-      if (!order.isPaid) {
-        if (!window.paypal) {
-          addPayPalScript();
-        } else {
-          setSdkReady(true);
-        }
-      }
-    }
+    // if (!order || successPay || (order && order._id !== orderID)) {
+    //   dispatch(payOrderReset());
+    //   detailsOrder(orderID);
+    // } else {
+    //   if (!order.isPaid) {
+    //     if (!window.paypal) {
+    //       addPayPalScript();
+    //     } else {
+    //       setSdkReady(true);
+    //     }
+    //   }
+    // }
   }, [dispatch, orderID, sdkReady, successPay, order]);
 
   const payOrder = async (order, paymentResult) => {
@@ -185,7 +185,7 @@ const OrderPage = () => {
               <p className="total-price">Total Price:</p>
               <span>${order.totalPrice}</span>
             </div>
-            {!order.isPaid && (
+            {/* {!order.isPaid && (
               <div>
                 {!sdkReady ? (
                   <Loader />
@@ -200,7 +200,7 @@ const OrderPage = () => {
                   </>
                 )}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </section>

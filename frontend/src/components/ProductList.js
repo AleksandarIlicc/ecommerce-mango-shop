@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { FaTimes, FaFilter } from "react-icons/fa";
+import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { FaTimes, FaFilter } from "react-icons/fa";
-import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import { showFilters } from "../features/buttons/filterButton";
 
@@ -14,34 +14,16 @@ const styleLoadMoreBtnContainer = {
   placeItems: "center",
 };
 
-const ProductsList = ({
-  getFilterUrl,
-  products,
-  loading,
-  error,
-  productsLength,
-  endpointOfProductArr,
-  setEndpointOfProductArr,
-}) => {
-  const dispatch = useDispatch();
-  const { pathname } = useLocation();
-
+const ProductsList = ({ getFilterUrl, order }) => {
   const [productContainerLayout, setProductContainerLayout] = useState(true);
   const [activeDispalyButton, setActiveDisplayButton] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
 
-  const getMoreProducts = () => {
-    if (productsLength > products.length) {
-      setEndpointOfProductArr(endpointOfProductArr + 3);
-    } else {
-      return;
-    }
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const getAllProducts = () => {
-    setEndpointOfProductArr(productsLength);
-    console.log("Get all products");
-  };
+  const fetchedProducts = useSelector((state) => state.products);
+  const { products, loading, error } = fetchedProducts;
 
   const activeContainerButton = (e) => {
     const button = e.target.closest("button");
@@ -58,7 +40,7 @@ const ProductsList = ({
     <div className="products">
       <div className="products__header">
         <div className="products__header--left">
-          {/* <div>
+          <div>
             <label htmlFor="sort">sort by</label>
             <select
               name="sort"
@@ -74,7 +56,7 @@ const ProductsList = ({
               <option value="name-a">a - z</option>
               <option value="name-z">z - a</option>s
             </select>
-          </div> */}
+          </div>
           <div
             className="btn-container"
             onClick={(e) => activeContainerButton(e)}
@@ -99,16 +81,17 @@ const ProductsList = ({
             >
               <AiOutlineBars />
             </button>
-          </div>
-          <div>
-            <button onClick={() => dispatch(showFilters())}>
+            <button
+              className="btn__show-filter"
+              onClick={() => dispatch(showFilters())}
+            >
               <FaFilter />
             </button>
           </div>
         </div>
         <div className="products__header--right">
           <SearchBox setShowSearch={setShowSearch} />
-          <span className="view-all" onClick={() => getAllProducts()}>
+          <span className="view-all" onClick={() => {}}>
             view all
           </span>
         </div>
@@ -136,46 +119,25 @@ const ProductsList = ({
             })}
             {products.length === 0 && <p>No Results</p>}
           </div>
-          {pathname === "/products" ? (
-            <div style={styleLoadMoreBtnContainer}>
-              <button
-                className="btn btn__load-more mt-small"
-                style={
-                  productsLength === products.length
-                    ? { backgroundColor: "rgb(201, 222, 232)" }
-                    : { backgroundColor: "rgb(118, 183, 208)" }
-                }
-                onClick={() => getMoreProducts()}
-              >
-                {productsLength === products.length
-                  ? "all products"
-                  : "load more"}
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
+          <div style={styleLoadMoreBtnContainer}>
+            <button
+              className="btn btn__load-more mt-small"
+              style={
+                true
+                  ? // productsLength === products.length
+                    { backgroundColor: "rgb(201, 222, 232)" }
+                  : { backgroundColor: "rgb(118, 183, 208)" }
+              }
+              onClick={() => {}}
+            >
+              {
+                // productsLength === products.length
+                true ? "all products" : "load more"
+              }
+            </button>
+          </div>
         </>
       )}
-      <form
-        className={
-          showSearch
-            ? "search-container search-container--active"
-            : "search-container"
-        }
-      >
-        <input type="text" placeholder="search" />
-        <FaTimes className="icon__times" onClick={() => setShowSearch(false)} />
-        <div className="search-container__box mt-small">
-          <h2>Popular Search Terms</h2>
-          <ul>
-            <li>Shoes</li>
-            <li>T-shirt</li>
-            <li>Nike Cap</li>
-            <li>Adidas Jacket</li>
-          </ul>
-        </div>
-      </form>
     </div>
   );
 };

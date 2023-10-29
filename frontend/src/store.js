@@ -8,7 +8,6 @@ import formAlertReducer from "./features/formAlert/formAlertSlice";
 import orderReducer from "./features/order/orderSlice";
 import orderDetailsReducer from "./features/order/orderDetailsSlice";
 import payOrderReducer from "./features/order/payOrderSlice";
-import searchReducer from "./features/searchResult/searchSlice";
 import filterButtonReducer from "./features/buttons/filterButton";
 
 export const store = configureStore({
@@ -22,7 +21,6 @@ export const store = configureStore({
     order: orderReducer,
     orderDetails: orderDetailsReducer,
     payOrder: payOrderReducer,
-    searchResult: searchReducer,
     filterButton: filterButtonReducer,
   },
 });

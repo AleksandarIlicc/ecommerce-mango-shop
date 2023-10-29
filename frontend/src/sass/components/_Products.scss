@@ -18,20 +18,6 @@
 
     &--left {
       @include flexProductsHeader;
-
-      & div:last-child button {
-        display: none;
-
-        @media only screen and (max-width: 48em) {
-          @include flexContainer(center, center);
-          display: block;
-          width: 5rem;
-          height: 3.5rem;
-          border: none;
-          outline: none;
-          cursor: pointer;
-        }
-      }
     }
 
     &--right {
@@ -96,5 +82,5 @@
 }
 
 .btn-container {
-  display: inline-block;
+  display: flex;
 }

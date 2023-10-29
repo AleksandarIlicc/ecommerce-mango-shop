@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import {
-  searchRequest,
-  searchSuccess,
-  searchFail,
-} from "../features/searchResult/searchSlice";
+import { Link } from "react-router-dom";
+import { FaTimes } from "react-icons/fa";
 import { hideFilters } from "../features/buttons/filterButton";
+import {
+  fetchProducts,
+  productsErrorRequest,
+  productsSuccessRequest,
+} from "../features/products/productsSlice";
+import axios from "axios";
 
 const prices = [
   {
@@ -25,69 +24,76 @@ const prices = [
   },
 ];
 
-const FilterContainer = () => {
+const CategoryList = ({ categories, getFilterUrl }) => {
+  return (
+    <ul>
+      {categories.map((c, i) => (
+        <li key={i} className="btn__category">
+          <Link to={getFilterUrl({ category: c })}>{c}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const BrandList = ({ brands, getFilterUrl }) => {
+  return (
+    <ul>
+      {brands.map((b, i) => {
+        return (
+          <li key={i} className="btn__category">
+            <Link to={getFilterUrl({ brand: b })}>{b}</Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+const ColorList = ({ colors, getFilterUrl }) => {
+  return (
+    <ul className="color-list">
+      {colors.map((c, i) => {
+        return (
+          <li key={i}>
+            <Link
+              className={`color-list__item color-list__item--${c}`}
+              to={getFilterUrl({ color: c })}
+            ></Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+const PriceList = ({ prices, getFilterUrl }) => {
+  return (
+    <ul>
+      {prices.map((p) => (
+        <li key={p.value}>
+          <Link to={getFilterUrl({ price: p.value })} className="btn__category">
+            {p.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const FilterContainer = ({ getFilterUrl, categories, brands, colors }) => {
   const dispatch = useDispatch();
   const filterButton = useSelector((state) => state.filterButton);
   const { toggleFilters } = filterButton;
-  const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [colors, setColors] = useState([]);
 
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-  const query = searchParams.get("query") || "all";
-  const category = searchParams.get("category") || "all";
-  const brand = searchParams.get("brand") || "all";
-  const price = searchParams.get("price") || "all";
-  const color = searchParams.get("color") || "all";
-  const order = searchParams.get("order") || "newest";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch(searchRequest());
-      try {
-        const { data } = await axios.get(
-          `/api/products/search?query=${query}&category=${category}&brand=${brand}&price=${price}&color=${color}&order=${order}`
-        );
-        dispatch(searchSuccess(data));
-      } catch (err) {
-        dispatch(searchFail(err));
-      }
-    };
-    fetchData();
-  }, [dispatch, query, category, brand, price, color, order]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get(`/api/products`);
-
-        const brands = data.map((d) => d.brand);
-        const categories = data.map((d) => d.category);
-        const colors = data.map((d) => d.color);
-
-        const uniqueBrands = [...new Set(brands)];
-        const uniqueCategories = [...new Set(categories)];
-        const uniqueColors = [...new Set(colors)];
-
-        setBrands(uniqueBrands);
-        setCategories(uniqueCategories);
-        setColors(uniqueColors);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  const getFilterUrl = (filter) => {
-    const filterQuery = filter.query || query;
-    const filterCategory = filter.category || category;
-    const filterBrand = filter.brand || brand;
-    const filterPrice = filter.price || price;
-    const filterColor = filter.color || color;
-    const sortOrder = filter.order || order;
-    return `/search?query=${filterQuery}&category=${filterCategory}&brand=${filterBrand}&price=${filterPrice}&color=${filterColor}&order=${sortOrder}`;
+  const fetchAllProducts = async () => {
+    dispatch(productsSuccessRequest());
+    try {
+      const { data } = await axios.get(`/api/products`);
+      dispatch(fetchProducts(data));
+    } catch (err) {
+      dispatch(productsErrorRequest(err.message));
+    }
   };
 
   return (
@@ -99,81 +105,29 @@ const FilterContainer = () => {
       }
     >
       <div>
-        <h3>category</h3>
-        <ul>
-          <li>
-            <Link
-              className="btn__category"
-              to={getFilterUrl({ category: "all" })}
-            >
-              All
-            </Link>
-          </li>
-          {categories.map((c, i) => {
-            return (
-              <li key={i} className="btn__category">
-                <Link to={getFilterUrl({ category: c })}>{c}</Link>
-              </li>
-            );
-          })}
-        </ul>
+        <button
+          style={{ fontSize: "2rem", color: "#797979" }}
+          className="btn__category"
+          onClick={fetchAllProducts}
+        >
+          All Products
+        </button>
       </div>
       <div>
-        <h3>brand</h3>
-        <ul>
-          <li>
-            <Link className="btn__category" to={getFilterUrl({ brand: "all" })}>
-              All
-            </Link>
-          </li>
-          {brands.map((b, i) => {
-            return (
-              <li key={i} className="btn__category">
-                <Link to={getFilterUrl({ brand: b })}>{b}</Link>
-              </li>
-            );
-          })}
-        </ul>
+        <h3>Category</h3>
+        <CategoryList categories={categories} getFilterUrl={getFilterUrl} />
+      </div>
+      <div>
+        <h3>Brand</h3>
+        <BrandList brands={brands} getFilterUrl={getFilterUrl} />
       </div>
       <div>
         <h3>Color</h3>
-        <ul className="color-list">
-          <li>
-            <Link className="btn__category" to={getFilterUrl({ color: "all" })}>
-              All
-            </Link>
-          </li>
-          {colors.map((c, i) => {
-            return (
-              <li key={i}>
-                <Link
-                  className={`color-list__item color-list__item--${c}`}
-                  to={getFilterUrl({ color: c })}
-                ></Link>
-              </li>
-            );
-          })}
-        </ul>
+        <ColorList colors={colors} getFilterUrl={getFilterUrl} />
       </div>
       <div>
         <h3>Price</h3>
-        <ul>
-          <li>
-            <Link className="btn__category" to={getFilterUrl({ price: "all" })}>
-              All
-            </Link>
-          </li>
-          {prices.map((p) => (
-            <li key={p.value}>
-              <Link
-                to={getFilterUrl({ price: p.value })}
-                className="btn__category"
-              >
-                {p.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <PriceList prices={prices} getFilterUrl={getFilterUrl} />
       </div>
       <button onClick={() => dispatch(hideFilters())}>
         <FaTimes className="icon__times icon__times--filters" />

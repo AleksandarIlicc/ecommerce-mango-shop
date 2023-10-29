@@ -1,12 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
-@-webkit-keyframes loader {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @keyframes loader {
   0% {
     transform: rotate(0);
@@ -308,6 +300,22 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1rem;
 }
+.btn__show-filter {
+  display: none;
+}
+@media only screen and (max-width: 48em) {
+  .btn__show-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: block;
+    width: 5rem;
+    height: 3.5rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}
 
 .checkout-steps {
   width: 80%;
@@ -330,11 +338,9 @@ body {
 }
 
 .filter-container {
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   flex-basis: 25%;
-  position: -webkit-sticky;
   position: sticky;
   top: 12vh;
   left: 0;
@@ -801,7 +807,6 @@ body {
 
 .order-summary {
   flex-basis: 30%;
-  position: -webkit-sticky;
   position: sticky;
   top: calc(12vh + 2rem);
   margin: 0 0 auto 0;
@@ -909,22 +914,6 @@ body {
   display: flex;
   gap: 2rem;
 }
-.products__header--left div:last-child button {
-  display: none;
-}
-@media only screen and (max-width: 48em) {
-  .products__header--left div:last-child button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: block;
-    width: 5rem;
-    height: 3.5rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
-}
 .products__header--right {
   display: flex;
   gap: 2rem;
@@ -963,8 +952,7 @@ body {
 .loader svg {
   font-size: 3.5rem;
   margin-top: 2rem;
-  -webkit-animation: loader 2s infinite linear;
-          animation: loader 2s infinite linear;
+  animation: loader 2s infinite linear;
 }
 
 .error-message {
@@ -983,7 +971,7 @@ body {
 }
 
 .btn-container {
-  display: inline-block;
+  display: flex;
 }
 
 .products-container {
@@ -1007,7 +995,6 @@ body {
 }
 @media only screen and (max-width: 30em) {
   .search {
-    width: -webkit-min-content;
     width: -moz-min-content;
     width: min-content;
   }
@@ -1027,7 +1014,7 @@ body {
 .search input {
   width: 100%;
   height: 100%;
-  padding: 2rem 1rem;
+  padding: 2rem;
   outline: none;
   border: none;
   border-radius: 2rem;
@@ -1074,15 +1061,6 @@ body {
     list-style-type: none;
     margin-top: 1rem;
   }
-}
-.search-container input {
-  width: 70%;
-  height: 4rem;
-  padding: 2rem 1rem;
-  outline: none;
-  border: none;
-  border-radius: 2rem;
-  box-shadow: inset 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3), inset -0.1rem -0.1rem 0.1rem rgba(0, 0, 0, 0.3);
 }
 
 .shopping-info-bar {
@@ -1215,7 +1193,6 @@ body {
 }
 .footer__opening-time {
   display: grid;
-  grid-template-columns: -webkit-min-content 1fr;
   grid-template-columns: min-content 1fr;
   gap: 1rem;
 }
@@ -1372,7 +1349,6 @@ body {
   align-items: center;
 }
 .nav--sticky {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   left: 0;

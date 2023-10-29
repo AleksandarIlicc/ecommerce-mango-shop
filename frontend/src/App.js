@@ -6,7 +6,6 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
-import SearchPage from "./pages/SearchPage";
 import ShippingPage from "./pages/ShippingPage";
 import RegisterPage from "./pages/RegisterPage";
 import SigninPage from "./pages/SigninPage";
@@ -37,7 +36,6 @@ function App() {
           <Route exact path="/products" element={<ProductsPage />}></Route>
           <Route exact path="/about" element={<AboutPage />}></Route>
           <Route path="/cart" element={<CartPage />}></Route>
-          <Route path="/search" element={<SearchPage />}></Route>
           <Route exact path="/signin" element={<SigninPage />}></Route>
           <Route exact path="/register" element={<RegisterPage />}></Route>
           <Route exact path="/shipping" element={<ShippingPage />}></Route>

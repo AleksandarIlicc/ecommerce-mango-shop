@@ -202,4 +202,18 @@
     text-transform: uppercase;
     letter-spacing: 0.1rem;
   }
+
+  &__show-filter {
+    display: none;
+
+    @media only screen and (max-width: 48em) {
+      @include flexContainer(center, center);
+      display: block;
+      width: 5rem;
+      height: 3.5rem;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+  }
 }

@@ -8,14 +8,14 @@ const SearchBox = ({ setShowSearch }) => {
 
   const searchHandler = (e) => {
     e.preventDefault();
-    navigate(inputQuery ? `/search?query=${inputQuery}` : "/search");
+    navigate(inputQuery ? `/products?query=${inputQuery}` : "/products");
   };
 
   return (
     <form className="search" onSubmit={searchHandler}>
       <input
         type="text"
-        placeholder="Search products"
+        placeholder="Search products..."
         value={inputQuery}
         onChange={(e) => setInputQuery(e.target.value)}
       />
