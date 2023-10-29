@@ -38,10 +38,6 @@
     cursor: pointer;
     z-index: 1;
 
-    @media only screen and (max-width: 30em) {
-      right: 0;
-    }
-
     &--mobile {
       position: static;
       transform: translateY(0);

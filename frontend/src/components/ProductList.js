@@ -41,7 +41,6 @@ const ProductsList = ({ getFilterUrl, order }) => {
       <div className="products__header">
         <div className="products__header--left">
           <div>
-            <label htmlFor="sort">sort by</label>
             <select
               name="sort"
               id="sort"
@@ -91,9 +90,6 @@ const ProductsList = ({ getFilterUrl, order }) => {
         </div>
         <div className="products__header--right">
           <SearchBox setShowSearch={setShowSearch} />
-          <span className="view-all" onClick={() => {}}>
-            view all
-          </span>
         </div>
       </div>
       {loading ? (
@@ -112,6 +108,7 @@ const ProductsList = ({ getFilterUrl, order }) => {
             {products.map((item) => {
               return (
                 <Product
+                  key={item.id}
                   item={item}
                   productContainerLayout={productContainerLayout}
                 />

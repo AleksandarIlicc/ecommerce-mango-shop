@@ -12,7 +12,9 @@
 
     @include flexContainer(center, space-between);
 
-    @media only screen and (max-width: 30em) {
+    @media only screen and (max-width: 37.5em) {
+      flex-direction: column;
+      gap: 2rem;
       align-items: flex-start;
     }
 
@@ -22,6 +24,11 @@
 
     &--right {
       @include flexProductsHeader;
+      align-self: flex-end;
+
+      @media only screen and (max-width: 37.5em) {
+        width: 100%;
+      }
     }
 
     & select {
