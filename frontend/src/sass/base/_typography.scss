@@ -14,6 +14,10 @@
   font-weight: 600;
   text-transform: capitalize;
   color: $dark-grey-cl;
+
+  &--white {
+    color: $white-cl;
+  }
 }
 
 .heading__tertiary {

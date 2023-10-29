@@ -12,11 +12,13 @@ const productRouter = require("./routes/productsRouter");
 const userRouter = require("./routes/userRouter");
 const authRouter = require("./routes/authRouter");
 const orderRouter = require("./routes/orderRouter");
+const commentsRouter = require("./routes/commentsRouter");
 
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/comments", commentsRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

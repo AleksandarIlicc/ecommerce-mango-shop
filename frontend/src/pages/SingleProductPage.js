@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import SingleProduct from "../components/SingleProduct";
@@ -11,12 +11,14 @@ import {
 } from "../features/products/singleProductSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
+import Comments from "../components/Comments";
 
 const SingleProductPage = () => {
   const productId = useParams().id;
   const dispatch = useDispatch();
   const singleProduct = useSelector((state) => state.product);
   const { product, loading, error } = singleProduct;
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(singleProductSuccessRequest());
@@ -48,7 +50,11 @@ const SingleProductPage = () => {
         ) : error ? (
           <ErrorMessage error={error} />
         ) : (
-          <SingleProduct product={product} />
+          <div className="product-comments-container">
+            <SingleProduct product={product} />
+
+            {user.userInfo && <Comments />}
+          </div>
         )}
       </section>
     </main>
