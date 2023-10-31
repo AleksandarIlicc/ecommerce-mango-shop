@@ -63,8 +63,8 @@ const ProductsList = ({ getFilterUrl, order }) => {
             <button
               className={
                 activeDispalyButton
-                  ? "btn__display btn-cols btn__display--active"
-                  : "btn__display btn-cols"
+                  ? "btn__product-header btn-cols btn__product-header--active"
+                  : "btn__product-header btn-cols"
               }
               onClick={() => setActiveDisplayButton(true)}
             >
@@ -73,15 +73,15 @@ const ProductsList = ({ getFilterUrl, order }) => {
             <button
               className={
                 !activeDispalyButton
-                  ? "btn__display btn-rows btn__display--active"
-                  : "btn__display btn-rows"
+                  ? "btn__product-header btn-rows btn__product-header--active"
+                  : "btn__product-header btn-rows"
               }
               onClick={() => setActiveDisplayButton(false)}
             >
               <AiOutlineBars />
             </button>
             <button
-              className="btn__show-filter"
+              className="btn__product-header btn__product-header--show"
               onClick={() => dispatch(showFilters())}
             >
               <FaFilter />
@@ -99,11 +99,14 @@ const ProductsList = ({ getFilterUrl, order }) => {
       ) : (
         <>
           <div
-            className={
+            className={`${
               productContainerLayout
                 ? "products__container products__container--cols"
                 : "products__container products__container--rows"
-            }
+            } ${
+              products.length < 3 &&
+              "products__container--cols--less-then-three"
+            }`}
           >
             {products.map((item) => {
               return (
@@ -118,7 +121,7 @@ const ProductsList = ({ getFilterUrl, order }) => {
           </div>
           <div style={styleLoadMoreBtnContainer}>
             <button
-              className="btn btn__load-more mt-small"
+              className="btn mt-small"
               style={
                 true
                   ? // productsLength === products.length

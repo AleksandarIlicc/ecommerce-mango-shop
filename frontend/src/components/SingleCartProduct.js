@@ -61,7 +61,7 @@ const SingleCartProduct = ({ product, productsPrice }) => {
       </div>
       <div className="cart__remove">
         <button
-          className="btn__remove"
+          className="btn btn__remove"
           onClick={() => dispatch(removeProductFromCart(product._id))}
         >
           <span>remove</span>

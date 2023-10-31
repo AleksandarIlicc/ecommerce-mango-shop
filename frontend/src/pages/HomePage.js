@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import ShoppingInfoBar from "../components/ShoppingInfoBar";
 import HomeTabs from "../components/HomeTabs";
 import ImageGallery from "../components/ImageGallery";
-import Footer from "../components/Footer";
 
 const HomePage = () => {
   return (
@@ -12,7 +11,6 @@ const HomePage = () => {
       <ShoppingInfoBar />
       <HomeTabs />
       <ImageGallery />
-      <Footer />
     </>
   );
 };

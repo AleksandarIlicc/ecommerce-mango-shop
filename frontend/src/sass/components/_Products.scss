@@ -46,6 +46,14 @@
 
     &--cols {
       grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+
+      &--less-then-three {
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 30rem));
+
+        @media only screen and (max-width: 30em) {
+          max-width: 100%;
+        }
+      }
     }
 
     &--rows {
@@ -54,11 +62,6 @@
       max-width: 100%;
     }
   }
-}
-
-.view-all {
-  border-bottom: 0.3rem solid $dark-blue-cl;
-  cursor: pointer;
 }
 
 .loader {

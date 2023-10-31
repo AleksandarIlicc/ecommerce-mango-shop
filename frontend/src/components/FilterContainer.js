@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import { hideFilters } from "../features/buttons/filterButton";
 import {
@@ -28,7 +28,7 @@ const CategoryList = ({ categories, getFilterUrl }) => {
   return (
     <ul>
       {categories.map((c, i) => (
-        <li key={i} className="btn__category">
+        <li key={i} className="category-link">
           <Link to={getFilterUrl({ category: c })}>{c}</Link>
         </li>
       ))}
@@ -41,7 +41,7 @@ const BrandList = ({ brands, getFilterUrl }) => {
     <ul>
       {brands.map((b, i) => {
         return (
-          <li key={i} className="btn__category">
+          <li key={i} className="category-link">
             <Link to={getFilterUrl({ brand: b })}>{b}</Link>
           </li>
         );
@@ -72,7 +72,7 @@ const PriceList = ({ prices, getFilterUrl }) => {
     <ul>
       {prices.map((p) => (
         <li key={p.value}>
-          <Link to={getFilterUrl({ price: p.value })} className="btn__category">
+          <Link to={getFilterUrl({ price: p.value })} className="category-link">
             {p.name}
           </Link>
         </li>
@@ -82,6 +82,7 @@ const PriceList = ({ prices, getFilterUrl }) => {
 };
 
 const FilterContainer = ({ getFilterUrl, categories, brands, colors }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const filterButton = useSelector((state) => state.filterButton);
   const { toggleFilters } = filterButton;
@@ -90,6 +91,9 @@ const FilterContainer = ({ getFilterUrl, categories, brands, colors }) => {
     dispatch(productsSuccessRequest());
     try {
       const { data } = await axios.get(`/api/products`);
+      navigate(
+        `/products?query=all&category=all&brand=all&price=all&color=all&order=newset`
+      );
       dispatch(fetchProducts(data));
     } catch (err) {
       dispatch(productsErrorRequest(err.message));
@@ -107,7 +111,7 @@ const FilterContainer = ({ getFilterUrl, categories, brands, colors }) => {
       <div>
         <button
           style={{ fontSize: "2rem", color: "#797979" }}
-          className="btn__category"
+          className="category-link"
           onClick={fetchAllProducts}
         >
           All Products
@@ -132,10 +136,7 @@ const FilterContainer = ({ getFilterUrl, categories, brands, colors }) => {
       <button onClick={() => dispatch(hideFilters())}>
         <FaTimes className="icon__times icon__times--filters" />
       </button>
-      <button
-        onClick={() => dispatch(hideFilters())}
-        className="btn btn__apply-filters"
-      >
+      <button onClick={() => dispatch(hideFilters())} className="btn">
         Apply Filters
       </button>
     </div>

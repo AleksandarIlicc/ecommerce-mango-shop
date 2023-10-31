@@ -106,7 +106,7 @@ const SigninPage = () => {
                 />
               </div>
               <div>
-                <button className="btn btn__form" type="submit">
+                <button className="btn btn__form mb-small" type="submit">
                   Sign In
                 </button>
               </div>

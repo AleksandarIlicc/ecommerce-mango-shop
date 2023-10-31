@@ -5,11 +5,11 @@ import Rating from "./Rating";
 const Product = ({ item, productContainerLayout }) => {
   return (
     <article
-      className={
+      className={`${
         productContainerLayout
           ? "product product--cols"
           : "product product--rows"
-      }
+      }`}
       key={item._id}
     >
       <Link to={`/api/products/${item._id}`}>

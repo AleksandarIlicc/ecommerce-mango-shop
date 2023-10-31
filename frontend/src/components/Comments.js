@@ -80,18 +80,24 @@ const Comments = () => {
                 </figure>
                 <div>
                   <span className="comment__username">
-                    {comment.userName === userName ? "You" : userName}
+                    {comment.userName === userName ? "You" : comment.userName}
                   </span>
                   <span>{comment.createdAt}</span>
                 </div>
                 <p className="comment__text" key={index}>
                   {comment.text}
                 </p>
+                <div className="comment__btns">
+                  <buuton>edit</buuton>
+                  <buuton>delete</buuton>
+                </div>
               </div>
             );
           })
         ) : (
-          <p>No comments yet.</p>
+          <p style={{ color: "white", textAlign: "center" }}>
+            No comments yet.
+          </p>
         )}
       </div>
     </div>

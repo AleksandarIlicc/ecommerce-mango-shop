@@ -2,6 +2,14 @@
   background: $white-cl;
   box-shadow: 0.2rem 0.2rem 0.7rem rgba(0, 0, 0, 0.3);
 
+  // &__less-then-three {
+  //   max-width: 30rem;
+
+  //   @media only screen and (max-width: 30em) {
+  //     max-width: 100%;
+  //   }
+  // }
+
   &--cols {
     display: block;
   }

@@ -40,7 +40,7 @@ const SingleProductPage = () => {
   return (
     <main>
       <section className="single-product-container">
-        <button className="btn__back-arrow">
+        <button className="btn btn__back-arrow">
           <Link to="/products">
             <TbArrowBack />
           </Link>

@@ -12,11 +12,12 @@ import SigninPage from "./pages/SigninPage";
 import Error404Page from "./pages/Error404Page";
 import SingleProductPage from "./pages/SingleProductPage";
 import setAuthToken from "./utils/setAuthToken";
-import { loadUser } from "./pages/RegisterPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import OrderPage from "./pages/OrderPage";
 import OrderHistory from "./pages/OrderHistory";
+import Footer from "./components/Footer";
+import { loadUser } from "./pages/RegisterPage";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
@@ -50,6 +51,7 @@ function App() {
           ></Route>
           <Route path="*" element={<Error404Page />}></Route>
         </Routes>
+        <Footer />
       </Router>
     </div>
   );
