@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Comment from "./Comment";
 
 const Comments = () => {
   const [comments, setComments] = useState([]);
@@ -69,29 +70,13 @@ const Comments = () => {
 
       <div className="comments-list">
         {comments.length > 0 ? (
-          comments.map((comment, index) => {
+          comments.map((comment) => {
             return (
-              <div className="comment">
-                <figure>
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
-                    alt="User image"
-                  />
-                </figure>
-                <div>
-                  <span className="comment__username">
-                    {comment.userName === userName ? "You" : comment.userName}
-                  </span>
-                  <span>{comment.createdAt}</span>
-                </div>
-                <p className="comment__text" key={index}>
-                  {comment.text}
-                </p>
-                <div className="comment__btns">
-                  <buuton>edit</buuton>
-                  <buuton>delete</buuton>
-                </div>
-              </div>
+              <Comment
+                key={comment._id}
+                comment={comment}
+                userName={userName}
+              />
             );
           })
         ) : (

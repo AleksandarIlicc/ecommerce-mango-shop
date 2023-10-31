@@ -167,6 +167,15 @@ body {
     display: block;
   }
 }
+.btn__comment-edit {
+  background: rgb(23, 148, 23);
+  padding: 0.5rem 1.7rem;
+  margin-right: 0.7rem;
+}
+.btn__comment-delete {
+  background: rgb(230, 59, 59);
+  padding: 0.5rem 1.7rem;
+}
 .btn__proceed {
   width: 100%;
   background: rgb(230, 59, 59);
@@ -1182,18 +1191,25 @@ body {
   border-radius: 50%;
 }
 .comments-list .comment__username {
+  font-size: 1.4rem;
   font-weight: bold;
-  margin-right: 1.4rem;
+  margin-right: 1rem;
+}
+.comments-list .comment__date {
+  font-size: 1.2rem;
 }
 .comments-list .comment__text {
   font-size: 1.4rem;
   color: #606060;
+  padding: 0 1rem;
+  border-left: 2px solid #d2d2d2;
   grid-column: 1/-1;
 }
 .comments-list .comment__btns {
   width: 100%;
-  background-color: aqua;
-  grid-column: 1/-1;
+  grid-column: 2/-1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .footer {

@@ -111,7 +111,7 @@ const ProductsList = ({ getFilterUrl, order }) => {
             {products.map((item) => {
               return (
                 <Product
-                  key={item.id}
+                  key={item._id}
                   item={item}
                   productContainerLayout={productContainerLayout}
                 />
