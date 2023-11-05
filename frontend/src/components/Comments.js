@@ -1,24 +1,39 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Comment from "./Comment";
+import {
+  commentsErrorRequest,
+  commentsStartRequest,
+  commentsSuccessRequest,
+} from "../features/comments/commentSlice";
+import Loader from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 
 const Comments = () => {
-  const [comments, setComments] = useState([]);
-  const [commentText, setCommentText] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState();
+
+  const dispatch = useDispatch();
 
   const singleProduct = useSelector((state) => state.product);
   const { _id: productId } = singleProduct.product;
   const user = useSelector((state) => state.user);
   const { _id: userId, name: userName } = user.userInfo || "";
+  const [commentText, setCommentText] = useState("");
+  const {
+    comments,
+    loading,
+    error: errorComment,
+  } = useSelector((state) => state.comments);
 
   const getAllComments = async () => {
     try {
+      dispatch(commentsStartRequest());
       const { data } = await axios.get(`/api/comments/${productId}`);
-      setComments(data);
+      dispatch(commentsSuccessRequest(data));
     } catch (err) {
       console.log(err.message);
+      dispatch(commentsErrorRequest(err.message));
     }
   };
 
@@ -70,15 +85,18 @@ const Comments = () => {
 
       <div className="comments-list">
         {comments.length > 0 ? (
-          comments.map((comment) => {
-            return (
-              <Comment
-                key={comment._id}
-                comment={comment}
-                userName={userName}
-              />
-            );
-          })
+          comments
+            .slice(0)
+            .reverse()
+            .map((comment) => {
+              return (
+                <Comment
+                  key={comment._id}
+                  comment={comment}
+                  getAllComments={getAllComments}
+                />
+              );
+            })
         ) : (
           <p style={{ color: "white", textAlign: "center" }}>
             No comments yet.

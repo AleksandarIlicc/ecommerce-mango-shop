@@ -3,7 +3,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 const Rating = ({ rating }) => {
   return (
-    <div className="rating">
+    <div className="rating flex mb-2">
       {rating >= 1 ? (
         <FaStar />
       ) : rating === 0.5 ? (

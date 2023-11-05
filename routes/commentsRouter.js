@@ -1,41 +1,19 @@
-const asyncWrapper = require("../middleware/async");
 const { Router } = require("express");
 const router = new Router();
-const Comment = require("../models/commentModel");
+const {
+  getAllCommentsByProduct,
+  createComment,
+  deleteComment,
+  updateComment,
+  likeComment,
+  dislikeComment,
+} = require("../controllers/commentController");
 
-router.get(
-  "/:id",
-  asyncWrapper(async (req, res) => {
-    try {
-      const productId = req.params.id;
-      const comments = await Comment.find({ productId }).exec();
-      res.json(comments);
-    } catch (err) {
-      res.status(500).json({ error: "Error getting comments." });
-    }
-  })
-);
-
-router.post(
-  "/",
-  asyncWrapper(async (req, res) => {
-    try {
-      const { commentText, userName, userId, productId } = req.body;
-
-      const newComment = new Comment({
-        text: commentText,
-        userName,
-        userId,
-        productId,
-      });
-
-      const savedComment = await newComment.save();
-
-      res.status(201).json(savedComment);
-    } catch (error) {
-      res.status(500).json({ error: "Error adding comment." });
-    }
-  })
-);
+router.route("/:productId").get(getAllCommentsByProduct);
+router.route("/").post(createComment);
+router.route("/:commentId").delete(deleteComment);
+router.route("/:commentId").put(updateComment);
+router.route("/like/:commentId").put(likeComment);
+router.route("/dislike/:commentId").put(dislikeComment);
 
 module.exports = router;

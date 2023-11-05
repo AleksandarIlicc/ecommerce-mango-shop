@@ -15,6 +15,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "sass": "^1.69.5",
+    "tailwindcss": "^3.3.5",
     "uuid": "^8.3.2"
   },
   "scripts": {
@@ -40,8 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.3.5"
   }
 }

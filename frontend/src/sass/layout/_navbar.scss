@@ -130,7 +130,10 @@
       @media only screen and (max-width: 50em) {
         font-size: 2rem;
         padding-bottom: 0.5rem;
-        border-bottom: 0.1rem solid $light-blue-cl--1;
+
+        &:not(:last-child) {
+          border-bottom: 0.1rem solid $light-blue-cl--1;
+        }
       }
     }
   }
@@ -188,8 +191,8 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 0.7rem 3rem 0.7rem 1rem;
-  background: $white-cl;
-  color: $light-blue-cl--1;
+  background: rgba($black-cl, 0.3);
+  color: $white-cl;
   border-radius: 0.3rem;
   z-index: 100;
 

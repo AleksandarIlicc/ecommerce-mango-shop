@@ -92,16 +92,18 @@
   }
 
   &__product-header {
+    @include flexContainer(center, center);
     font-size: 2.3rem;
+    width: 4rem;
+    height: 4rem;
+    color: $black-cl;
+    background-color: $light-grey-cl--2;
     padding: 0.2rem;
     margin-right: 0.8rem;
     border: none;
     border-radius: 0.3rem;
-    color: $black-cl;
-    cursor: pointer;
-    width: 4rem;
-    height: 4rem;
     line-height: 3.5rem;
+    cursor: pointer;
 
     &--active {
       color: $white-cl;
@@ -112,7 +114,7 @@
       display: none;
 
       @media only screen and (max-width: 48em) {
-        display: block;
+        display: flex;
       }
     }
   }

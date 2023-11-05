@@ -22,6 +22,7 @@ const ImageGallery = () => {
         {galleryImages.map((img, i) => {
           return (
             <div
+              key={i}
               className={indexPanel === i ? "panel panel--active" : "panel"}
               onClick={(e) => growPanel(e)}
               data-index={i}

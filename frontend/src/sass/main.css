@@ -200,16 +200,20 @@ body {
   }
 }
 .btn__product-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 2.3rem;
+  width: 4rem;
+  height: 4rem;
+  color: rgb(0, 0, 0);
+  background-color: rgb(210, 210, 210);
   padding: 0.2rem;
   margin-right: 0.8rem;
   border: none;
   border-radius: 0.3rem;
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-  width: 4rem;
-  height: 4rem;
   line-height: 3.5rem;
+  cursor: pointer;
 }
 .btn__product-header--active {
   color: rgb(255, 255, 255);
@@ -220,7 +224,7 @@ body {
 }
 @media only screen and (max-width: 48em) {
   .btn__product-header--show {
-    display: block;
+    display: flex;
   }
 }
 .btn__back-arrow {
@@ -1177,8 +1181,8 @@ body {
 }
 .comments-list .comment {
   display: grid;
-  grid-template-columns: min-content 1fr;
-  row-gap: 1rem;
+  grid-template-columns: 3.5rem 1fr 1fr;
+  row-gap: 2rem;
   -moz-column-gap: 3rem;
        column-gap: 3rem;
   padding: 2rem;
@@ -1208,8 +1212,6 @@ body {
 .comments-list .comment__btns {
   width: 100%;
   grid-column: 2/-1;
-  display: flex;
-  justify-content: flex-end;
 }
 
 .footer {
@@ -1276,7 +1278,7 @@ body {
   }
 }
 .header__left {
-  width: 30%;
+  min-width: 30%;
   height: 35rem;
   background: rgb(118, 183, 208);
   box-shadow: 0.5rem 0.5rem 1.2rem rgba(0, 0, 0, 0.5);
@@ -1289,7 +1291,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-self: center;
 }
 @media only screen and (max-width: 56.25em) {
@@ -1317,15 +1319,8 @@ body {
 }
 .header__right {
   position: relative;
-  width: 75%;
-  min-height: 75vh;
   box-shadow: 0.5rem 0.5rem 1.2rem rgba(0, 0, 0, 0.5);
   overflow: hidden;
-}
-@media only screen and (max-width: 56.25em) {
-  .header__right {
-    width: 100%;
-  }
 }
 @media only screen and (max-width: 30em) {
   .header__right {
@@ -1513,6 +1508,8 @@ body {
   .nav__list li {
     font-size: 2rem;
     padding-bottom: 0.5rem;
+  }
+  .nav__list li:not(:last-child) {
     border-bottom: 0.1rem solid rgb(118, 183, 208);
   }
 }
@@ -1566,8 +1563,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   padding: 0.7rem 3rem 0.7rem 1rem;
-  background: rgb(255, 255, 255);
-  color: rgb(118, 183, 208);
+  background: rgba(0, 0, 0, 0.3);
+  color: rgb(255, 255, 255);
   border-radius: 0.3rem;
   z-index: 100;
 }

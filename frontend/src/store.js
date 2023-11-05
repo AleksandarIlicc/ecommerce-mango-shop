@@ -9,6 +9,7 @@ import orderReducer from "./features/order/orderSlice";
 import orderDetailsReducer from "./features/order/orderDetailsSlice";
 import payOrderReducer from "./features/order/payOrderSlice";
 import filterButtonReducer from "./features/buttons/filterButton";
+import commentsReducer from "./features/comments/commentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     orderDetails: orderDetailsReducer,
     payOrder: payOrderReducer,
     filterButton: filterButtonReducer,
+    comments: commentsReducer,
   },
 });

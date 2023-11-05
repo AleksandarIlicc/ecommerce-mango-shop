@@ -54,7 +54,7 @@ const Header = () => {
             <Link to="/signin">Get in touch</Link>
           </button>
         </div>
-        <div className="header__right">
+        <div className="header__right w-full @screen xl:w-85 @screen (min-width: 56.25em) {w-full} h-[75vh]">
           {images.map((img, i) => {
             return (
               <figure
@@ -71,7 +71,7 @@ const Header = () => {
         <FaChevronUp onClick={nextImg} />
         <FaChevronDown onClick={prevImg} />
       </div>
-      <div className="social-icons">
+      <div className="social-icons flex">
         <FaInstagram />
         <FaTwitter />
         <FaYoutube />

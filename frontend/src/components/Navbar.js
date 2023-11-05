@@ -78,10 +78,12 @@ const Navbar = () => {
             </Link>
           ) : (
             <div className="nav__user-name">
-              <span>{userName}</span>
-              <FaChevronDown
-                onClick={() => setShowSigninDropMenu(!showSigninDropMenu)}
-              />
+              <div className="flex items-center">
+                <span>{userName}</span>
+                <FaChevronDown
+                  onClick={() => setShowSigninDropMenu(!showSigninDropMenu)}
+                />
+              </div>
               <ul
                 className={
                   showSigninDropMenu ? "dropdown dropdown--show" : "dropdown"

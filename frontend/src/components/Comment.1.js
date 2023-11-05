@@ -9,11 +9,15 @@ import {
 import axios from "axios";
 import { updateComment } from "../features/comments/commentSlice";
 
-const Comment = ({ comment, getAllComments }) => {
+export const Comment = ({ comment, getAllComments }) => {
   const [error, setError] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [editedComment, setEditedComment] = useState(comment.text);
   const [updatedComment, setUpdatedComment] = useState(comment.text);
+  const [likes, setLikes] = useState({
+    userId: comment.userId,
+    isLiked: false,
+  });
 
   const dispatch = useDispatch();
 
@@ -54,13 +58,13 @@ const Comment = ({ comment, getAllComments }) => {
   const handleLikeComment = async (id) => {
     let response;
     const newLike = {
-      userId: userId,
+      userId: comment.userId,
       isLiked: true,
       isDisliked: false,
     };
 
     const commentIsAlreadyLiked = comment.likes.find(
-      (like) => like.userId === userId
+      (like) => like.userId === comment.userId
     );
 
     try {
@@ -68,20 +72,18 @@ const Comment = ({ comment, getAllComments }) => {
         response = await axios.put(`/api/comments/like/${id}`, newLike);
       } else {
         newLike.isLiked = !commentIsAlreadyLiked.isLiked;
-
-        if (commentIsAlreadyLiked.isDisliked) {
-          newLike.isDisliked = false;
-        }
+        newLike.isDisliked = !newLike.isLiked;
         response = await axios.put(`/api/comments/like/${id}`, newLike);
       }
 
       if (response.status === 200) {
         dispatch(
           updateComment({
-            likedComment: response.data,
-            userId: userId,
-            isLiked: newLike.isLiked,
-            isDisliked: newLike.isDisliked,
+            commentId: comment._id,
+            userId: comment.userId,
+            isLiked: !commentIsAlreadyLiked
+              ? true
+              : !commentIsAlreadyLiked.isLiked,
           })
         );
       } else {
@@ -98,35 +100,30 @@ const Comment = ({ comment, getAllComments }) => {
   const handleDislikeComment = async (id) => {
     let response;
     const newDislike = {
-      userId: userId,
-      isLiked: false,
-      isDisliked: true,
+      userId: comment.userId,
+      isLiked: true,
     };
 
-    const commentIsAlreadyDisliked = comment.likes.find(
+    const commentIsAlreadyLiked = comment.likes.find(
       (like) => like.userId === comment.userId
     );
 
     try {
-      if (!commentIsAlreadyDisliked) {
-        newDislike = comment.likes.push(newDislike);
-        response = await axios.put(`/api/comments/like/${id}`, newDislike);
+      if (!commentIsAlreadyLiked) {
+        response = await axios.put(`/api/comments/dislike/${id}`, newDislike);
       } else {
-        newDislike.isDisliked = !commentIsAlreadyDisliked.isDisliked;
-
-        if (commentIsAlreadyDisliked.isLiked) {
-          newDislike.isLiked = false;
-        }
-        response = await axios.put(`/api/comments/like/${id}`, newDislike);
+        newDislike.isLiked = !commentIsAlreadyLiked.isLiked;
+        response = await axios.put(`/api/comments/dislike/${id}`, newDislike);
       }
 
       if (response.status === 200) {
         dispatch(
           updateComment({
-            likedComment: response.data,
-            userId: userId,
-            isLiked: newDislike.isLiked,
-            isDisliked: newDislike.isDisliked,
+            commentId: comment._id,
+            userId: comment.userId,
+            isLiked: !commentIsAlreadyLiked
+              ? true
+              : !commentIsAlreadyLiked.isLiked,
           })
         );
       } else {
@@ -155,33 +152,20 @@ const Comment = ({ comment, getAllComments }) => {
         <span className="comment__date">{formatDate(comment.createdAt)}</span>
       </div>
       <div className="flex justify-end">
-        <div className="flex flex-col">
-          <button
-            className="me-4"
-            onClick={() => handleLikeComment(comment._id)}
-          >
-            {comment.likes.some(
-              (like) => like.isLiked && like.userId === userId
-            ) ? (
-              <FaThumbsUp />
-            ) : (
-              <FaRegThumbsUp />
-            )}
-          </button>
-          <span>{comment.likes.filter((like) => like.isLiked).length}</span>
-        </div>
-        <div className="flex flex-col">
-          <button onClick={() => handleDislikeComment(comment._id)}>
-            {comment.likes.some(
-              (like) => like.isDisliked && like.userId === userId
-            ) ? (
-              <FaThumbsDown />
-            ) : (
-              <FaRegThumbsDown />
-            )}
-          </button>
-          <span>{comment.likes.filter((like) => like.isDisliked).length}</span>
-        </div>
+        <button className="me-4" onClick={() => handleLikeComment(comment._id)}>
+          {comment.likes.some((like) => like.isLiked) ? (
+            <FaThumbsUp />
+          ) : (
+            <FaRegThumbsUp />
+          )}
+        </button>
+        <button onClick={() => handleDislikeComment(comment._id)}>
+          {comment.likes.some((like) => !like.isLiked) ? (
+            <FaThumbsDown />
+          ) : (
+            <FaRegThumbsDown />
+          )}
+        </button>
       </div>
       {isEdit ? (
         <textarea
@@ -221,5 +205,3 @@ const Comment = ({ comment, getAllComments }) => {
     </div>
   );
 };
-
-export default Comment;
