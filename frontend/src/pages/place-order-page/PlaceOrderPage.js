@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import CheckoutSteps from "../components/CheckoutSteps";
-import SingleCartProduct from "../components/SingleCartProduct";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
-import { cartEmpty, saveOrderSummaryInfo } from "../features/cart/cartSlice";
+import CheckoutSteps from "../../components/CheckoutSteps";
+import SingleCartProduct from "../../components/SingleCartProduct";
+import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
+import { cartEmpty, saveOrderSummaryInfo } from "../../features/cart/cartSlice";
 import {
   orderRequest,
   orderSuccess,
   orderFail,
-} from "../features/order/orderSlice";
-import { orderReset } from "../features/order/orderSlice";
+} from "../../features/order/orderSlice";
+import { orderReset } from "../../features/order/orderSlice";
 import axios from "axios";
 
 const PlaceOrderPage = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SingleCartProduct from "../components/SingleCartProduct";
+import SingleCartProduct from "../../components/SingleCartProduct";
 
 const CartPage = () => {
   const navigate = useNavigate();

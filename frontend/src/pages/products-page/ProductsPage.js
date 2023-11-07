@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import FilterContainer from "../components/FilterContainer";
-import ProductList from "../components/ProductList";
+import FilterContainer from "../../components/FilterContainer";
+import ProductList from "../../components/ProductList";
 import {
   fetchProducts,
   productsErrorRequest,
   productsSuccessRequest,
-} from "../features/products/productsSlice";
-import axios from "axios";
+} from "../../features/products/productsSlice";
+import ProductClient from "./api";
 
 const ProductsPage = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
+
+  const productClient = new ProductClient();
 
   const dispatch = useDispatch();
 
@@ -29,45 +31,53 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       dispatch(productsSuccessRequest());
-      try {
-        const { data } = await axios.get(
-          `/api/products/search?query=${query}&category=${category}&brand=${brand}&price=${price}&color=${color}&order=${order}`
-        );
-        dispatch(fetchProducts(data));
-      } catch (err) {
-        dispatch(productsErrorRequest(err.message));
+      const result = await productClient.fetchAllProducts(
+        query,
+        category,
+        brand,
+        price,
+        color,
+        order
+      );
+
+      if (typeof result === "string") {
+        dispatch(productsErrorRequest(result));
+      } else {
+        dispatch(fetchProducts(result));
       }
     };
+
     fetchData();
   }, [dispatch, query, category, brand, price, color, order]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       dispatch(productsSuccessRequest());
-      try {
-        const { data } = await axios.get(`/api/products`);
-        dispatch(fetchProducts(data));
+      const result = await productClient.fetchAllCategories();
 
-        const { uniqueBrands, uniqueCategories, uniqueColors } = data.reduce(
-          (accumulator, item) => {
-            accumulator.uniqueBrands.add(item.brand);
-            accumulator.uniqueCategories.add(item.category);
-            accumulator.uniqueColors.add(item.color);
-            return accumulator;
-          },
-          {
-            uniqueBrands: new Set(),
-            uniqueCategories: new Set(),
-            uniqueColors: new Set(),
-          }
-        );
-
-        setBrands([...uniqueBrands]);
-        setCategories([...uniqueCategories]);
-        setColors([...uniqueColors]);
-      } catch (err) {
-        dispatch(productsErrorRequest(err.message));
+      if (typeof result === "string") {
+        dispatch(productsErrorRequest(result));
+      } else {
+        dispatch(fetchProducts(result));
       }
+
+      const { uniqueBrands, uniqueCategories, uniqueColors } = result.reduce(
+        (accumulator, item) => {
+          accumulator.uniqueBrands.add(item.brand);
+          accumulator.uniqueCategories.add(item.category);
+          accumulator.uniqueColors.add(item.color);
+          return accumulator;
+        },
+        {
+          uniqueBrands: new Set(),
+          uniqueCategories: new Set(),
+          uniqueColors: new Set(),
+        }
+      );
+
+      setBrands([...uniqueBrands]);
+      setCategories([...uniqueCategories]);
+      setColors([...uniqueColors]);
     };
     fetchCategories();
   }, []);

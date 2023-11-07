@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { setAlert } from "../components/setAlert";
-import FormAlert from "../components/FormAlert";
+import { setAlert } from "../../components/setAlert";
+import FormAlert from "../../components/FormAlert";
 import {
   userLoaded,
   userRegisterSuccess,
   userRegisterFail,
   authError,
-} from "../features/user/authSlice";
+} from "../../features/user/authSlice";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import setAuthToken from "../utils/setAuthToken";
-import { store } from "../store";
+import setAuthToken from "../../utils/setAuthToken";
+import { store } from "../../store";
+import AuthClient from "./api";
 
 export const loadUser = async () => {
   if (localStorage.token) {
@@ -38,6 +39,8 @@ const RegisterPage = () => {
 
   const { name, email, password, password2 } = formData;
 
+  const authClient = new AuthClient();
+
   const handleFormData = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -57,18 +60,19 @@ const RegisterPage = () => {
 
     const body = JSON.stringify({ name, email, password });
 
-    try {
-      const { data } = await axios.post("/api/users", body, config);
-      dispatch(userRegisterSuccess(data));
-      loadUser();
-    } catch (err) {
-      const errors = err.response.data.errors;
+    const result = await authClient.registerUser(body, config);
+
+    if (typeof result === "User already exsits") {
+      const errors = result.response.data.errors;
 
       if (errors) {
         errors.forEach((error) => setAlert(error.msg, "danger"));
       }
 
       dispatch(userRegisterFail());
+    } else {
+      dispatch(userRegisterSuccess(result));
+      loadUser();
     }
   };
 

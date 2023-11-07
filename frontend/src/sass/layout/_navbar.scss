@@ -191,8 +191,8 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 0.7rem 3rem 0.7rem 1rem;
-  background: rgba($black-cl, 0.3);
-  color: $white-cl;
+  background: $white-cl;
+  color: $dark-blue-cl;
   border-radius: 0.3rem;
   z-index: 100;
 
@@ -201,6 +201,8 @@
     position: relative;
     top: 0;
     left: 0;
+    background: rgba($black-cl, 0.3);
+    color: $white-cl;
     max-height: 0;
     transform: scaleY(0);
     transform-origin: top;

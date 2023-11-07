@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 // import { PayPalButton } from "react-paypal-button-v2";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import SingleCartProduct from "../components/SingleCartProduct";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
+import SingleCartProduct from "../../components/SingleCartProduct";
+import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
 import {
   orderDetailsRequest,
   orderDetailsSuccess,
   orderDetailsFail,
-} from "../features/order/orderDetailsSlice";
+} from "../../features/order/orderDetailsSlice";
 import axios from "axios";
 import {
   payOrderRequest,
   payOrderFail,
   payOrderSuccess,
   payOrderReset,
-} from "../features/order/payOrderSlice";
+} from "../../features/order/payOrderSlice";
 
 const OrderPage = () => {
   const { id: orderID } = useParams();

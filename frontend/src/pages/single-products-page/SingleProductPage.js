@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
-import SingleProduct from "../components/SingleProduct";
+import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
+import SingleProduct from "../../components/SingleProduct";
 import { TbArrowBack } from "react-icons/tb";
 import axios from "axios";
 import {
   singleProductSuccessRequest,
   fetchSingleProduct,
   singleProductErrorRequest,
-} from "../features/products/singleProductSlice";
+} from "../../features/products/singleProductSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import Comments from "../components/Comments";
+import Comments from "../../components/Comments";
 
 const SingleProductPage = () => {
   const productId = useParams().id;

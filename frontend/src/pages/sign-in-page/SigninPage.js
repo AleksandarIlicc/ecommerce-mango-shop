@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { setAlert } from "../components/setAlert";
-import { loadUser } from "./RegisterPage";
-import { userLoginFail, userLoginSuccess } from "../features/user/authSlice";
+import { setAlert } from "../../components/setAlert";
+import { loadUser } from "../register-page/RegisterPage";
+import { userLoginFail, userLoginSuccess } from "../../features/user/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import FormAlert from "../components/FormAlert";
-import CheckoutSteps from "../components/CheckoutSteps";
+import FormAlert from "../../components/FormAlert";
+import CheckoutSteps from "../../components/CheckoutSteps";
 
 const SigninPage = () => {
   const navigate = useNavigate();
