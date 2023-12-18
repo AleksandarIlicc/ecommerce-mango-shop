@@ -229,7 +229,7 @@ body {
 }
 .btn__back-arrow {
   position: absolute;
-  top: 3rem;
+  top: 1rem;
   left: 3rem;
   border: none;
   border-radius: 0.5rem;
@@ -274,7 +274,7 @@ body {
   width: 80%;
   height: 5rem;
   display: flex;
-  margin: 2rem auto;
+  margin: 2rem auto 10rem;
 }
 @media only screen and (max-width: 30em) {
   .checkout-steps {
@@ -384,6 +384,7 @@ body {
 
 .form-section {
   width: 100%;
+  min-height: 88vh;
   padding: 2rem 2rem 4rem 2rem;
 }
 @media only screen and (max-width: 43.75em) {
@@ -1648,7 +1649,7 @@ body {
   gap: 2.5rem;
   background: rgb(201, 222, 232);
   padding: 2rem 0.7rem;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 .cart__product > * + * {
@@ -1661,8 +1662,8 @@ body {
 }
 .cart__img {
   width: 14rem;
-  height: 14rem;
-  border-radius: 2rem;
+  height: 100%;
+  border-radius: 0.5rem;
   overflow: hidden;
 }
 .cart__img img {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { setAlert } from "../../components/setAlert";
 import FormAlert from "../../components/FormAlert";
@@ -8,11 +9,11 @@ import {
   userRegisterFail,
   authError,
 } from "../../features/user/authSlice";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+
 import setAuthToken from "../../utils/setAuthToken";
 import { store } from "../../store";
 import AuthClient from "./api";
+import axios from "axios";
 
 export const loadUser = async () => {
   if (localStorage.token) {
@@ -101,7 +102,7 @@ const RegisterPage = () => {
             </div>
           </div>
           <div className="form-box__right">
-            <form className="form" onSubmit={(e) => onSubmit(e)}>
+            <form className="form" onSubmit={onSubmit}>
               <div>
                 <h1
                   style={{ color: "black" }}
@@ -119,7 +120,7 @@ const RegisterPage = () => {
                   name="name"
                   value={name}
                   placeholder="Enter name"
-                  onChange={(e) => handleFormData(e)}
+                  onChange={handleFormData}
                 />
               </div>
               <div className="form__input-box">
@@ -130,7 +131,7 @@ const RegisterPage = () => {
                   name="email"
                   value={email}
                   placeholder="Enter email"
-                  onChange={(e) => handleFormData(e)}
+                  onChange={handleFormData}
                 />
               </div>
               <div className="form__input-box">
@@ -141,7 +142,7 @@ const RegisterPage = () => {
                   name="password"
                   value={password}
                   placeholder="Enter password"
-                  onChange={(e) => handleFormData(e)}
+                  onChange={handleFormData}
                 />
               </div>
               <div className="form__input-box">
@@ -152,7 +153,7 @@ const RegisterPage = () => {
                   name="password2"
                   value={password2}
                   placeholder="Confirm password"
-                  onChange={(e) => handleFormData(e)}
+                  onChange={handleFormData}
                 />
               </div>
               <div>

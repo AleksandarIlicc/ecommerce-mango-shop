@@ -17,7 +17,7 @@ const SingleCartProduct = ({ product, productsPrice }) => {
           <img src={product.image} alt={product.name} />
         </figure>
         <div className="product-info">
-          <h3 className="heading__tertiary">
+          <h3 className="text-[1.4rem]">
             {product.name.length > 10
               ? product.name.substring(0, 10) + "..."
               : product.name}

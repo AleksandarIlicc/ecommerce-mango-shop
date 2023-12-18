@@ -104,12 +104,11 @@ const Comment = ({ comment, getAllComments }) => {
     };
 
     const commentIsAlreadyDisliked = comment.likes.find(
-      (like) => like.userId === comment.userId
+      (like) => like.userId === userId
     );
 
     try {
       if (!commentIsAlreadyDisliked) {
-        newDislike = comment.likes.push(newDislike);
         response = await axios.put(`/api/comments/like/${id}`, newDislike);
       } else {
         newDislike.isDisliked = !commentIsAlreadyDisliked.isDisliked;

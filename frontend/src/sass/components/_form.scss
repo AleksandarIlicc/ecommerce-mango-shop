@@ -1,5 +1,6 @@
 .form-section {
   width: 100%;
+  min-height: calc(100vh - 12vh);
   padding: 2rem 2rem 4rem 2rem;
 
   @media only screen and (max-width: 43.75em) {

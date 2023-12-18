@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import "./sass/main.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/home-page/HomePage";
 import AboutPage from "./pages/about-page/AboutPage";
@@ -11,17 +11,28 @@ import RegisterPage from "./pages/register-page/RegisterPage";
 import SigninPage from "./pages/sign-in-page/SigninPage";
 import Error404Page from "./pages/error-page/Error404Page";
 import SingleProductPage from "./pages/single-products-page/SingleProductPage";
-import setAuthToken from "./utils/setAuthToken";
 import PaymentPage from "./pages/payment-page/PaymentPage";
 import PlaceOrderPage from "./pages/place-order-page/PlaceOrderPage";
 import OrderPage from "./pages/order-page/OrderPage";
 import OrderHistory from "./pages/order-history-page/OrderHistory";
 import Footer from "./components/Footer";
+
+import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./pages/register-page/RegisterPage";
+
+import "./sass/main.css";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
 }
+
+const Success = () => {
+  return <div>Success</div>;
+};
+
+const Cancel = () => {
+  return <div>Cancel</div>;
+};
 
 function App() {
   useEffect(() => {
@@ -34,6 +45,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<HomePage />}></Route>
+
+          <Route exact path="/success" element={<Success />}></Route>
+          <Route exact path="/cancel" element={<Cancel />}></Route>
+
           <Route exact path="/products" element={<ProductsPage />}></Route>
           <Route exact path="/about" element={<AboutPage />}></Route>
           <Route path="/cart" element={<CartPage />}></Route>

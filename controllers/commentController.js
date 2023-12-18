@@ -77,33 +77,14 @@ const likeComment = asyncWrapper(async (req, res) => {
 
   const existingLike = comment.likes.find((like) => like.userId == userId);
 
-  if (existingLike) {
+  if (!existingLike) {
+    comment.likes.push({ userId, isLiked, isDisliked });
+  } else {
     existingLike.isLiked = isLiked;
     existingLike.isDisliked = isDisliked;
-  } else {
-    comment.likes.push({ userId, isLiked, isDisliked });
   }
 
   const updatedComment = await comment.save();
-
-  res.json(comment);
-});
-
-const dislikeComment = asyncWrapper(async (req, res) => {
-  const { commentId } = req.params;
-  const likes = req.body;
-
-  const comment = await Comment.findByIdAndUpdate(
-    commentId,
-    { likes },
-    {
-      new: true,
-    }
-  );
-
-  if (!comment) {
-    return res.status(404).json({ error: "Comment didn't find." });
-  }
 
   res.json(comment);
 });
@@ -114,5 +95,4 @@ module.exports = {
   deleteComment,
   updateComment,
   likeComment,
-  dislikeComment,
 };
