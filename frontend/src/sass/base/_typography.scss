@@ -11,7 +11,7 @@
 
 .heading__secondary {
   font-size: 2.7rem;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: capitalize;
   color: $dark-grey-cl;
 
@@ -21,12 +21,16 @@
 }
 
 .heading__tertiary {
-  font-size: 2.3rem;
+  font-size: 2rem;
   color: $dark-grey-cl;
   text-transform: capitalize;
 
   @media only screen and (max-width: 30em) {
     font-size: 1.8rem;
+  }
+
+  &--white {
+    color: $white-cl;
   }
 }
 

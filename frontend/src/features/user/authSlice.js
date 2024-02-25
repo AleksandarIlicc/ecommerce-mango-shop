@@ -6,6 +6,7 @@ const authSlice = createSlice({
     token: localStorage.getItem("token"),
     isAuthenticated: null,
     loading: true,
+    message: null,
     userInfo: null,
   },
   reducers: {
@@ -18,16 +19,20 @@ const authSlice = createSlice({
       };
     },
     userRegisterSuccess: (state, action) => {
-      localStorage.setItem("token", action.payload);
+      const { token, message } = action.payload;
+      localStorage.setItem("token", token);
+
       return {
         ...state,
-        token: action.payload,
+        token,
         isAuthenticated: true,
         loading: false,
+        message,
       };
     },
     userLoginSuccess: (state, action) => {
       localStorage.setItem("token", action.payload);
+
       return {
         ...state,
         token: action.payload,
@@ -37,6 +42,7 @@ const authSlice = createSlice({
     },
     userRegisterFail: (state, action) => {
       localStorage.removeItem("token");
+
       return {
         ...state,
         token: null,
@@ -47,6 +53,7 @@ const authSlice = createSlice({
     },
     userLoginFail: (state, action) => {
       localStorage.removeItem("token");
+
       return {
         ...state,
         token: null,
@@ -57,6 +64,7 @@ const authSlice = createSlice({
     },
     authError: (state, aciton) => {
       localStorage.removeItem("token");
+
       return {
         ...state,
         token: null,
@@ -67,6 +75,7 @@ const authSlice = createSlice({
     },
     logout: (state, aciton) => {
       localStorage.removeItem("token");
+
       return {
         ...state,
         token: null,

@@ -1,0 +1,15 @@
+@import "../../sass/abstract/variables";
+
+.checkout-steps {
+  display: flex;
+
+  & > div {
+    flex: 1;
+    padding: 0.7rem 0;
+    border-top: 0.5rem solid $light-blue-cl--2;
+  }
+
+  & > div.active {
+    border-top: 0.5rem solid $light-blue-cl--1;
+  }
+}

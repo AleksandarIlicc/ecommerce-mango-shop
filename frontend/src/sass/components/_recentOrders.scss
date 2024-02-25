@@ -1,0 +1,55 @@
+.recent-order {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+  gap: 2rem;
+  background-color: $white-cl;
+  border-radius: 0.3rem;
+
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2rem;
+  }
+
+  &__img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+
+  &__active-status {
+    font-size: 1.3rem;
+    color: $white-cl;
+    background-color: rgb(82, 120, 235);
+    padding: 0.7rem 2rem;
+    border-radius: 0.5rem;
+    justify-self: start;
+
+    &--pending {
+      background-color: rgb(82, 120, 235);
+    }
+
+    &--shipped {
+      background-color: rgb(235, 82, 82);
+    }
+
+    &--delivered {
+      background-color: rgb(159 209 78);
+    }
+  }
+}
+
+.no-orders-message {
+  color: rgb(235, 82, 82);
+  text-align: center;
+  margin-top: 5rem;
+}

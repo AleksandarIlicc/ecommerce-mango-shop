@@ -1,0 +1,111 @@
+@import "../../sass/abstract/variables";
+
+.products-container {
+  width: 100%;
+  display: flex;
+
+  @media only screen and (max-width: 48em) {
+    flex-direction: column;
+  }
+}
+
+.products {
+  position: relative;
+  flex-basis: 75%;
+  padding: 3rem;
+  overflow: auto;
+
+  &__header {
+    width: 100%;
+    font-size: $small-fs;
+    text-transform: capitalize;
+    margin-bottom: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media only screen and (max-width: 37.5em) {
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    &--left {
+      display: flex;
+      gap: 2rem;
+    }
+
+    &--right {
+      display: flex;
+      gap: 2rem;
+      align-self: flex-end;
+
+      @media only screen and (max-width: 37.5em) {
+        width: 100%;
+      }
+    }
+
+    & select {
+      margin-left: 1rem;
+    }
+  }
+
+  &__container {
+    display: grid;
+    gap: 2rem;
+
+    @media only screen and (max-width: 30em) {
+      flex-direction: column;
+    }
+
+    &--cols {
+      grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+
+      &--less-then-three {
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 30rem));
+
+        @media only screen and (max-width: 30em) {
+          max-width: 100%;
+        }
+      }
+    }
+
+    &--rows {
+      grid-template-columns: 1fr;
+      width: 65rem;
+      max-width: 100%;
+    }
+  }
+}
+
+.loader {
+  width: 100%;
+  display: grid;
+  place-items: center;
+
+  & svg {
+    font-size: 3.5rem;
+    margin-top: 2rem;
+    animation: loader 2s infinite linear;
+  }
+}
+
+.error-message {
+  width: 100%;
+  text-align: center;
+  color: rgb(235, 42, 42);
+}
+
+.select-container {
+  background: $light-blue-cl--2;
+  text-transform: capitalize;
+  padding: 1rem;
+  border: none;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+}
+
+.btn-container {
+  display: flex;
+}

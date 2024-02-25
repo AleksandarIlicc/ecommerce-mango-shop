@@ -1,0 +1,31 @@
+.footer {
+  font-size: 1.3rem;
+  background: rgb(49, 105, 131);
+  color: rgb(255, 255, 255);
+  padding: 4rem 0;
+}
+.footer__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+}
+.footer h3 {
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.footer svg {
+  font-size: 2rem;
+}
+.footer__icons > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.footer__icons svg {
+  margin-right: 0.9rem;
+}
+.footer__opening-time {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap: 1rem;
+}/*# sourceMappingURL=footer.style.css.map */

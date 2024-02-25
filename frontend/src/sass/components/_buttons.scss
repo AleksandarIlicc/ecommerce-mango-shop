@@ -92,7 +92,9 @@
   }
 
   &__product-header {
-    @include flexContainer(center, center);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 2.3rem;
     width: 4rem;
     height: 4rem;
@@ -163,5 +165,12 @@
     &:hover {
       box-shadow: 0.1rem 0.1rem 0.6rem rgba(0, 0, 0, 0.3);
     }
+  }
+
+  &__pay {
+    width: 100%;
+    padding: 1rem;
+    color: $dark-blue-cl;
+    background-color: $white-cl;
   }
 }

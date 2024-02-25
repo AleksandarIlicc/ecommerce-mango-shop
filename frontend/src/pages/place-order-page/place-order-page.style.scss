@@ -1,0 +1,61 @@
+@import "../../sass/abstract/variables";
+
+.order {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    @media only screen and (max-width: 48em) {
+      flex-direction: column;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex-basis: 40%;
+  }
+
+  &__box > div {
+    background: $light-blue-cl--2;
+    color: $white-cl;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+
+    span {
+      color: $dark-blue-cl;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.order-product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 3rem 1rem 1rem;
+
+  &__img {
+    width: 15rem;
+    height: 15rem;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+  }
+
+  &__total-price {
+    font-weight: 600;
+  }
+}

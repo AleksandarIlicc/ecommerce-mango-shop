@@ -1,0 +1,23 @@
+@import "../../sass/abstract/variables";
+
+.payment-box {
+  margin: 3rem 0 auto 0;
+
+  background-color: $light-blue-cl--1;
+  box-shadow: $box-shadow;
+
+  label {
+    color: $white-cl;
+  }
+
+  input {
+    padding: 0.2rem 1rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border: none;
+  }
+
+  .cc-inputs input {
+    width: 6rem;
+  }
+}

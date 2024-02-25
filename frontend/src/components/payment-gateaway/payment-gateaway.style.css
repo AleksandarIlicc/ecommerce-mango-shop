@@ -1,0 +1,17 @@
+.payment-box {
+  margin: 3rem 0 auto 0;
+  background-color: rgb(118, 183, 208);
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+.payment-box label {
+  color: rgb(255, 255, 255);
+}
+.payment-box input {
+  padding: 0.2rem 1rem;
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+}
+.payment-box .cc-inputs input {
+  width: 6rem;
+}/*# sourceMappingURL=payment-gateaway.style.css.map */

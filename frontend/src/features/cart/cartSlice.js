@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    productCart: localStorage.getItem("productCart")
-      ? JSON.parse(localStorage.getItem("productCart"))
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
     shippingAddress: localStorage.getItem("shippingAddress")
       ? JSON.parse(localStorage.getItem("shippingAddress"))
@@ -14,30 +14,29 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProductToCart: (state, action) => {
-      const existProduct = state.productCart.find(
+      const existProduct = state.cartItems.find(
         (product) => product._id === action.payload._id
       );
-
       if (existProduct) {
         return {
           ...state,
-          productCart: state.productCart.map((product) =>
+          cartItems: state.cartItems.map((product) =>
             product._id === existProduct._id ? action.payload : product
           ),
         };
       } else {
         return {
           ...state,
-          productCart: [...state.productCart, action.payload],
+          cartItems: [...state.cartItems, action.payload],
         };
       }
     },
     removeProductFromCart: (state, action) => {
-      const newCart = state.productCart.filter(
+      const newCart = state.cartItems.filter(
         (product) => product._id !== action.payload
       );
-      localStorage.setItem("productCart", JSON.stringify(newCart));
-      return { ...state, productCart: [...newCart] };
+      localStorage.setItem("cartItems", JSON.stringify(newCart));
+      return { ...state, cartItems: [...newCart] };
     },
     saveShippingAddress: (state, action) => {
       localStorage.setItem("shippingAddress", JSON.stringify(action.payload));
@@ -51,7 +50,7 @@ const cartSlice = createSlice({
       return { ...state, orderSummaryInfo: action.payload };
     },
     cartEmpty: (state, action) => {
-      return { ...state, error: "", productCart: [] };
+      return { ...state, error: "", cartItems: [] };
     },
   },
 });

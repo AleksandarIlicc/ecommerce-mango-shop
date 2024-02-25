@@ -1,24 +1,35 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import HomePage from "./pages/home-page/HomePage";
-import AboutPage from "./pages/about-page/AboutPage";
-import ProductsPage from "./pages/products-page/ProductsPage";
-import CartPage from "./pages/cart-page/CartPage";
-import ShippingPage from "./pages/shipping-page/ShippingPage";
-import RegisterPage from "./pages/register-page/RegisterPage";
-import SigninPage from "./pages/sign-in-page/SigninPage";
-import Error404Page from "./pages/error-page/Error404Page";
-import SingleProductPage from "./pages/single-products-page/SingleProductPage";
-import PaymentPage from "./pages/payment-page/PaymentPage";
-import PlaceOrderPage from "./pages/place-order-page/PlaceOrderPage";
-import OrderPage from "./pages/order-page/OrderPage";
-import OrderHistory from "./pages/order-history-page/OrderHistory";
-import Footer from "./components/Footer";
+// Components
+import Navbar from "./components/navbar/navbar.component";
+import Footer from "./components/footer/footer.component";
+
+// Pages
+import HomePage from "./pages/home-page/home-page.component";
+import AboutPage from "./pages/about-page/about-page.component";
+import ProductsPage from "./pages/products-page/products-page.component";
+import CartPage from "./pages/cart-page/cart-page.component";
+import ShippingPage from "./pages/shipping-page/shipping-page.component";
+import RegisterPage from "./pages/register-page/register-page.component";
+import SigninPage from "./pages/sign-in-page/signin-page.component";
+import SingleProductPage from "./pages/single-products-page/single-product-page";
+import PaymentPage from "./pages/payment-page/payment-page.component";
+import PlaceOrderPage from "./pages/place-order-page/place-order-page.component";
+import OrderPage from "./pages/order-page/order-page.component";
+import OrderHistory from "./pages/order-history-page/order-history-page.component";
+import Dashboard from "./pages/dashboard/dashboard-page.component";
+import Error404Page from "./pages/error-page/error-404-page.component";
 
 import setAuthToken from "./utils/setAuthToken";
-import { loadUser } from "./pages/register-page/RegisterPage";
+import { loadUser } from "./pages/register-page/register-page.component";
+
+import { useSelector } from "react-redux";
 
 import "./sass/main.css";
 
@@ -26,15 +37,11 @@ if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
 }
 
-const Success = () => {
-  return <div>Success</div>;
-};
-
-const Cancel = () => {
-  return <div>Cancel</div>;
-};
-
 function App() {
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
+  const isAdmin = userInfo && userInfo.role === "admin";
+
   useEffect(() => {
     loadUser();
   }, []);
@@ -45,9 +52,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<HomePage />}></Route>
-
-          <Route exact path="/success" element={<Success />}></Route>
-          <Route exact path="/cancel" element={<Cancel />}></Route>
 
           <Route exact path="/products" element={<ProductsPage />}></Route>
           <Route exact path="/about" element={<AboutPage />}></Route>
@@ -64,6 +68,13 @@ function App() {
             path="/api/products/:id"
             element={<SingleProductPage />}
           ></Route>
+
+          {isAdmin ? (
+            <Route exact path="/dashboard" element={<Dashboard />} />
+          ) : (
+            <Route path="/dashboard" element={<Navigate to="/" />} />
+          )}
+
           <Route path="*" element={<Error404Page />}></Route>
         </Routes>
         <Footer />

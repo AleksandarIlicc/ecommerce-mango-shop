@@ -2,10 +2,25 @@ const asyncWrapper = require("../middleware/async");
 const Products = require("../models/productsModel");
 const data = require("../data/products.json");
 
+const insertProductsToMongoDB = asyncWrapper(async () => {
+  try {
+    // await Products.deleteMany({});
+
+    const insertedProducts = await Products.insertMany(data);
+
+    console.log(
+      `${insertedProducts.length} proizvoda uspešno ubačeno u MongoDB.`
+    );
+  } catch (error) {
+    console.error("Greška prilikom ubacivanja proizvoda u MongoDB:", error);
+  }
+});
+// insertProductsToMongoDB();
+
 const getAllProducts = asyncWrapper(async (req, res) => {
   const products = await Products.find();
   res.send(products);
-})
+});
 
 const getSingleProduct = asyncWrapper(async (req, res) => {
   const id = req.params.id;
@@ -16,7 +31,7 @@ const getSingleProduct = asyncWrapper(async (req, res) => {
   } else {
     res.status(404).send({ message: "Product Not Found" });
   }
-})
+});
 
 const getSearchResult = asyncWrapper(async (req, res) => {
   const { query } = req;
@@ -71,7 +86,7 @@ const getSearchResult = asyncWrapper(async (req, res) => {
   }).sort(sortOrder);
 
   res.send(products);
-})
+});
 
 module.exports = {
   getAllProducts,

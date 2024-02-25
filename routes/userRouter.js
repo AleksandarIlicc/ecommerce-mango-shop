@@ -37,6 +37,7 @@ router.post(
         name,
         email,
         password,
+        role: "user",
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -55,7 +56,7 @@ router.post(
         { expiresIn: 60 * 60 },
         (err, token) => {
           if (err) throw err;
-          res.json(token);
+          res.json({ token, message: "Registration successful" });
         }
       );
     } catch (err) {
@@ -63,5 +64,14 @@ router.post(
     }
   }
 );
+
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find({ role: "user" });
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;

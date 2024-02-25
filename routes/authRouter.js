@@ -7,10 +7,39 @@ const auth = require("../middleware/auth");
 const User = require("../models/userModel");
 require("dotenv").config();
 
+// Update user role
+
+const userId = "";
+
+const updateUserRole = async () => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: { role: "admin" } },
+      { new: true }
+    ).exec();
+
+    console.log("Uloga admina uspešno dodana:", updatedUser);
+  } catch (err) {
+    console.error("Greška prilikom ažuriranja korisnika:", err);
+  } finally {
+    mongoose.disconnect();
+  }
+};
+
+// updateUserRole();
+
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    res.json(user);
+
+    if (user.role === "user") {
+      res.json({ user, message: "You are logged in as a regular user" });
+    }
+
+    if (user.role === "admin") {
+      res.json({ user, message: "You are logged in as an admin" });
+    }
   } catch (err) {
     res.status(500).send("Server Error");
   }

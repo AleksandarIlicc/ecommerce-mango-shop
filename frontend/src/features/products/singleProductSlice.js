@@ -7,21 +7,21 @@ const singleProductSlice = createSlice({
     loading: true,
   },
   reducers: {
-    singleProductSuccessRequest: (state, action) => {
+    singleProductRequest: (state, action) => {
       return { loading: true };
     },
-    fetchSingleProduct: (state, action) => {
+    singleProductSuccess: (state, action) => {
       return { loading: false, product: action.payload };
     },
-    singleProductErrorRequest: (product, action) => {
+    singleProductError: (product, action) => {
       return { loading: false, error: action.payload };
     },
   },
 });
 
 export const {
-  singleProductSuccessRequest,
-  fetchSingleProduct,
+  singleProductRequest,
+  singleProductSuccess,
   singleProductErrorRequest,
 } = singleProductSlice.actions;
 export default singleProductSlice.reducer;

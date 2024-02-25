@@ -30,11 +30,70 @@ body {
   line-height: 1.7;
 }
 
+.container {
+  max-width: 130rem;
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
 .section {
   width: 100%;
-  padding: 3rem 2rem;
+  min-height: calc(100vh - $nav-height);
+  padding: 3rem 0;
 
   @media only screen and (max-width: 30em) {
     padding: 1rem;
   }
+}
+
+.form-section {
+  width: 100%;
+  min-height: calc(100vh - 12vh);
+  padding: 2rem 2rem 4rem 2rem;
+
+  @media only screen and (max-width: 43.75em) {
+    padding: 1rem 0;
+  }
+
+  &--order {
+    @media only screen and (max-width: 43.75em) {
+      padding: 1rem;
+    }
+  }
+}
+
+.from-alert-container {
+  width: 70%;
+  margin: 1rem auto;
+}
+
+.alert {
+  font-size: $small-fs;
+  font-weight: 600;
+  margin-top: 0.7rem;
+  padding: 1rem;
+  border-radius: 0.3;
+
+  &--danger {
+    background: rgb(255, 172, 172);
+    color: rgb(248, 39, 39);
+    border-left: 0.5rem solid rgb(248, 39, 39);
+  }
+
+  &--success {
+    background: rgb(177, 255, 170);
+    color: rgb(12, 148, 0);
+    border-left: 0.5rem solid rgb(12, 148, 0);
+  }
+}
+
+.Toastify__toast-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Toastify__toast-body {
+  padding: 0 4rem;
 }

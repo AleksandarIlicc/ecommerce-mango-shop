@@ -1,111 +1,158 @@
 const { Router } = require("express");
-const crypto = require("crypto");
-const Razorpay = require("razorpay");
 const router = new Router();
 const Order = require("../models/orderModel");
 const auth = require("../middleware/auth");
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
-    const instance = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_SECRET,
+    const { cartItems, shippingAddress, paymentMethod, orderSummaryInfo } =
+      req.body;
+
+    if (!cartItems || !shippingAddress || !paymentMethod || !orderSummaryInfo) {
+      return res.status(400).send({ message: "Missing required fields" });
+    }
+
+    if (cartItems.length === 0) {
+      return res.status(400).send({ message: "Cart is empty" });
+    }
+
+    const { productsQuantity, productsPrice, shippingPrice, totalPrice } =
+      orderSummaryInfo;
+
+    const order = new Order({
+      products: cartItems,
+      shippingAddress,
+      paymentMethod,
+      costInfo: {
+        productsQuantity,
+        productsPrice,
+        shippingPrice,
+        totalPrice,
+      },
+      user: req.user.id,
     });
 
-    const options = {
-      amount: req.body.amount * 100,
-      currency: "USD",
-      receipt: crypto.randomBytes(10).toString("hex"),
-    };
-
-    instance.orders.create(options, (error, order) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({ message: "Something Went Wrong!" });
-      }
-      res.status(200).json({ data: order });
-    });
+    const createdOrder = await order.save();
+    res.status(201).send({ message: "New Order Created", order: createdOrder });
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error!" });
-    console.log(error);
+    console.error(error);
+    res.status(500).send({ message: "Server Error" });
   }
 });
 
-router.post("/verify", async (req, res) => {
+router.get("/list-orders", async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-      req.body;
-    const sign = razorpay_order_id + "|" + razorpay_payment_id;
-    const expectedSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_SECRET)
-      .update(sign.toString())
-      .digest("hex");
+    const orders = await Order.find();
 
-    if (razorpay_signature === expectedSign) {
-      return res.status(200).json({ message: "Payment verified successfully" });
+    if (orders.length > 0) {
+      res.status(200).json({
+        success: true,
+        message: "Orders fetched successfully.",
+        orders,
+      });
     } else {
-      return res.status(400).json({ message: "Invalid signature sent!" });
+      res.status(404).json({
+        success: false,
+        message: "No orders found.",
+      });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error!" });
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 });
 
-// router.post("/", auth, async (req, res) => {
-//   const { orderProducts, shippingAddress, paymentMethod } = req.body;
-//   const { numOfProducts, productsPrice, shippingPrice, totalPrice } =
-//     req.body.orderSummaryInfo;
+router.get("/:id", auth, async (req, res) => {
+  const orderID = req.params.id;
 
-//   if (req.body.orderProducts.length === 0) {
-//     res.status(400).send({ message: "Cart is empty" });
-//   } else {
-//     const order = new Order({
-//       orderProducts,
-//       shippingAddress,
-//       paymentMethod,
-//       numOfProducts,
-//       productsPrice,
-//       shippingPrice,
-//       totalPrice,
-//       user: req.user.id,
-//     });
-//     const createdOrder = await order.save();
-//     res.status(201).send({ message: "New Order Created", order: createdOrder });
-//   }
-// });
+  try {
+    const order = await Order.findById(orderID);
 
-// router.get("/:id", auth, async (req, res) => {
-//   const orderID = req.params.id;
+    res.send(order);
+  } catch (error) {
+    res.status(404).send({ message: "Order Not Found" });
+  }
+});
 
-//   const order = await Order.findById(orderID);
-//   if (order) {
-//     res.send(order);
-//   } else {
-//     res.status(404).send({ message: "Order Not Found" });
-//   }
-// });
+router.put("/:id/pay", auth, async (req, res) => {
+  const orderID = req.params.id;
+  const { paymentDate, isPaid } = req.body;
 
-// router.put("/:id/pay", auth, async (req, res) => {
-//   const orderID = req.params.id;
+  const order = await Order.findById(orderID);
 
-//   const order = await Order.findById(orderID);
+  if (order) {
+    order.isPaid = isPaid;
+    order.paidAt = paymentDate;
 
-//   if (order) {
-//     order.isPaid = true;
-//     order.paidAt = Date.now();
-//     order.paymentResult = {
-//       id: req.body.id,
-//       status: req.body.status,
-//       update_time: req.body.update_time,
-//       email_address: req.body.email_address,
-//     };
-//     const updatedOrder = await order.save();
+    const updatedOrder = await order.save();
 
-//     res.send({ message: "Order Paid", order: updatedOrder });
-//   } else {
-//     res.status(404).send({ message: "Order Not Found" });
-//   }
-// });
+    res.send({ message: "Order successfully paid.", order: updatedOrder });
+  } else {
+    res.status(404).send({ message: "Order Not Found" });
+  }
+});
+
+router.put("/:id/shipping", async (req, res) => {
+  const orderID = req.params.id;
+
+  const { isShipped, shippedDate } = req.body;
+
+  try {
+    const order = await Order.findById(orderID);
+
+    if (order) {
+      order.isShipped = isShipped;
+      order.shippedAt = shippedDate;
+
+      const updatedOrder = await order.save();
+
+      res.send({ message: "Order successfully shipped.", order: updatedOrder });
+    }
+  } catch (error) {
+    res.status(404).send({ message: "Order Not Found" });
+  }
+});
+
+router.put("/:id/delivery", async (req, res) => {
+  const orderID = req.params.id;
+
+  const { isDelivered, deliveredDate } = req.body;
+
+  try {
+    const order = await Order.findById(orderID);
+
+    if (order) {
+      order.isDelivered = isDelivered;
+      order.deliveredAt = deliveredDate;
+
+      const updatedOrder = await order.save();
+
+      res.send({
+        message: "Order successfully delivered.",
+        order: updatedOrder,
+      });
+    }
+  } catch (error) {
+    res.status(404).send({ message: "Order Not Found" });
+  }
+});
+
+router.get("/user/:id", async (req, res) => {
+  const userID = req.params.id;
+
+  try {
+    const orders = await Order.find({ user: userID }).sort({ createdAt: -1 });
+
+    if (orders.length > 0) {
+      res.status(200).json({ orders, message: "Orders fetched successfully." });
+    } else {
+      res.status(404).json({ message: "No orders found for the user." });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;

@@ -4,8 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-// const crypto = require("crypto");
-// const Razorpay = require("razorpay");
+
 const connectDB = require("./db/connect.js");
 dotenv.config({ path: "config.env" });
 
@@ -46,15 +45,6 @@ app.use("/api/comments", commentsRouter);
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
-
-// app.get("/get-razorpay-key", (req, res) => {
-//   res.send({ key: process.env.RAZORPAY_KEY_ID });
-// });
-
-// app.get('/list-orders', async (req, res) => {
-//   const orders = await Order.find();
-//   res.send(orders);
-// });
 
 app.use(express.static(path.join(__dirname, "frontend", "build")));
 app.get("*", (req, res) => {
