@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,10 +11,22 @@ import {
   updateIsDelivered,
 } from "../../features/order/orderHistorySlice";
 
+import { formatDate } from "../../utils/helpers";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
+
+import "./order-history-page.style.scss";
+
+const BUTTON_CLASS_PENDING =
+  "recent-order__active-status recent-order__active-status--pending";
+const BUTTON_CLASS_SHIPPED =
+  "recent-order__active-status recent-order__active-status--shipped";
+const BUTTON_CLASS_DELIVERED =
+  "recent-order__active-status recent-order__active-status--delivered";
+const BUTTON_CLASS_DEFAULT = "recent-order__active-status";
 
 const OrderHistory = () => {
   const navigate = useNavigate();
@@ -87,10 +99,13 @@ const OrderHistory = () => {
     }
   };
 
-  const handleDeliverOrder = (orderID) => {
-    dispatch(orderHistoryRequest());
-    deliverOrder(orderID);
-  };
+  const handleDeliverOrder = useCallback(
+    (orderID) => {
+      dispatch(orderHistoryRequest());
+      deliverOrder(orderID);
+    },
+    [dispatch, deliverOrder]
+  );
 
   return (
     <main>
@@ -99,7 +114,7 @@ const OrderHistory = () => {
           <h3 className="heading__tertiary mb-8">Hello, {userName}</h3>
 
           <div className="history-orders">
-            {user.userInfo && orders.length ? (
+            {user.userInfo && orders.length > 0 ? (
               orders.map((order) => {
                 return (
                   <div key={order._id} className="mb-6">
@@ -180,19 +195,17 @@ const OrderHistory = () => {
                         <div className="flex justify-center">
                           <button
                             className={
-                              order.isPaid &&
-                              !order.isShipped &&
-                              !order.isDelivered
-                                ? "recent-order__active-status recent-order__active-status--pending"
+                              order.isPaid && !order.isShipped
+                                ? BUTTON_CLASS_PENDING
                                 : order.isPaid &&
                                   order.isShipped &&
                                   !order.isDelivered
-                                ? "recent-order__active-status recent-order__active-status--shipped"
+                                ? BUTTON_CLASS_SHIPPED
                                 : order.isPaid &&
                                   order.isShipped &&
                                   order.isDelivered
-                                ? "recent-order__active-status recent-order__active-status--delivered"
-                                : "recent-order__active-status"
+                                ? BUTTON_CLASS_DELIVERED
+                                : BUTTON_CLASS_DEFAULT
                             }
                             disabled={order.isPaid && !order.isShipped}
                             onClick={() => handleDeliverOrder(order._id)}

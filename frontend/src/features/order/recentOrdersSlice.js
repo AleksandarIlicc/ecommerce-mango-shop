@@ -28,7 +28,7 @@ const recentOrdersSlice = createSlice({
         order._id === orderID ? { ...order, isShipped } : order
       );
 
-      return { ...state, orders: updatedOrder };
+      return { ...state, loading: false, orders: updatedOrder };
     },
   },
 });

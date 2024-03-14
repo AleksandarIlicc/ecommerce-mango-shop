@@ -1,1 +1,16 @@
-/*# sourceMappingURL=single-order-history.style.css.map */
+.single-history-order {
+  display: flex;
+  gap: 2rem;
+}
+.single-history-order figure {
+  width: 12rem;
+  height: 12rem;
+}
+.single-history-order figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+}/*# sourceMappingURL=single-order-history.style.css.map */

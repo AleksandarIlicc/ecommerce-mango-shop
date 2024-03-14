@@ -1,6 +1,8 @@
+import "./single-order-history.style.scss";
+
 const SingleOrderHistory = ({ order, product }) => {
   return (
-    <div className="history-order my-6">
+    <div className="single-history-order my-6">
       <figure>
         <img src={product.image} alt={product.name} />
       </figure>

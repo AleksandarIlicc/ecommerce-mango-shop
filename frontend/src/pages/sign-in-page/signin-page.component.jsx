@@ -64,14 +64,12 @@ const SigninPage = () => {
     const handledResponse = handleResponse(response);
 
     if (handledResponse.errorMessage) {
-      // const errors = err.response.data.errors;
-      const errors = handledResponse.errorMessage;
+      const errors = response.response.data.errors;
 
-      // if (errors) {
-      //   errors.forEach((error) => toast.error(error.msg));
-      // }
-
-      // dispatch(userLoginFail());
+      if (errors) {
+        errors.forEach((error) => toast.error(error.msg));
+      }
+      dispatch(userLoginFail());
     } else {
       dispatch(userLoginSuccess(handledResponse));
       loadUser();

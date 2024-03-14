@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import InfoBox from "../info-box/info-box.component";
@@ -104,4 +104,4 @@ const DashboardInfoBoxes = () => {
   );
 };
 
-export default DashboardInfoBoxes;
+export default React.memo(DashboardInfoBoxes);

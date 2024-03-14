@@ -27,7 +27,7 @@ export const handleResponse = (response) => {
         break;
     }
 
-    return errorMessage;
+    return { errorMessage };
   } else {
     return response.data;
   }
