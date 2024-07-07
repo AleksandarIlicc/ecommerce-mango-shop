@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { userLoginFail, userLoginSuccess } from "../../features/user/authSlice";
 
 import CheckoutSteps from "../../components/checkout-steps/checkout-steps.component";
 import Form from "../../components/form/form.component";
+import { loginFields, initialLoginData } from "../../utils/formFields";
+import useFormData from "../../customHooks/useFormData";
 
 import { loadUser } from "../register-page/register-page.component";
 import AuthClient from "../../api/authApis";
@@ -13,32 +15,10 @@ import { handleResponse } from "../../utils/helpers";
 
 import { toast } from "react-toastify";
 
-const fields = [
-  {
-    label: "Email address",
-    type: "email",
-    id: "email",
-    name: "email",
-    placeholder: "Enter email",
-    required: true,
-  },
-  {
-    label: "Password",
-    type: "password",
-    id: "password",
-    name: "password",
-    placeholder: "Enter password",
-    required: true,
-  },
-];
-
 const SigninPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, handleFormData] = useFormData(initialLoginData);
 
   const authClient = new AuthClient();
 
@@ -76,9 +56,6 @@ const SigninPage = () => {
     }
   };
 
-  const handleFormData = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const onSubmit = async (e) => {
     e.preventDefault();
     login(email, password);
@@ -90,6 +67,14 @@ const SigninPage = () => {
     }
   }, [navigate, redirect, userInfo]);
 
+  const formConfig = {
+    isLoginMode: true,
+    redirectPage: "register",
+    redirect,
+    textLink: "Create your account",
+    fields: loginFields,
+  };
+
   return (
     <main>
       <section className="form-section">
@@ -99,12 +84,7 @@ const SigninPage = () => {
           onSubmit={onSubmit}
           handleFormData={handleFormData}
           formData={formData}
-          formTitle="Sing in"
-          formSubtitle="Welcome back you've been missed!"
-          redirectPage="register"
-          redirect={redirect}
-          textLink="Create your account"
-          fields={fields}
+          formConfig={formConfig}
         />
       </section>
     </main>

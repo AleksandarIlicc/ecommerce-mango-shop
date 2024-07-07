@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Form from "../../components/form/form.component";
+import useFormData from "../../customHooks/useFormData";
+import { registerFields, initialRegisterData } from "../../utils/formFields";
 
 import {
   userLoaded,
@@ -33,53 +35,14 @@ export const loadUser = async () => {
   }
 };
 
-const fields = [
-  {
-    label: "Full name",
-    type: "text",
-    id: "name",
-    name: "name",
-    placeholder: "Enter name",
-  },
-  {
-    label: "Email address",
-    type: "email",
-    id: "email",
-    name: "email",
-    placeholder: "Enter email",
-  },
-  {
-    label: "Password",
-    type: "password",
-    id: "password",
-    name: "password",
-    placeholder: "Enter password",
-  },
-  {
-    label: "Confirm password",
-    type: "password",
-    id: "password2",
-    name: "password2",
-    placeholder: "Confirm password",
-  },
-];
-
 const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-  });
+  const [formData, handleFormData] = useFormData(initialRegisterData);
 
   const { name, email, password, password2 } = formData;
 
   const userClient = new UserClinent();
-
-  const handleFormData = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
@@ -128,6 +91,14 @@ const RegisterPage = () => {
     }
   }, [navigate, redirect, userInfo]);
 
+  const formConfig = {
+    isLoginMode: false,
+    redirectPage: "signin",
+    redirect,
+    textLink: "Already have an account?",
+    fields: registerFields,
+  };
+
   return (
     <main>
       <section className="form-section">
@@ -135,12 +106,7 @@ const RegisterPage = () => {
           onSubmit={onSubmit}
           handleFormData={handleFormData}
           formData={formData}
-          formTitle="Sing up"
-          formSubtitle=""
-          redirectPage="signin"
-          redirect={redirect}
-          textLink="Already have an account?"
-          fields={fields}
+          formConfig={formConfig}
         />
       </section>
     </main>

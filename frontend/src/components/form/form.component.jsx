@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import InputBox from "../input-box/input-box.component";
+import InputBoxList from "./input-box-list/input-box-list.component";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,12 +11,7 @@ const Form = ({
   onSubmit,
   handleFormData,
   formData,
-  formTitle,
-  formSubtitle,
-  redirectPage,
-  redirect,
-  textLink,
-  fields,
+  formConfig: { isLoginMode, redirectPage, redirect, textLink, fields },
 }) => {
   return (
     <div className="form-container">
@@ -30,28 +25,18 @@ const Form = ({
         <form className="form" onSubmit={onSubmit}>
           <div>
             <h1 className="heading__primary heading__primary--black mt-[2rem] mb-[2rem]">
-              {formTitle}
+              {isLoginMode ? "Sing in" : "Sing up"}
             </h1>
-            <p>{formSubtitle}</p>
+            <p>{isLoginMode && "Welcome back you've been missed!"}</p>
           </div>
 
           <ToastContainer />
 
-          {fields.map((field, index) => (
-            <InputBox
-              key={index}
-              label={field.label}
-              htmlFor={field.id}
-              type={field.type}
-              id={field.id}
-              name={field.name}
-              imgSrc={field.imgSrc}
-              value={formData[field.name]}
-              placeholder={field.placeholder}
-              required={field.required}
-              onChange={handleFormData}
-            />
-          ))}
+          <InputBoxList
+            fields={fields}
+            formData={formData}
+            handleFormData={handleFormData}
+          />
 
           <div>
             <button className="btn btn__form mb-small" type="submit">
