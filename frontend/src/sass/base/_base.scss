@@ -46,22 +46,6 @@ body {
   }
 }
 
-.form-section {
-  width: 100%;
-  min-height: calc(100vh - 12vh);
-  padding: 2rem 2rem 4rem 2rem;
-
-  @media only screen and (max-width: 43.75em) {
-    padding: 1rem 0;
-  }
-
-  &--order {
-    @media only screen and (max-width: 43.75em) {
-      padding: 1rem;
-    }
-  }
-}
-
 .from-alert-container {
   width: 70%;
   margin: 1rem auto;

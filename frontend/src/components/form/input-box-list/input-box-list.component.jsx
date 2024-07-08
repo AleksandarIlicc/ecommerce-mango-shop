@@ -1,9 +1,9 @@
 import InputBox from "../input-box/input-box.component";
 
 const InputBoxList = ({ fields, formData, handleFormData }) => {
-  return fields.map((field, index) => (
+  return fields.map((field) => (
     <InputBox
-      key={index}
+      key={field.id}
       label={field.label}
       htmlFor={field.id}
       type={field.type}

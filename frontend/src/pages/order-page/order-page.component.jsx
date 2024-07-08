@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import SingleCartProduct from "../../components/single-cart-product/single-cart-product.component";
 import PaymentGateaway from "../../components/payment-gateaway/payment-gateaway.component";
+import OrderSummary from "../../components/order-summary/order-summary.component";
 import Loader from "../../components/loader/loader.component";
 import ErrorMessage from "../../components/error-message/error-message.component";
 
@@ -19,9 +20,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import OrderClient from "../../api/ordersApis";
 import { handleResponse } from "../../utils/helpers";
-
-import "./order-page.style.scss";
-import OrderSummary from "../../components/order-summary/order-summary.component";
 
 const OrderPage = () => {
   const orderClient = new OrderClient();

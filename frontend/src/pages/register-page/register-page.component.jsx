@@ -1,115 +1,56 @@
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import Form from "../../components/form/form.component";
-import useFormData from "../../customHooks/useFormData";
-import { registerFields, initialRegisterData } from "../../utils/formFields";
-
+import { useDispatch } from "react-redux";
+import FormPage from "../form-page/form-page.component";
 import {
-  userLoaded,
-  userRegisterSuccess,
   userRegisterFail,
-  authError,
+  userRegisterSuccess,
 } from "../../features/user/authSlice";
-import { store } from "../../store";
-
-import setAuthToken from "../../utils/setAuthToken";
-import UserClinent from "../../api/userApis";
-
+import { loadUser } from "../../utils/auth";
+import UserClient from "../../api/userApis";
+import { registerFields, initialRegisterData } from "../../utils/formFields";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import axios from "axios";
-
-export const loadUser = async () => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
-
-  try {
-    const { data } = await axios.get("/api/auth");
-    store.dispatch(userLoaded(data.user));
-  } catch (err) {
-    store.dispatch(authError());
-  }
-};
 
 const RegisterPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, handleFormData] = useFormData(initialRegisterData);
+  const userClient = new UserClient();
 
-  const { name, email, password, password2 } = formData;
+  const handleRegisterSubmit = async (formData) => {
+    const { name, email, password, password2 } = formData;
+    if (password !== password2) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
-  const userClient = new UserClinent();
-
-  const user = useSelector((state) => state.user);
-  const { userInfo } = user;
-
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
-
-  const register = async (name, email, password) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
+    const config = { headers: { "Content-Type": "application/json" } };
     const body = JSON.stringify({ name, email, password });
 
-    const result = await userClient.registerUser(body, config);
+    const response = await userClient.registerUser(body, config);
+    // const handledResponse = handleResponse(response);
 
-    if (result?.response?.status === 400) {
-      const errors = result.response.data.errors;
-
+    // if (handledResponse.errorMessage)
+    if (response?.response?.status === 400) {
+      const errors = response.response.data.errors;
       if (errors) {
         errors.forEach((error) => toast.error(error.msg));
       }
-
       dispatch(userRegisterFail());
     } else {
-      dispatch(userRegisterSuccess(result));
+      dispatch(userRegisterSuccess(response));
       loadUser();
     }
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      toast.error("Password do not match");
-    } else {
-      register(name, email, password);
-    }
-  };
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]);
-
   const formConfig = {
     isLoginMode: false,
     redirectPage: "signin",
-    redirect,
+    redirect: "/",
     textLink: "Already have an account?",
     fields: registerFields,
+    initialFormData: initialRegisterData,
+    showCheckoutSteps: false,
   };
 
   return (
-    <main>
-      <section className="form-section">
-        <Form
-          onSubmit={onSubmit}
-          handleFormData={handleFormData}
-          formData={formData}
-          formConfig={formConfig}
-        />
-      </section>
-    </main>
+    <FormPage formConfig={formConfig} onSubmitHandler={handleRegisterSubmit} />
   );
 };
 

@@ -18,8 +18,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
-import "./order-history-page.style.scss";
-
 const BUTTON_CLASS_PENDING =
   "recent-order__active-status recent-order__active-status--pending";
 const BUTTON_CLASS_SHIPPED =

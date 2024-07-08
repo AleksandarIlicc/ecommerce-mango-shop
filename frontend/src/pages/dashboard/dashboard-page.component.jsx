@@ -16,8 +16,6 @@ import {
 import { handleResponse } from "../../utils/helpers";
 import OrderClient from "../../api/ordersApis";
 
-import "./dashboard-page.style.scss";
-
 const Dashboard = () => {
   const orderClient = new OrderClient();
 

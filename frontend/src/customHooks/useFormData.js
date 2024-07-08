@@ -3,8 +3,14 @@ import { useState } from "react";
 const useFormData = (initialData) => {
   const [formData, setFormData] = useState(initialData);
 
-  const handleFormData = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleFormData = (e) => {
+    const { name, value, id } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value === undefined || value === "" ? id : value,
+    });
+  };
 
   return [formData, handleFormData];
 };

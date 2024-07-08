@@ -1,43 +1,23 @@
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import FormPage from "../form-page/form-page.component";
 import { userLoginFail, userLoginSuccess } from "../../features/user/authSlice";
-
-import CheckoutSteps from "../../components/checkout-steps/checkout-steps.component";
-import Form from "../../components/form/form.component";
-import { loginFields, initialLoginData } from "../../utils/formFields";
-import useFormData from "../../customHooks/useFormData";
-
-import { loadUser } from "../register-page/register-page.component";
-import AuthClient from "../../api/authApis";
+import { loadUser } from "../../utils/auth";
 import { handleResponse } from "../../utils/helpers";
+import { loginFields, initialLoginData } from "../../utils/formFields";
+import useAuth from "../../customHooks/useAuth";
+import AuthClient from "../../api/authApis";
 
 import { toast } from "react-toastify";
 
 const SigninPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, handleFormData] = useFormData(initialLoginData);
-
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const redirect = useAuth(userInfo, "/");
   const authClient = new AuthClient();
 
-  const user = useSelector((state) => state.user);
-  const { userInfo } = user;
-
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
-
-  const { email, password } = formData;
-
-  const login = async (email, password) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
+  const handleLoginSubmit = async (formData) => {
+    const { email, password } = formData;
+    const config = { headers: { "Content-Type": "application/json" } };
     const body = JSON.stringify({ email, password });
 
     const response = await authClient.userLogin(body, config);
@@ -45,7 +25,6 @@ const SigninPage = () => {
 
     if (handledResponse.errorMessage) {
       const errors = response.response.data.errors;
-
       if (errors) {
         errors.forEach((error) => toast.error(error.msg));
       }
@@ -56,38 +35,18 @@ const SigninPage = () => {
     }
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    login(email, password);
-  };
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]);
-
   const formConfig = {
     isLoginMode: true,
     redirectPage: "register",
     redirect,
     textLink: "Create your account",
     fields: loginFields,
+    initialFormData: initialLoginData,
+    showCheckoutSteps: true,
   };
 
   return (
-    <main>
-      <section className="form-section">
-        <CheckoutSteps step1={true} />
-
-        <Form
-          onSubmit={onSubmit}
-          handleFormData={handleFormData}
-          formData={formData}
-          formConfig={formConfig}
-        />
-      </section>
-    </main>
+    <FormPage formConfig={formConfig} onSubmitHandler={handleLoginSubmit} />
   );
 };
 

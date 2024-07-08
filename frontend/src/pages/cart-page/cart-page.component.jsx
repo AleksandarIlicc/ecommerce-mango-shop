@@ -1,9 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import SingleCartProduct from "../../components/single-cart-product/single-cart-product.component";
-
-import "./cart-page.style.scss";
 import OrderSummary from "../../components/order-summary/order-summary.component";
 
 const CartPage = () => {

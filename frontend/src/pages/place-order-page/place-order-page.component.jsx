@@ -19,30 +19,24 @@ import {
 import OrderClient from "../../api/ordersApis";
 import { handleResponse } from "../../utils/helpers";
 
-import "./place-order-page.style.scss";
-
 const PlaceOrderPage = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const cart = useSelector((state) => state.cart);
-  const orderCreate = useSelector((state) => state.order);
-
   const orederClient = new OrderClient();
 
-  if (!cart.paymentMethod) {
-    navigate("/payment");
-  }
-
-  const { userInfo } = user;
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const orderCreate = useSelector((state) => state.order);
+  const cart = useSelector((state) => state.cart);
   const {
     cartItems,
     shippingAddress: { fullName, address, city, postalCode, country },
     paymentMethod,
   } = cart;
-
   const { loading, success, order, error } = orderCreate;
+
+  if (!cart.paymentMethod) {
+    navigate("/payment");
+  }
 
   const createOrder = async (order) => {
     dispatch(orderRequest());

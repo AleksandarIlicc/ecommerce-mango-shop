@@ -26,8 +26,8 @@ import OrderHistory from "./pages/order-history-page/order-history-page.componen
 import Dashboard from "./pages/dashboard/dashboard-page.component";
 import Error404Page from "./pages/error-page/error-404-page.component";
 
-import setAuthToken from "./utils/setAuthToken";
-import { loadUser } from "./pages/register-page/register-page.component";
+import { setAuthToken } from "./utils/auth";
+import { loadUser } from "./utils/auth";
 
 import { useSelector } from "react-redux";
 

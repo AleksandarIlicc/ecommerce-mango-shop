@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
-
 import InputBoxList from "./input-box-list/input-box-list.component";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import "./form.style.scss";
 
 const Form = ({
   onSubmit,
@@ -13,8 +9,21 @@ const Form = ({
   formData,
   formConfig: { isLoginMode, redirectPage, redirect, textLink, fields },
 }) => {
+  const pageTitle = isLoginMode ? "Sign In" : "Sign Up";
+  const welcomeMessage = isLoginMode
+    ? "Welcome back, you've been missed!"
+    : null;
+  const isNewCustomerLink = (
+    <p className="paragraph">
+      {redirectPage === "register" && "New customer?"}{" "}
+      <Link to={`/${redirectPage}?redirect=${redirect}`}>{textLink}</Link>
+    </p>
+  );
+
   return (
     <div className="form-container">
+      <ToastContainer />
+
       <div className="form-container__left">
         <div className="form-logo">
           <span>Mango</span>Shop
@@ -25,12 +34,10 @@ const Form = ({
         <form className="form" onSubmit={onSubmit}>
           <div>
             <h1 className="heading__primary heading__primary--black mt-[2rem] mb-[2rem]">
-              {isLoginMode ? "Sing in" : "Sing up"}
+              {pageTitle}
             </h1>
-            <p>{isLoginMode && "Welcome back you've been missed!"}</p>
+            <p>{isLoginMode && welcomeMessage}</p>
           </div>
-
-          <ToastContainer />
 
           <InputBoxList
             fields={fields}
@@ -44,16 +51,7 @@ const Form = ({
             </button>
           </div>
 
-          {(redirectPage || redirect || textLink) && (
-            <div>
-              <p className="paragraph">
-                {redirectPage === "register" && "New customer?"}{" "}
-                <Link to={`/${redirectPage}?redirect=${redirect}`}>
-                  {textLink}
-                </Link>
-              </p>
-            </div>
-          )}
+          {isNewCustomerLink}
         </form>
       </div>
     </div>

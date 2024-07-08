@@ -8,12 +8,46 @@
 
 @import "components/buttons";
 @import "components/icons";
-// @import "components/orderSummary";
-// @import "components/paymentGateaway";
-// @import "components/recentOrders";
-// @import "components/search";
-// @import "components/singleProduct";
 
-// @import "pages/dashboardPage";
-// @import "pages/orderHistoryPage";
-// @import "pages/orderPage";
+// Components
+@import "../components/button/button.style.scss";
+@import "../components/checkout-steps/checkout-steps.style.scss";
+@import "../components/comment/comment.style.scss";
+@import "../components/comments/comments.style.scss";
+@import "../components/dashboard-info-box/dashboard-info-boxes.style.scss";
+@import "../components/dashboard-sidebar/dashboard-sidebar.style.scss";
+@import "../components/error-message/error-message.style.scss";
+@import "../components/filter-container/filter-container.style.scss";
+@import "../components/footer/footer.style.scss";
+@import "../components/form/form.style.scss";
+@import "../components/form/input-box/input-box.style.scss";
+@import "../components/header/header.style.scss";
+@import "../components/image-gallery/image-gallery.style.scss";
+@import "../components/info-box/info-box.style.scss";
+@import "../components/loader/loader.style.scss";
+@import "../components/navbar/navbar.style.scss";
+@import "../components/order-summary/order-summary.style.scss";
+@import "../components/payment-gateaway/payment-gateaway.style.scss";
+@import "../components/product-list/product-list.style.scss";
+@import "../components/product/product.style.scss";
+@import "../components/rating/rating.style.scss";
+@import "../components/search-box/search-box.style.scss";
+@import "../components/shopping-info-bar/shopping-info-bar.style.scss";
+@import "../components/single-cart-product/single-cart-product.style.scss";
+@import "../components/single-order-history/single-order-history.style.scss";
+@import "../components/single-product/single-product.style.scss";
+@import "../components/single-recent-order/single-recent-order.style.scss";
+
+// Pages
+@import "../pages/about-page/about-page.style.scss";
+@import "../pages/cart-page/cart-page.style.scss";
+@import "../pages/dashboard/dashboard-page.style.scss";
+@import "../pages/error-page/error-404-page.style.scss";
+@import "../pages/form-page/form-page.style.scss";
+@import "../pages/order-history-page/order-history-page.style.scss";
+@import "../pages/order-page/order-page.style.scss";
+@import "../pages/payment-page/payment-page.style.scss";
+@import "../pages/place-order-page/place-order-page.style.scss";
+@import "../pages/products-page/products-page.style.scss";
+@import "../pages/shipping-page/shipping-page.style.scss";
+@import "../pages/single-products-page/single-product-page.style.scss";
