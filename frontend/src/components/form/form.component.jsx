@@ -13,12 +13,6 @@ const Form = ({
   const welcomeMessage = isLoginMode
     ? "Welcome back, you've been missed!"
     : null;
-  const isNewCustomerLink = (
-    <p className="paragraph">
-      {redirectPage === "register" && "New customer?"}{" "}
-      <Link to={`/${redirectPage}?redirect=${redirect}`}>{textLink}</Link>
-    </p>
-  );
 
   return (
     <div className="form-container">
@@ -51,7 +45,10 @@ const Form = ({
             </button>
           </div>
 
-          {isNewCustomerLink}
+          <p className="paragraph">
+            {redirectPage === "register" && "New customer?"}{" "}
+            <Link to={`/${redirectPage}?redirect=${redirect}`}>{textLink}</Link>
+          </p>
         </form>
       </div>
     </div>

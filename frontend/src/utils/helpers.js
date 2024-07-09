@@ -6,25 +6,31 @@ export const formatDate = (dateString) => {
 export const handleResponse = (response) => {
   if (response.code) {
     let errorMessage = "Unknown error occurred";
-    switch (response.response.status) {
-      case 400:
-        errorMessage = "Bad request";
-        break;
-      case 401:
-        errorMessage = "Unauthorized";
-        break;
-      case 403:
-        errorMessage = "Forbidden";
-        break;
-      case 404:
-        errorMessage = "Not found";
-        break;
-      case 500:
-        errorMessage = "Internal server error";
-        break;
-      default:
-        errorMessage = `Error ${response.status}`;
-        break;
+
+    if (response.response && response.response.status) {
+      switch (response.response.status) {
+        case 400:
+          errorMessage = "Invalid request. Please check your input.";
+          break;
+        case 401:
+          errorMessage = "Unauthorized. Please log in to continue.";
+          break;
+        case 403:
+          errorMessage = "Forbidden. You do not have permission to access.";
+          break;
+        case 404:
+          errorMessage = "Resource not found. Please try again later.";
+          break;
+        case 500:
+          errorMessage = "Internal server error. Please try again later.";
+          break;
+        default:
+          errorMessage = `Error ${response.response.status}. Please try again later.`;
+          break;
+      }
+    } else {
+      errorMessage =
+        "Error: Response status not available. Please try again later.";
     }
 
     return { errorMessage };

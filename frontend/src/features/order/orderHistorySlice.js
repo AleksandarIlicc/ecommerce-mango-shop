@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialOrderHistoryState = {
+  orders: [],
+  message: null,
+  loading: null,
+  success: null,
+  error: null,
+};
+
 const orderHistorySlice = createSlice({
   name: "order-history",
-  initialState: {
-    orders: {},
-    message: null,
-    loading: null,
-    success: null,
-    error: null,
-  },
+  initialState: initialOrderHistoryState,
   reducers: {
-    orderHistoryRequest: (state, action) => {
+    orderHistoryRequest: (state) => {
       return { ...state, loading: true };
     },
     orderHistorySuccess: (state, action) => {
@@ -18,8 +20,8 @@ const orderHistorySlice = createSlice({
 
       return {
         ...state,
-        orders: orders,
-        message: message,
+        orders,
+        message,
         loading: false,
         success: true,
       };

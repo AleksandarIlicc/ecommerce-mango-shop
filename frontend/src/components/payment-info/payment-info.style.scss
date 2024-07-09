@@ -1,0 +1,11 @@
+.order__box > div {
+  background: $light-blue-cl--2;
+  color: $white-cl;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+
+  span {
+    color: $dark-blue-cl;
+    margin-right: 1rem;
+  }
+}

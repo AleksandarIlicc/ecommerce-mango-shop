@@ -19,7 +19,7 @@
   width: 100%;
   height: 30vh;
   padding: 3rem;
-  background-image: url("../../../public/images/dashboard-bg.jpg");
+  background-image: url("/public/images/dashboard-bg.jpg");
   background-position-y: 20%;
 }
 .dashboard__header img {

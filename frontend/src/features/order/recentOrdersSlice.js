@@ -1,23 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialRecentOrdersState = {
+  orders: [],
+  loading: true,
+  error: null,
+};
+
 const recentOrdersSlice = createSlice({
   name: "order",
-  initialState: {
-    orders: [],
-    loading: true,
-    error: null,
-  },
+  initialState: initialRecentOrdersState,
   reducers: {
-    recentOrdersRequest: (state, action) => {
+    recentOrdersRequest: (state) => {
       return { ...state, loading: true };
     },
     recentOrdersSuccess: (state, action) => {
       const { orders, message } = action.payload;
 
-      return { ...state, loading: false, orders: orders, error: message };
+      return { ...state, loading: false, orders, error: message };
     },
     recentOrdersFail: (state, action) => {
-      const { message } = action.payload;
+      const message = action.payload;
 
       return { ...state, loading: false, error: message };
     },

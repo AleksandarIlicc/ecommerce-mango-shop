@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import CheckoutSteps from "../../components/checkout-steps/checkout-steps.component";
-import SingleCartProduct from "../../components/single-cart-product/single-cart-product.component";
+import ShippingInfo from "../../components/shipping-info/shipping-info.component";
+import PaymentInfo from "../../components/payment-info/payment-info.component";
 import OrderSummary from "../../components/order-summary/order-summary.component";
-import Loader from "../../components/loader/loader.component";
-import ErrorMessage from "../../components/error-message/error-message.component";
 
 import { cartEmpty, saveOrderSummaryInfo } from "../../features/cart/cartSlice";
 import {
@@ -18,21 +17,19 @@ import {
 
 import OrderClient from "../../api/ordersApis";
 import { handleResponse } from "../../utils/helpers";
+import OrderItems from "../../components/order-items/order-items.component";
 
 const PlaceOrderPage = () => {
   const orederClient = new OrderClient();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const userInfo = useSelector((state) => state.user.userInfo);
   const orderCreate = useSelector((state) => state.order);
   const cart = useSelector((state) => state.cart);
-  const {
-    cartItems,
-    shippingAddress: { fullName, address, city, postalCode, country },
-    paymentMethod,
-  } = cart;
-  const { loading, success, order, error } = orderCreate;
+
+  const { cartItems, shippingAddress, paymentMethod } = cart;
+  const { success, order } = orderCreate;
 
   if (!cart.paymentMethod) {
     navigate("/payment");
@@ -59,21 +56,19 @@ const PlaceOrderPage = () => {
     }
   };
 
-  const placeOrderHandler = () => {
-    createOrder(cart);
-  };
+  const placeOrderHandler = () => createOrder(cart);
 
   const toPrice = (num) => Number(num.toFixed(2));
 
   const productsQuantity = toPrice(
     cartItems.reduce((acc, product) => {
-      return acc + +product.quantity;
+      return acc + parseInt(product.quantity);
     }, 0)
   );
 
   const productsPrice = toPrice(
     cartItems.reduce((acc, product) => {
-      return acc + product.quantity * product.price;
+      return acc + parseInt(product.quantity) * product.price;
     }, 0)
   );
 
@@ -82,11 +77,9 @@ const PlaceOrderPage = () => {
     const shippingPercentage = 20;
     const freeShippingThreshold = 0;
 
-    if (productsPrice < upperLimitForShipping) {
-      return (shippingPercentage * productsPrice) / 100;
-    } else {
-      return freeShippingThreshold;
-    }
+    return productsPrice < upperLimitForShipping
+      ? (shippingPercentage * productsPrice) / 100
+      : freeShippingThreshold;
   };
 
   const shippingPrice = toPrice(calcShippingPrice());
@@ -125,35 +118,9 @@ const PlaceOrderPage = () => {
           <h3 className="heading__tertiary mb-medium">Shipping</h3>
           <div className="order__container">
             <div className="order__list">
-              <div className="order__box">
-                <div>
-                  <p>
-                    <span>Name:</span> {fullName}
-                  </p>
-                  <p>
-                    <span>Address:</span> {address}, {postalCode} {city},{" "}
-                    {country}
-                  </p>
-                </div>
-              </div>
-              <div className="order__box">
-                <h3 className="heading__tertiary mb-medium">Payment</h3>
-                <div>
-                  <p>
-                    <span>Method:</span> {paymentMethod}
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h3 className="heading__tertiary mb-medium">Order Items</h3>
-
-                <div className="flex flex-col gap-[2rem]">
-                  {cartItems.length > 0 &&
-                    cartItems.map((product) => (
-                      <SingleCartProduct key={product._id} product={product} />
-                    ))}
-                </div>
-              </div>
+              <ShippingInfo {...shippingAddress} />
+              <PaymentInfo paymentMethod={paymentMethod} />
+              <OrderItems cartItems={cartItems} />
             </div>
 
             <OrderSummary

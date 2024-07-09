@@ -1,0 +1,12 @@
+.checkout-steps {
+  display: flex;
+  margin-bottom: 8rem;
+}
+.checkout-steps > div {
+  flex: 1;
+  padding: 0.7rem 0;
+  border-top: 0.5rem solid rgb(201, 222, 232);
+}
+.checkout-steps > div.active {
+  border-top: 0.5rem solid rgb(118, 183, 208);
+}/*# sourceMappingURL=checkout-steps.style.css.map */

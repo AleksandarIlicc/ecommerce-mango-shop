@@ -1,16 +1,20 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FormPage from "../form-page/form-page.component";
 import {
   userRegisterFail,
   userRegisterSuccess,
 } from "../../features/user/authSlice";
 import { loadUser } from "../../utils/auth";
+import useAuth from "../../customHooks/useAuth";
 import UserClient from "../../api/userApis";
 import { registerFields, initialRegisterData } from "../../utils/formFields";
+import { handleResponse } from "../../utils/helpers";
 import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const redirect = useAuth(userInfo, "/");
   const userClient = new UserClient();
 
   const handleRegisterSubmit = async (formData) => {
@@ -24,14 +28,10 @@ const RegisterPage = () => {
     const body = JSON.stringify({ name, email, password });
 
     const response = await userClient.registerUser(body, config);
-    // const handledResponse = handleResponse(response);
+    const handledResponse = handleResponse(response);
 
-    // if (handledResponse.errorMessage)
-    if (response?.response?.status === 400) {
-      const errors = response.response.data.errors;
-      if (errors) {
-        errors.forEach((error) => toast.error(error.msg));
-      }
+    if (handledResponse?.errorMessage) {
+      toast.error(handledResponse.errorMessage);
       dispatch(userRegisterFail());
     } else {
       dispatch(userRegisterSuccess(response));
@@ -42,7 +42,7 @@ const RegisterPage = () => {
   const formConfig = {
     isLoginMode: false,
     redirectPage: "signin",
-    redirect: "/",
+    redirect,
     textLink: "Already have an account?",
     fields: registerFields,
     initialFormData: initialRegisterData,

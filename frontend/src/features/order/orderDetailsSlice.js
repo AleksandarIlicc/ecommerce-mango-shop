@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialOrderDetailsState = {
+  order: {},
+  loading: true,
+  error: null,
+};
+
 const orderDetailsSlice = createSlice({
   name: "order",
-  initialState: {
-    order: {},
-    loading: true,
-    error: null,
-  },
+  initialState: initialOrderDetailsState,
   reducers: {
-    orderDetailsRequest: (state, action) => {
+    orderDetailsRequest: (state) => {
       return { ...state, loading: true };
     },
     orderDetailsSuccess: (state, action) => {
@@ -22,7 +24,7 @@ const orderDetailsSlice = createSlice({
 
       return {
         ...state,
-        order: { ...state.order, isPaid: isPaid },
+        order: { ...state.order, isPaid },
         loading: false,
       };
     },

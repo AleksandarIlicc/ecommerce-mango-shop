@@ -1,26 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialOrderProcessState = {
+  order: {},
+  loading: false,
+  success: false,
+  error: null,
+};
+
 const orderProcessSlice = createSlice({
   name: "order-process",
-  initialState: {
-    order: {},
-    loading: false,
-    success: false,
-    error: null,
-  },
+  initialState: initialOrderProcessState,
   reducers: {
-    orderProcessRequest: (state, action) => {
-      return { loading: true };
+    orderProcessRequest: (state) => {
+      return { ...state, loading: true };
     },
     orderProcessSuccess: (state, action) => {
       const { order } = action.payload;
-      return { loading: false, success: true, order: order };
+      return { ...state, loading: false, success: true, order };
     },
     orderProcessFail: (state, action) => {
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     },
-    orderProcessReset: (state, action) => {
+    orderProcessReset: (state) => {
       return {
+        ...state,
         order: {},
         loading: false,
         success: false,

@@ -1,0 +1,227 @@
+.nav {
+  width: 100%;
+  height: 12vh;
+  background-color: rgb(118, 183, 208);
+  color: rgb(255, 255, 255);
+  padding: 0 3rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+.nav--sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.3);
+  z-index: 100000;
+}
+.nav__logo {
+  position: relative;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(118, 183, 208);
+  width: 19rem;
+  height: 12vh;
+  line-height: 12vh;
+  text-align: center;
+  z-index: 1;
+}
+.nav__logo::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.5rem;
+  transform: translateY(-50%);
+  width: 5rem;
+  height: 5rem;
+  border: 0.4rem solid rgb(255, 255, 255);
+  z-index: -1;
+}
+.nav__logo span {
+  font-weight: 900;
+  margin-right: 0.4rem;
+  background-color: rgb(118, 183, 208);
+  color: rgb(0, 0, 0);
+  -webkit-text-fill-color: rgb(79, 169, 198);
+  -webkit-text-stroke: 0.155rem rgb(255, 255, 255);
+}
+.nav__logo .background {
+  display: none;
+  position: absolute;
+  border-top: 3rem solid rgb(118, 183, 208);
+  border-right: 10rem solid transparent;
+  border-bottom: 10rem solid transparent;
+  border-left: 9rem solid transparent;
+  bottom: -13rem;
+  left: 50%;
+  width: 10rem;
+  height: 10rem;
+  background-color: transparent;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+.nav__logo .background--show {
+  display: block;
+}
+.nav__list {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+@media only screen and (max-width: 50em) {
+  .nav__list {
+    display: block;
+    width: 100vw;
+    height: 65vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 12vh;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+  .nav__list--active {
+    transform: translateY(0);
+  }
+}
+.nav__list--sticky {
+  color: rgb(0, 0, 0);
+}
+.nav__list > * + * {
+  margin-left: 4.5rem;
+}
+@media only screen and (max-width: 50em) {
+  .nav__list > * + * {
+    margin-left: 0;
+    margin-top: 1.3rem;
+  }
+}
+.nav__list li:nth-child(1) {
+  margin-left: auto;
+}
+.nav__list li {
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  color: inherit;
+  list-style-type: none;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+}
+@media only screen and (max-width: 50em) {
+  .nav__list li {
+    font-size: 2rem;
+    padding-bottom: 0.5rem;
+  }
+  .nav__list li:not(:last-child) {
+    border-bottom: 0.1rem solid rgb(118, 183, 208);
+  }
+}
+.nav__user-name {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  cursor: pointer;
+}
+@media only screen and (max-width: 48em) {
+  .nav__user-name {
+    display: block;
+  }
+}
+.nav__user-name svg {
+  margin-left: 0.7rem;
+}
+
+.signin {
+  margin-right: 1.5rem;
+  margin-left: auto;
+}
+@media only screen and (max-width: 50em) {
+  .signin {
+    margin-right: 0;
+  }
+}
+.signin:hover .dropdown {
+  display: block;
+}
+.signin__link {
+  display: block;
+  text-transform: capitalize;
+  border-radius: 0.5rem;
+}
+
+.cart-box--sticky {
+  color: rgb(118, 183, 208);
+}
+@media only screen and (max-width: 50em) {
+  .cart-box {
+    margin-left: auto;
+    margin-right: 5.5rem;
+  }
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.7rem 3rem 0.7rem 1rem;
+  background: rgb(255, 255, 255);
+  color: rgb(49, 105, 131);
+  border-radius: 0.3rem;
+  z-index: 100;
+}
+@media only screen and (max-width: 48em) {
+  .dropdown {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    color: rgb(255, 255, 255);
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.3s ease;
+  }
+  .dropdown--show {
+    max-height: 100%;
+    transform: scaleY(1);
+  }
+}
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 1rem;
+  height: 1rem;
+  background: rgb(255, 255, 255);
+}
+@media only screen and (max-width: 48em) {
+  .dropdown::before {
+    display: none;
+  }
+}
+
+.product-badge {
+  font-size: 1.3rem;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: -0.5rem;
+  right: -1.2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgb(226, 52, 52);
+  display: grid;
+  place-items: center;
+}/*# sourceMappingURL=navbar.style.css.map */
