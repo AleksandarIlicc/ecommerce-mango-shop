@@ -1,13 +1,20 @@
 import SingleCartProduct from "../single-cart-product/single-cart-product.component";
 
-const OrderItems = ({ cartItems }) => (
+const OrderItems = ({ items, productsPrice }) => (
   <div>
     <h3 className="heading__tertiary mb-medium">Order Items</h3>
     <div className="flex flex-col gap-[2rem]">
-      {cartItems.length > 0 &&
-        cartItems.map((product) => (
-          <SingleCartProduct key={product._id} product={product} />
-        ))}
+      {items && items.length > 0 ? (
+        items.map((product) => (
+          <SingleCartProduct
+            key={product._id}
+            product={product}
+            productsPrice={productsPrice}
+          />
+        ))
+      ) : (
+        <p>No items found.</p>
+      )}
     </div>
   </div>
 );

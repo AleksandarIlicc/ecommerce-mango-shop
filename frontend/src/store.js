@@ -6,7 +6,7 @@ import counterReducer from "./features/counter/counterSlice";
 import authReducer from "./features/user/authSlice";
 import orderReducer from "./features/order/orderSlice";
 import orderDetailsReducer from "./features/order/orderDetailsSlice";
-import orderHistoryReducer from "./features/order/orderHistorySlice";
+import orderHistoryReducer from "./features/order/order-history-slice/orderHistorySlice";
 import orderProcessReducer from "./features/order/orderProcessSlice";
 import recentOrdersReducer from "./features/order/recentOrdersSlice";
 import filterButtonReducer from "./features/buttons/filterButton";

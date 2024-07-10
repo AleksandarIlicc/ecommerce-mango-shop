@@ -53,4 +53,26 @@ export default class OrderClient {
       return error;
     }
   }
+
+  async currentUserOrders(userID) {
+    try {
+      const response = await axios.get(`/api/orders/user/${userID}`);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async deliverOrder(orderID, formattedDate, config) {
+    try {
+      const response = await axios.put(
+        `/api/orders/${orderID}/delivery`,
+        { isDelivered: true, deliveredDate: formattedDate },
+        config
+      );
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
 }

@@ -23,7 +23,7 @@ const SigninPage = () => {
     const response = await authClient.userLogin(body, config);
     const handledResponse = handleResponse(response);
 
-    if (handledResponse.errorMessage) {
+    if (handledResponse?.errorMessage) {
       const errors = response.response.data.errors;
       if (errors) {
         errors.forEach((error) => toast.error(error.msg));

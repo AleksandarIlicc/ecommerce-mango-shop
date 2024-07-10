@@ -1,4 +1,11 @@
+export const isValidDate = (date) => {
+  return !isNaN(Date.parse(date));
+};
+
 export const formatDate = (dateString) => {
+  if (!isValidDate(dateString)) {
+    return "Invalid Date";
+  }
   const date = new Date(dateString);
   return date.toISOString().split("T")[0];
 };

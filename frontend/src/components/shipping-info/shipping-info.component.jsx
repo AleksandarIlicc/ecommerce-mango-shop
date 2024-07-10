@@ -1,5 +1,14 @@
-const ShippingInfo = ({ fullName, address, city, postalCode, country }) => (
-  <div className="order__box">
+const ShippingInfo = ({
+  fullName,
+  address,
+  city,
+  postalCode,
+  country,
+  isDelivered,
+  deliveredAt,
+  className = "",
+}) => (
+  <div className={`order__box ${className}`}>
     <div>
       <p>
         <span>Name:</span> {fullName}
@@ -8,6 +17,13 @@ const ShippingInfo = ({ fullName, address, city, postalCode, country }) => (
         <span>Address:</span> {address}, {postalCode} {city}, {country}
       </p>
     </div>
+    {isDelivered !== undefined && (
+      <p
+        className={`alert ${isDelivered ? "alert--success" : "alert--danger"}`}
+      >
+        {isDelivered ? `Delivered at ${deliveredAt}` : "Not delivered"}
+      </p>
+    )}
   </div>
 );
 

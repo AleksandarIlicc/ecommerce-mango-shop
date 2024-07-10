@@ -6,8 +6,6 @@ import { FaOpencart, FaBars, FaChevronDown } from "react-icons/fa";
 
 import { logout } from "../../features/user/authSlice";
 
-import "./navbar.style.scss";
-
 const Navbar = () => {
   const dispatch = useDispatch();
 

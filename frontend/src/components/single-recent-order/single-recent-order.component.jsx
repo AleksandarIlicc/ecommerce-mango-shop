@@ -53,7 +53,7 @@ const SingleRecentOrder = ({ order }) => {
       );
       const handledResponse = handleResponse(response);
 
-      if (handledResponse.errorMessage) {
+      if (handledResponse?.errorMessage) {
         dispatch(recentOrdersFail(handledResponse.errorMessage));
       } else {
         dispatch(updateIsShipped(handledResponse));

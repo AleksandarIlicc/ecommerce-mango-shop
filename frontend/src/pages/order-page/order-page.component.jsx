@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import SingleCartProduct from "../../components/single-cart-product/single-cart-product.component";
-import PaymentGateaway from "../../components/payment-gateaway/payment-gateaway.component";
+import ShippingInfo from "../../components/shipping-info/shipping-info.component";
+import PaymentInfo from "../../components/payment-info/payment-info.component";
+import OrderItems from "../../components/order-items/order-items.component";
 import OrderSummary from "../../components/order-summary/order-summary.component";
+import PaymentGateaway from "../../components/payment-gateaway/payment-gateaway.component";
 import Loader from "../../components/loader/loader.component";
 import ErrorMessage from "../../components/error-message/error-message.component";
 
@@ -51,7 +53,7 @@ const OrderPage = () => {
     const response = await orderClient.getSingleOrder(orderID, config);
     const handledResponse = handleResponse(response);
 
-    if (handledResponse.errorMessage) {
+    if (handledResponse?.errorMessage) {
       dispatch(orderDetailsFail(handledResponse.errorMessage));
     } else {
       dispatch(orderDetailsSuccess(handledResponse));
@@ -83,7 +85,7 @@ const OrderPage = () => {
     );
     const handledResponse = handleResponse(response);
 
-    if (handledResponse.errorMessage) {
+    if (handledResponse?.errorMessage) {
       dispatch(orderDetailsFail(handledResponse.errorMessage));
     } else {
       dispatch(updateIsPaid(handledResponse.order));
@@ -101,61 +103,27 @@ const OrderPage = () => {
         ) : (
           order && (
             <div className="container">
-              <h2 className="heading__secondary mb-small">Shipping</h2>
+              <h3 className="heading__tertiary mb-small">Shipping</h3>
               <div className="order__container ">
                 <div className="order__list">
-                  <div className="order__box">
-                    <div>
-                      <p>
-                        <span>Name:</span> {order.shippingAddress?.fullName}
-                      </p>
-                      <p>
-                        <span>Address:</span> {order.shippingAddress?.address},{" "}
-                        {order.shippingAddress?.postalCode}{" "}
-                        {order.shippingAddress?.city},{" "}
-                        {order.shippingAddress?.country}
-                      </p>
-                    </div>
-                    {order.isDelivered ? (
-                      <p className="alert alert--success">
-                        Delivered at {order.deliveredAt}
-                      </p>
-                    ) : (
-                      <p className="alert alert--danger">Not delivered</p>
-                    )}
-                  </div>
-
-                  <div className="order__box">
-                    <h3 className="heading__tertiary mb-medium">Paymnet</h3>
-                    <div>
-                      <p>
-                        <span>Method:</span> {order.paymentMethod}
-                      </p>
-                    </div>
-                    {order.isPaid ? (
-                      <p className="alert alert--success">
-                        Paid at {order.paidAt}
-                      </p>
-                    ) : (
-                      <p className="alert alert--danger">Not paid</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <h3 className="heading__tertiary mb-medium">Order Items</h3>
-
-                    <div className="flex flex-col gap-[2rem]">
-                      {order?.products?.length > 0 &&
-                        order?.products?.map((product) => {
-                          return (
-                            <SingleCartProduct
-                              product={product}
-                              productsPrice={order.costInfo.productsPrice}
-                            />
-                          );
-                        })}
-                    </div>
-                  </div>
+                  <ShippingInfo
+                    fullName={order.shippingAddress?.fullName}
+                    address={order.shippingAddress?.address}
+                    city={order.shippingAddress?.city}
+                    postalCode={order.shippingAddress?.postalCode}
+                    country={order.shippingAddress?.country}
+                    isDelivered={order.isDelivered}
+                    deliveredAt={order.deliveredAt}
+                  />
+                  <PaymentInfo
+                    paymentMethod={order.paymentMethod}
+                    isPaid={order.isPaid}
+                    paidAt={order.paidAt}
+                  />
+                  <OrderItems
+                    items={order.products}
+                    productsPrice={order.costInfo.productsPrice}
+                  />
                 </div>
 
                 <div className="order-summary-section">

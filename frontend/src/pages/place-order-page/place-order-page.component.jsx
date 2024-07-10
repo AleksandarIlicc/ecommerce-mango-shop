@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "../../components/checkout-steps/checkout-steps.component";
 import ShippingInfo from "../../components/shipping-info/shipping-info.component";
 import PaymentInfo from "../../components/payment-info/payment-info.component";
+import OrderItems from "../../components/order-items/order-items.component";
 import OrderSummary from "../../components/order-summary/order-summary.component";
 
 import { cartEmpty, saveOrderSummaryInfo } from "../../features/cart/cartSlice";
@@ -17,21 +18,19 @@ import {
 
 import OrderClient from "../../api/ordersApis";
 import { handleResponse } from "../../utils/helpers";
-import OrderItems from "../../components/order-items/order-items.component";
 
 const PlaceOrderPage = () => {
   const orederClient = new OrderClient();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state) => state.user.userInfo);
   const orderCreate = useSelector((state) => state.order);
   const cart = useSelector((state) => state.cart);
 
   const { cartItems, shippingAddress, paymentMethod } = cart;
   const { success, order } = orderCreate;
 
-  if (!cart.paymentMethod) {
+  if (!paymentMethod) {
     navigate("/payment");
   }
 
@@ -47,7 +46,7 @@ const PlaceOrderPage = () => {
     const response = await orederClient.createOrder(order, config);
     const handledResponse = handleResponse(response);
 
-    if (handledResponse.errorMessage) {
+    if (handledResponse?.errorMessage) {
       dispatch(orderFail(handledResponse.errorMessage));
     } else {
       dispatch(orderSuccess(handledResponse));
@@ -107,20 +106,14 @@ const PlaceOrderPage = () => {
     <main>
       <section className="form-section form-section--order section">
         <div className="container">
-          {userInfo && (
-            <CheckoutSteps
-              step1={true}
-              step2={true}
-              step3={true}
-              step4={true}
-            />
-          )}
+          <CheckoutSteps step1={true} step2={true} step3={true} step4={true} />
+
           <h3 className="heading__tertiary mb-medium">Shipping</h3>
           <div className="order__container">
             <div className="order__list">
               <ShippingInfo {...shippingAddress} />
               <PaymentInfo paymentMethod={paymentMethod} />
-              <OrderItems cartItems={cartItems} />
+              <OrderItems items={cartItems} />
             </div>
 
             <OrderSummary

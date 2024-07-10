@@ -6,8 +6,9 @@ import {
   FaThumbsDown,
   FaThumbsUp,
 } from "react-icons/fa";
-import axios from "axios";
 import { updateComment } from "../../features/comments/commentSlice";
+import { formatDate } from "../../utils/helpers";
+import axios from "axios";
 
 const Comment = ({ comment, getAllComments }) => {
   const [error, setError] = useState(null);
@@ -19,11 +20,6 @@ const Comment = ({ comment, getAllComments }) => {
 
   const user = useSelector((state) => state.user);
   const { _id: userId, name: userName } = user.userInfo || "";
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toISOString().split("T")[0];
-  };
 
   const editComment = async (id) => {
     try {

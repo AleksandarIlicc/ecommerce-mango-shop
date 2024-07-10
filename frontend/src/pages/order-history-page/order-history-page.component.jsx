@@ -1,30 +1,30 @@
-import { useEffect, useMemo, useCallback } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import SingleOrderHistory from "../../components/single-order-history/single-order-history.component";
+import PackageStatus from "../../components/package-status/package-status.component";
+import ErrorMessage from "../../components/error-message/error-message.component";
 
 import {
-  orderHistoryFail,
-  orderHistoryRequest,
-  orderHistorySuccess,
-  updateIsDelivered,
-} from "../../features/order/orderHistorySlice";
-
+  deliverOrder,
+  fetchUserOrders,
+} from "../../features/order/order-history-slice/orderHistoryThunks";
+import { resetMessage } from "../../features/order/order-history-slice/orderHistorySlice";
 import { formatDate } from "../../utils/helpers";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import axios from "axios";
-
-const BUTTON_CLASS_PENDING =
-  "recent-order__active-status recent-order__active-status--pending";
-const BUTTON_CLASS_SHIPPED =
-  "recent-order__active-status recent-order__active-status--shipped";
-const BUTTON_CLASS_DELIVERED =
-  "recent-order__active-status recent-order__active-status--delivered";
-const BUTTON_CLASS_DEFAULT = "recent-order__active-status";
+const BUTTON_CLASS = {
+  PENDING:
+    "single-recent-order__active-status single-recent-order__active-status--pending",
+  SHIPPED:
+    "single-recent-order__active-status single-recent-order__active-status--shipped",
+  DELIVERED:
+    "single-recent-order__active-status single-recent-order__active-status--delivered",
+  DEFAULT: "single-recent-order__active-status",
+};
 
 const OrderHistory = () => {
   const navigate = useNavigate();
@@ -32,78 +32,48 @@ const OrderHistory = () => {
   const orderHistory = useSelector((state) => state.orderHistory);
   const user = useSelector((state) => state.user);
 
-  const { orders, message } = orderHistory;
+  const { orders, message, error } = orderHistory;
   const { name: userName } = user?.userInfo || "";
 
   useEffect(() => {
     if (!user.userInfo) {
       navigate("/");
     }
-  }, [user]);
-
-  const formatDate = useMemo(
-    () => (dateString) => {
-      const date = new Date(dateString);
-      return date.toISOString().split("T")[0];
-    },
-    []
-  );
-
-  const currentUserOrders = async () => {
-    const userID = user?.userInfo._id;
-
-    dispatch(orderHistoryRequest());
-
-    try {
-      const { data } = await axios.get(`/api/orders/user/${userID}`);
-
-      dispatch(orderHistorySuccess(data));
-    } catch (error) {
-      dispatch(orderHistoryFail(error.message));
-    }
-  };
+  }, [user.userInfo, navigate]);
 
   useEffect(() => {
-    currentUserOrders();
-  }, [user.userInfo]);
+    if (user.userInfo) {
+      dispatch(fetchUserOrders(user.userInfo._id));
+    }
+  }, [dispatch, user.userInfo]);
+
+  const handleDeliverOrder = useCallback(
+    (orderID) => {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString();
+      dispatch(deliverOrder({ orderID, formattedDate }));
+    },
+    [dispatch, deliverOrder]
+  );
 
   useEffect(() => {
     if (message) {
       toast.success(message);
+      dispatch(resetMessage());
     }
-  }, [message]);
+  }, [message, dispatch]);
 
-  const deliverOrder = async (orderID) => {
-    try {
-      const currentDate = new Date();
-      const formattedDate = currentDate.toISOString();
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { data } = await axios.put(
-        `/api/orders/${orderID}/delivery`,
-        { isDelivered: true, deliveredDate: formattedDate },
-        config
-      );
-
-      dispatch(updateIsDelivered(data));
-      toast.success(data.message);
-    } catch (error) {
-      dispatch(orderHistoryFail(error.message));
+  const getOrderButtonClass = useCallback((order) => {
+    if (order.isDelivered) {
+      return BUTTON_CLASS.DELIVERED;
+    } else if (order.isShipped) {
+      return BUTTON_CLASS.SHIPPED;
+    } else if (order.isPaid) {
+      return BUTTON_CLASS.PENDING;
+    } else {
+      return BUTTON_CLASS.DEFAULT;
     }
-  };
-
-  const handleDeliverOrder = useCallback(
-    (orderID) => {
-      dispatch(orderHistoryRequest());
-      deliverOrder(orderID);
-    },
-    [dispatch, deliverOrder]
-  );
+  }, []);
 
   return (
     <main>
@@ -120,7 +90,7 @@ const OrderHistory = () => {
                       <div className="flex gap-[2rem]">
                         <h4 className="font-bold">Order ID: {order._id}</h4>
                         <span className="text-lg text-[#94a3b8] self-center">
-                          {formatDate(order.paidAt)}
+                          {formatDate(order.createdAt)}
                         </span>
                       </div>
                     </div>
@@ -152,78 +122,17 @@ const OrderHistory = () => {
                         </div>
                       </div>
 
-                      <div className="flex-1 pt-[1rem]">
-                        <h3 className="heading__tertiary mb-4">
-                          Package Status
-                        </h3>
-
-                        <div className="order__statuses flex mb-8">
-                          <div className="order__status-box">
-                            <h4>Confirmed</h4>
-                            <div
-                              className={
-                                order.isPaid
-                                  ? "order__status order__status--active"
-                                  : "order__status"
-                              }
-                            ></div>
-                          </div>
-                          <div className="order__status-box">
-                            <h4>Shipped</h4>
-                            <div
-                              className={
-                                order.isShipped
-                                  ? "order__status order__status--active"
-                                  : "order__status"
-                              }
-                            ></div>
-                          </div>
-                          <div className="order__status-box">
-                            <h4>Delivered</h4>
-                            <div
-                              className={
-                                order.isDelivered
-                                  ? "order__status order__status--active"
-                                  : "order__status"
-                              }
-                            ></div>
-                          </div>
-                        </div>
-
-                        <div className="flex justify-center">
-                          <button
-                            className={
-                              order.isPaid && !order.isShipped
-                                ? BUTTON_CLASS_PENDING
-                                : order.isPaid &&
-                                  order.isShipped &&
-                                  !order.isDelivered
-                                ? BUTTON_CLASS_SHIPPED
-                                : order.isPaid &&
-                                  order.isShipped &&
-                                  order.isDelivered
-                                ? BUTTON_CLASS_DELIVERED
-                                : BUTTON_CLASS_DEFAULT
-                            }
-                            disabled={order.isPaid && !order.isShipped}
-                            onClick={() => handleDeliverOrder(order._id)}
-                          >
-                            {order.isDelivered
-                              ? "Delivered"
-                              : order.isShipped
-                              ? "Shipped"
-                              : order.isPaid
-                              ? "Pending"
-                              : "Unknown Status"}
-                          </button>
-                        </div>
-                      </div>
+                      <PackageStatus
+                        order={order}
+                        getOrderButtonClass={getOrderButtonClass}
+                        handleDeliverOrder={handleDeliverOrder}
+                      />
                     </div>
                   </div>
                 );
               })
             ) : (
-              <p>No orders found for the user.</p>
+              <ErrorMessage error={error} />
             )}
           </div>
         </div>

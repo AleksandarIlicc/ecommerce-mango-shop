@@ -16,14 +16,13 @@ import {
 import { handleResponse } from "../../utils/helpers";
 import OrderClient from "../../api/ordersApis";
 
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   const orderClient = new OrderClient();
   const dispatch = useDispatch();
   const recentOrders = useSelector((state) => state.recentOrders);
-  const { orders, loading, error } = recentOrders;
+  const { orders, loading, success, error } = recentOrders;
 
   const getAllOreders = async () => {
     dispatch(recentOrdersRequest());
@@ -31,11 +30,10 @@ const Dashboard = () => {
     const response = await orderClient.getAllOrders();
     const handledResponse = handleResponse(response);
 
-    if (handledResponse.errorMessage) {
+    if (handledResponse?.errorMessage) {
       dispatch(recentOrdersFail(handledResponse.errorMessage));
     } else {
       dispatch(recentOrdersSuccess(handledResponse));
-      toast.success(handledResponse.message);
     }
   };
 
@@ -45,8 +43,6 @@ const Dashboard = () => {
 
   return (
     <section className="dashboard">
-      <ToastContainer />
-
       <div className="dashboard__container">
         <DashboardSidebar />
 
